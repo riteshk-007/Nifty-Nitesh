@@ -70,7 +70,16 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button variant="success">Enquire Now</Button>
+                <Button variant="success">
+                  <Image
+                    src="/whatsapp.png"
+                    alt="whatsapp"
+                    width={20}
+                    height={20}
+                    className="inline-block mr-2"
+                  />
+                  WhatsApp
+                </Button>
               </a>
             </div>
             <button
