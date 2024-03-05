@@ -7,15 +7,18 @@ import { CgClose } from "react-icons/cg";
 import Link from "next/link";
 import { ModeToggle } from "./Mode";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
 
   const handleScroll = () => {
     const offset = window.scrollY;
-    if (offset > 300) {
+    if (offset > 250) {
       setSticky(true);
     } else {
       setSticky(false);
@@ -28,6 +31,9 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   return (
     <>
       <nav
@@ -37,12 +43,22 @@ const Navbar = () => {
             : "w-full z-[100] "
         }`}
       >
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-3">
           <Link
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <Image src="/logo.svg" alt="Logo" width={90} height={90} />
+            {isMounted &&
+              (resolvedTheme === "dark" ? (
+                <Image
+                  width={95}
+                  height={90}
+                  src="/light-logo.png"
+                  alt="Logo"
+                />
+              ) : (
+                <Image width={95} height={90} src="/dark-logo.png" alt="Logo" />
+              ))}
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <div className="mx-2">
@@ -72,7 +88,7 @@ const Navbar = () => {
           <div
             className={`${
               isOpen ? "block" : "hidden"
-            } items-center justify-between  w-full md:flex md:w-auto md:order-1 bg-gray-50 dark:bg-gray-800 md:bg-white md:dark:bg-gray-800`}
+            } items-center justify-between  w-full md:flex md:w-auto md:order-1 bg-gray-50 dark:bg-gray-800 md:bg-white md:dark:bg-black`}
           >
             <ul className="flex flex-col items-start p-4 md:p-0 mt-4 font-medium border border-gray-100  rounded-lg bg-gray-50  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black dark:border-gray-700">
               <li>
