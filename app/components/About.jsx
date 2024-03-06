@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const About = () => {
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-2 md:gap-4 p-5  dark:bg-black/30">
+    <div className="w-full flex flex-col items-center justify-center gap-2 md:gap-4 p-5  dark:bg-black">
       <p className="text-xs md:text-base font-semibold text-gray-700 dark:text-gray-300 text-center uppercase">
         ABOUT US
       </p>
@@ -34,7 +34,7 @@ const About = () => {
             className="rounded-lg"
           />
         </div>
-        <span className="text-xs  mx-2 font-semibold text-gray-700 dark:text-gray-300 text-start w-full md:w-1/2  my-3 flex flex-col">
+        <span className="text-xs lg:text-sm  mx-2 font-semibold text-gray-700 dark:text-gray-300 text-start w-full md:w-1/2  my-3 flex flex-col">
           Welcome, to the leading best Stock market Institute in Delhi, we offer
           Stock market courses for future growth and impart deep knowledge of
           the stock market and Trading. Here, we&apos;ll teach you and guide you

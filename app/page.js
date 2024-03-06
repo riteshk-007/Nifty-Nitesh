@@ -1,5 +1,6 @@
 import About from "./components/About";
 import Hero from "./components/Hero";
+import Journey from "./components/Journey";
 import Works from "./components/Works";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <Works />
       <About />
+      <Journey />
     </div>
   );
 }
