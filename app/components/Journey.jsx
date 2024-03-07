@@ -35,7 +35,7 @@ const Journey = () => {
             </div>
             <div className="flex md:flex-row flex-col md:items-center md:gap-2 group  relative top-0 md:left-1/2 md:right-1/2 md:even:translate-x-[-100%] even:translate-x-0 md:w-96 lg:w-max w-full z-[1]">
               <div className="pointer p-4 dark:bg-gray-800 bg-gray-200 aspect-square w-[70px] flex items-center justify-center rounded-full md:group-even:order-2 group-even:order-none md:group-odd:-translate-x-1/2 md:translate-x-1/2 translate-x-0 mx-auto md:mx-0">
-                BSE
+                NSE
               </div>
               <div className="md:max-w-sm p-5 bg-gray-100 shadow-lg  group group-hover:bg-green-500 group-hover:text-white group-hover:dark:bg-green-700  dark:bg-black rounded-md my-3 hover:bg-green-500 dark:hover:bg-green-700 hover:text-white transition-all duration-200">
                 <div className="text-xl font-bold group-hover:text-white text-sky-400">
@@ -71,7 +71,7 @@ const Journey = () => {
             </div>
             <div className="flex md:flex-row flex-col md:items-center md:gap-2 group  relative top-0 md:left-1/2 md:right-1/2 md:even:translate-x-[-100%] even:translate-x-0 md:w-96 lg:w-max w-full z-[1]">
               <div className="pointer p-4 dark:bg-gray-800 bg-gray-200 aspect-square w-[70px] flex items-center justify-center rounded-full md:group-even:order-2 group-even:order-none md:group-odd:-translate-x-1/2 md:translate-x-1/2 translate-x-0 mx-auto md:mx-0">
-                BSE
+                NSE
               </div>
               <div className="md:max-w-sm p-5 bg-gray-100 shadow-lg  group group-hover:bg-green-500 group-hover:text-white group-hover:dark:bg-green-700  dark:bg-black rounded-md my-3 hover:bg-green-500 dark:hover:bg-green-700 hover:text-white transition-all duration-200">
                 <div className="text-xl font-bold group-hover:text-white text-sky-400">
