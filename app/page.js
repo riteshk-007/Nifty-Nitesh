@@ -1,6 +1,7 @@
 import About from "./components/About";
 import Hero from "./components/Hero";
 import Journey from "./components/Journey";
+import Slider from "./components/Slider";
 import Works from "./components/Works";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <Works />
       <About />
       <Journey />
+      <Slider />
     </div>
   );
 }
