@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FaStar } from "react-icons/fa6";
 
@@ -60,8 +61,12 @@ const Cards = () => {
                   ₹ {item?.discount}
                 </span>
               </span>
-              <Button className="text-white font-bold shadow" variant="success">
-                Enroll Now
+              <Button
+                className="text-white font-bold shadow"
+                variant="success"
+                disabled={item?.btnText === "Coming Soon"}
+              >
+                <Link href={item.link}>{item?.btnText}</Link>
               </Button>
             </div>
           </div>
@@ -82,6 +87,8 @@ export const Card = [
     price: 2999,
     discount: 6999,
     paymentType: "monthly",
+    link: "/",
+    btnText: "Enroll Now",
   },
   {
     id: 2,
@@ -91,14 +98,18 @@ export const Card = [
     price: 2666,
     discount: 6500,
     paymentType: "monthly",
+    link: "/",
+    btnText: "Enroll Now",
   },
   {
     id: 3,
     title: "Recoding Technical Analysis Videos",
     image: "/course/img1.png",
     text: "This course covers technical analysis, understanding how different industries affect each other, deciding how much to invest, managing risks, pricing trends, reading charts, day trading strategies, live price reading, identifying gaps, using indicators, avoiding market traps, advanced stock scanning, trading psychology, analyzing trends, and more. Perfect for anyone looking to build a career in the stock market.",
-    price: 2499,
-    discount: 5999,
+    price: 4999,
+    discount: 8999,
     paymentType: "one time",
+    link: "/",
+    btnText: "Coming Soon",
   },
 ];
