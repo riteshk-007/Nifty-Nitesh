@@ -1,4 +1,5 @@
 import About from "./components/About";
+import Cards from "./components/Cards";
 import Hero from "./components/Hero";
 import Journey from "./components/Journey";
 import Slider from "./components/Slider";
@@ -11,6 +12,7 @@ export default function Home() {
       <Works />
       <About />
       <Journey />
+      <Cards />
       <Slider />
     </div>
   );
