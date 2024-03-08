@@ -23,120 +23,82 @@ const Cards = () => {
         Our Classes
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
-        <div className="md:max-w-96 border-2 dark:border shadow-lg rounded-lg overflow-hidden bg-gray-100 dark:bg-black flex flex-col items-start gap-3 justify-start ">
-          <Image
-            width={500}
-            height={300}
-            src="/about.jpg"
-            alt="Nifty Nitesh"
-            className=" border-b-2 border-green-500 dark:border-green-400"
-          />
-          <h2>
-            <span className="text-xs md:text-xl px-3 flex-wrap font-semibold text-gray-700 dark:text-gray-300 text-center uppercase">
-              Stock Market Course
-            </span>
-          </h2>
-          <p className="text-xs md:text-base font-semibold text-gray-500 dark:text-gray-300 text-start px-3">
-            {truncateText(text, 20)}
-          </p>
-          <span className="flex items-center justify-center space-x-1 px-3 text-yellow-500 dark:text-yellow-400">
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-          </span>
-          <div className="flex w-full items-center  justify-between p-3">
-            <span className="text-xs flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
-              <span className="flex items-center justify-center">
-                {"₹ 1000"} <p className="text-sm">/-per month</p>
+        {Card?.map((item) => (
+          <div
+            key={item?.id}
+            className="md:max-w-96 border-2 dark:border shadow-lg rounded-lg overflow-hidden bg-gray-100 dark:bg-black flex flex-col items-start gap-3 justify-start "
+          >
+            <Image
+              width={500}
+              height={300}
+              src={item?.image}
+              alt="Nifty Nitesh"
+              className=" border-b-2  border-green-500 dark:border-green-400"
+            />
+            <h2>
+              <span className="text-base md:text-lg px-3 font-bold text-gray-900 dark:text-gray-200 text-center uppercase">
+                {item?.title}
               </span>
-              <span className="line-through text-sm text-gray-500 dark:text-gray-400">
-                ₹ 2000
-              </span>
+            </h2>
+            <p className="text-xs md:text-sm font-semibold text-gray-500 dark:text-gray-300 text-start px-3">
+              {truncateText(item?.text, 20)}
+            </p>
+            <span className="flex items-center justify-center space-x-1 px-3 text-yellow-500 dark:text-yellow-400">
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
             </span>
-            <Button className="text-white font-bold shadow" variant="success">
-              Enroll Now
-            </Button>
+            <div className="flex w-full items-center  justify-between p-3">
+              <span className="text-xs flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
+                <span className="flex items-center justify-center">
+                  {"₹"}
+                  {item?.price} <p className="text-xs">/-{item?.paymentType}</p>
+                </span>
+                <span className="line-through text-sm text-gray-500 dark:text-gray-400">
+                  ₹ {item?.discount}
+                </span>
+              </span>
+              <Button className="text-white font-bold shadow" variant="success">
+                Enroll Now
+              </Button>
+            </div>
           </div>
-        </div>
-        <div className="md:max-w-96 border-2 dark:border shadow-lg rounded-lg overflow-hidden bg-gray-100 dark:bg-black flex flex-col items-start gap-3 justify-start ">
-          <Image
-            width={500}
-            height={300}
-            src="/about.jpg"
-            alt="Nifty Nitesh"
-            className=" border-b-2 border-green-500 dark:border-green-400"
-          />
-          <h2>
-            <span className="text-xs md:text-xl px-3 flex-wrap font-semibold text-gray-700 dark:text-gray-300 text-center uppercase">
-              Stock Market Course
-            </span>
-          </h2>
-          <p className="text-xs md:text-base font-semibold text-gray-500 dark:text-gray-300 text-start px-3">
-            {truncateText(text, 20)}
-          </p>
-          <span className="flex items-center justify-center space-x-1 px-3 text-yellow-500 dark:text-yellow-400">
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-          </span>
-          <div className="flex w-full items-center  justify-between p-3">
-            <span className="text-xs flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
-              <span className="flex items-center justify-center">
-                {"₹ 1000"} <p className="text-sm">/-per month</p>
-              </span>
-              <span className="line-through text-sm text-gray-500 dark:text-gray-400">
-                ₹ 2000
-              </span>
-            </span>
-            <Button className="text-white font-bold shadow" variant="success">
-              Enroll Now
-            </Button>
-          </div>
-        </div>
-        <div className="md:max-w-96 border-2 dark:border shadow-lg rounded-lg overflow-hidden bg-gray-100 dark:bg-black flex flex-col items-start gap-3 justify-start ">
-          <Image
-            width={500}
-            height={300}
-            src="/about.jpg"
-            alt="Nifty Nitesh"
-            className=" border-b-2 border-green-500 dark:border-green-400"
-          />
-          <h2>
-            <span className="text-xs md:text-xl px-3 flex-wrap font-semibold text-gray-700 dark:text-gray-300 text-center uppercase">
-              Stock Market Course
-            </span>
-          </h2>
-          <p className="text-xs md:text-base font-semibold text-gray-500 dark:text-gray-300 text-start px-3">
-            {truncateText(text, 20)}
-          </p>
-          <span className="flex items-center justify-center space-x-1 px-3 text-yellow-500 dark:text-yellow-400">
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-          </span>
-          <div className="flex w-full items-center  justify-between p-3">
-            <span className="text-xs flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
-              <span className="flex items-center justify-center">
-                {"₹ 1000"} <p className="text-sm">/-per month</p>
-              </span>
-              <span className="line-through text-sm text-gray-500 dark:text-gray-400">
-                ₹ 2000
-              </span>
-            </span>
-            <Button className="text-white font-bold shadow" variant="success">
-              Enroll Now
-            </Button>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
 };
 
 export default Cards;
+
+export const Card = [
+  {
+    id: 1,
+    title: "Offline Classes in Delhi",
+    image: "/course/img2.png",
+    text: "This course covers all about understanding stocks through charts and numbers. We'll look at how different industries are connected, how to decide how much to invest, and ways to stay safe with your money. You'll learn about things like how prices are set, why people buy and sell stocks, reading detailed charts, smart strategies for daily trading, watching live prices, spotting market trends, and more. It's perfect for those aiming to start a career in the stock market.",
+    price: 2999,
+    discount: 6999,
+    paymentType: "monthly",
+  },
+  {
+    id: 2,
+    title: "Online Classes in India",
+    image: "/course/img3.png",
+    text: "This online course covers everything about analyzing stocks using charts and numbers. You'll learn how different industries relate, how to decide how much to invest, and ways to manage risks. We'll delve into topics like setting prices, why people buy and sell stocks, reading detailed charts, smart strategies for daily trading, watching live prices, spotting market trends, and more. It's tailored for those aiming to build a career in the stock market.",
+    price: 2666,
+    discount: 6500,
+    paymentType: "monthly",
+  },
+  {
+    id: 3,
+    title: "Recoding Technical Analysis Videos",
+    image: "/course/img1.png",
+    text: "This course covers technical analysis, understanding how different industries affect each other, deciding how much to invest, managing risks, pricing trends, reading charts, day trading strategies, live price reading, identifying gaps, using indicators, avoiding market traps, advanced stock scanning, trading psychology, analyzing trends, and more. Perfect for anyone looking to build a career in the stock market.",
+    price: 2499,
+    discount: 5999,
+    paymentType: "one time",
+  },
+];
