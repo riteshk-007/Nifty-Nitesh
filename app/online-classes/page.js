@@ -1,4 +1,4 @@
-import Top from "../courses/topSection";
+import Top from "../courses/TopSection";
 
 export const metadata = {
   title: "Online Classes",
@@ -13,6 +13,7 @@ const Online = () => {
     <div className="w-full items-center justify-center md:flex-col flex-row ">
       <Top
         head={"Online Classes"}
+        area={"India"}
         img={"/course/img3.png"}
         title={"Online Classes in India"}
         price={"2666"}

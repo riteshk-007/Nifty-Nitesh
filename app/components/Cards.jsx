@@ -87,7 +87,7 @@ export const Card = [
     price: 2999,
     discount: 6999,
     paymentType: "monthly",
-    link: "/",
+    link: "/offline-classes",
     btnText: "Enroll Now",
   },
   {
