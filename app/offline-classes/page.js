@@ -21,7 +21,7 @@ const Offline = () => {
         price={"2999"}
         discount={"6999"}
         duration={"3-4 Months"}
-        time={"Moday to Friday"}
+        time={"Monday to Friday"}
         lang={"Hindi, English"}
         message={encodedMessage}
         description={

@@ -90,7 +90,7 @@ const Top = ({
               <a
                 href={`https://wa.me/+917827433875?text=${message}`}
                 target="_blank"
-                className="text-white font-bold shadow"
+                className="text-white font-bold"
                 rel="noreferrer"
               >
                 Join Now
