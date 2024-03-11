@@ -35,32 +35,31 @@ const FAQ = () => {
 export default FAQ;
 const questions = [
   {
-    trigger: "what do we get done?",
-    content: "We provide Damad Supply Trading",
+    trigger: "What do we get done?",
+    content: "We provide demand-supply trading.",
   },
   {
     trigger: "Are we different from everyone else?",
-    content:
-      " We are different from other traders because we follow smart money concept and institutional footprints.",
+    content: "We use institutional footprints, i.e., demand-supply trading.",
   },
   {
-    trigger: "Do we get support resistance?",
+    trigger: "Do we get support for resistance?",
     content:
-      "No, we do demand supply trading and we stay 2 steps ahead of other traders.",
+      "We do demand supply, and we are two steps ahead of support resistance traders.",
   },
   {
     trigger:
-      "We will know before coming in the news when, which stock will go up or down?",
+      "We will know before coming in the news when the stock will go up or down.",
     content:
-      " Yes, we will know before the news comes what will happen in that stock and what will the price do.",
+      "We would have known before coming in the news which stock would go up or down.",
   },
   {
-    trigger: "Do we know where the price will turn? ",
-    content: "Yes, we will know when and why the price will go up and down.",
+    trigger: "Do we know where the price will turn?",
+    content: "Yes, we will know when and how the price will go up and down.",
   },
   {
-    trigger: " Will we be more advanced than other traders?",
+    trigger: "Are we ahead of other traders?",
     content:
-      "Yes, we are advance than other traders,We look at the price and logically trade above it.",
+      "Yes, we are more advanced than other traders. We look at the price and logically trade above it.",
   },
 ];
