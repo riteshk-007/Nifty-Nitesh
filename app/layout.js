@@ -8,7 +8,7 @@ import SocialLinks from "./components/SocialLinks";
 const inter = Quicksand({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Nifty Nitesh",
+  title: "Nifty Nitesh - Share Market, Finance, and Investing Classes",
   description:
     "Providing online and offline classes on share market, finance, and investing",
   keywords: [

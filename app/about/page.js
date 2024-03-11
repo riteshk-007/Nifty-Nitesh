@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 export const metadata = {
-  title: "About Us",
+  title: "About Us - Share Market, Finance, and Investing Classes",
   description: "Stock Market Institute in Delhi - Nifty Nitesh",
   keywords:
     "Stock Market Institute in Delhi, Stock market courses in Delhi, Stock market coaching in Delhi",

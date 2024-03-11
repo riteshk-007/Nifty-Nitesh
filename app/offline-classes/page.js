@@ -4,7 +4,7 @@ import ModuleBox from "../courses/Modules";
 import { list1, list2, list3, list4 } from "../courses/ModuleList";
 
 export const metadata = {
-  title: "Offline Classes",
+  title: "Offline Classes - Share Market, Finance, and Investing Classes",
   description: "Offline Classes in Delhi",
   kewords: "Offline Classes, Offline Classes in Delhi",
 };

@@ -3,7 +3,7 @@ import ModuleBox from "../courses/Modules";
 import Top from "../courses/TopSection";
 
 export const metadata = {
-  title: "Online Classes",
+  title: "Online Classes - Share Market, Finance, and Investing Classes",
   description: "Online Classes in India",
   kewords: "Online Classes, Online Classes in India",
 };
