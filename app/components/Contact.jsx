@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
+import Location from "./Location";
 
 const Contactform = () => {
   const [state, handleSubmit] = useForm("mayrjgkz");
@@ -33,14 +34,7 @@ const Contactform = () => {
         id="map"
         className="relative h-[350px] overflow-hidden bg-cover bg-[50%] bg-no-repeat"
       >
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.796615846307!2d77.05079787528801!3d28.605877675679338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b00461d50cd%3A0x5bb596b3d9648003!2sNifty%20Nitesh%20stock%20market%20classes!5e0!3m2!1sen!2sin!4v1709996683401!5m2!1sen!2sin"
-          width="100%"
-          height={480}
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-        />
+        <Location />
       </div>
       <div className="container px-6 md:px-10">
         <div className="block rounded-lg bg-[hsla(0,0%,100%,0.8)] dark:bg-black  px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]  md:py-16 md:px-12 -mt-[100px] backdrop-blur-[30px]  border-gray-300 dark:border-gray-800 border-2">
@@ -48,19 +42,21 @@ const Contactform = () => {
             <div className="mb-12 w-full shrink-0 grow-0 basis-auto md:px-3 lg:mb-0 lg:w-5/12 lg:px-6">
               <form onSubmit={handleSubmit}>
                 <div className="relative mb-6" data-te-input-wrapper-init="">
+                  <label
+                    className="pointer-events-none   mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
+                    htmlFor="exampleInput90"
+                  >
+                    Name
+                  </label>
                   <input
                     className="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "
                     id="exampleInput90"
                     type="text"
                     name="name"
+                    placeholder="Name"
                     required
                   />
-                  <label
-                    className="pointer-events-none  absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
-                    htmlFor="exampleInput90"
-                  >
-                    Name
-                  </label>
+
                   <ValidationError
                     prefix="name"
                     field="name"
@@ -68,19 +64,21 @@ const Contactform = () => {
                   />
                 </div>
                 <div className="relative mb-6" data-te-input-wrapper-init="">
+                  <label
+                    className="pointer-events-none   mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
+                    htmlFor="exampleInput91"
+                  >
+                    Email address
+                  </label>
                   <input
                     className="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "
                     id="exampleInput91"
                     type="email"
                     name="email"
+                    placeholder="Email"
                     required
                   />
-                  <label
-                    className="pointer-events-none  absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
-                    htmlFor="exampleInput91"
-                  >
-                    Email address
-                  </label>
+
                   <ValidationError
                     prefix="email"
                     field="email"
@@ -88,19 +86,21 @@ const Contactform = () => {
                   />
                 </div>
                 <div className="relative mb-6" data-te-input-wrapper-init="">
+                  <label
+                    htmlFor="exampleFormControlTextarea1"
+                    className="pointer-events-none   mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
+                  >
+                    Message
+                  </label>
                   <textarea
                     className="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "
                     id="exampleFormControlTextarea1"
                     rows={3}
                     name="message"
+                    placeholder="Message"
                     required
                   />
-                  <label
-                    htmlFor="exampleFormControlTextarea1"
-                    className="pointer-events-none  absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
-                  >
-                    Message
-                  </label>
+
                   <ValidationError
                     prefix="message"
                     field="message"

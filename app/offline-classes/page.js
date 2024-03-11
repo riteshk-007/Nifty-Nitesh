@@ -22,7 +22,7 @@ const Offline = () => {
         discount={"6999"}
         duration={"3-4 Months"}
         time={"Moday to Friday"}
-        lang={"Hindi"}
+        lang={"Hindi, English"}
         message={encodedMessage}
         description={
           "This course covers all about understanding stocks through charts and numbers. We'll look at how different industries are connected, how to decide how much to invest, and ways to stay safe with your money. You'll learn about things like how prices are set, why people buy and sell stocks, reading detailed charts, smart strategies for daily trading, watching live prices, spotting market trends, and more. It's perfect for those aiming to start a career in the stock market."

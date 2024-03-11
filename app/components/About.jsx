@@ -24,7 +24,7 @@ const About = () => {
           {"make them understand the stock market in a simple way."}
         </p>
       </div>
-      <div className="flex flex-col md:flex-row w-full items-center justify-center p-10">
+      <div className="flex flex-col md:flex-row w-full items-center justify-center p-5 md:p-10">
         <div className="w-full md:w-1/2 flex items-center justify-center bg-cover">
           <Image
             width={500}

@@ -9,7 +9,7 @@ export const metadata = {
 };
 const AboutUs = () => {
   return (
-    <div className="w-4/5 mx-auto flex flex-col items-start justify-start gap-2 md:gap-4 p-5">
+    <div className="md:w-4/5 w-full mx-auto flex flex-col items-start justify-start gap-2 md:gap-4 p-5">
       <p className="text-xs md:mb-5 md:text-base text-center w-full font-semibold text-gray-700 dark:text-gray-300 uppercase">
         ABOUT US
       </p>

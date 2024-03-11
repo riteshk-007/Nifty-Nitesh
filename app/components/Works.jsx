@@ -33,11 +33,11 @@ const Works = () => {
       </p>
       <h1 className="text-lg md:text-4xl font-bold">How Does it Works</h1>
 
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-5  md:gap-5 flex-wrap justify-center">
+      <div className=" grid grid-cols-2 lg:grid-cols-4 gap-3 md:my-5  md:gap-5 flex-wrap justify-center">
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col  items-center justify-center gap-2 bg-white dark:bg-black p-2 md:p-5 rounded-lg shadow-md w-60 h-80 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+            className="flex flex-col  items-center justify-center gap-2 bg-white dark:bg-black p-2 md:p-5 rounded-lg shadow-md md:w-60 md:h-80 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105"
           >
             <Image src={item.image} width={150} height={150} alt="image" />
             <h1 className="text-sm md:text-lg font-bold text-center">

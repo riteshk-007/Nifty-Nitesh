@@ -103,6 +103,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/"
+                  onClick={() => setIsOpen(false)}
                   className="block py-2 dark:hover:text-gray-500  rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white"
                 >
                   Home
@@ -111,6 +112,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/about"
+                  onClick={() => setIsOpen(false)}
                   className="block py-2  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-500 md:p-0 md:dark:hover:text-gray-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   About
@@ -143,6 +145,7 @@ const Navbar = () => {
                         <li>
                           <Link
                             href="/online-classes"
+                            onClick={() => setIsOpen(false)}
                             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Online Courses
@@ -151,6 +154,7 @@ const Navbar = () => {
                         <li>
                           <Link
                             href="/offline-classes"
+                            onClick={() => setIsOpen(false)}
                             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Offline Courses
@@ -160,6 +164,7 @@ const Navbar = () => {
                       <div className="py-1">
                         <Link
                           href="/faq"
+                          onClick={() => setIsOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                         >
                           FAQ &rarr;
@@ -173,6 +178,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/contact"
+                  onClick={() => setIsOpen(false)}
                   className="block py-2  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-500 md:p-0 md:dark:hover:text-gray-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Contact

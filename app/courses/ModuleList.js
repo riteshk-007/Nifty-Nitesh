@@ -60,7 +60,7 @@ export const list3 = [
 ];
 export const list4 = [
   {
-    tag: "Finishing touch to make you a Disciplined Trader, GTF Trader",
+    tag: "Finishing touch to make you a Disciplined Trader.",
   },
   {
     tag: "Conventional patterns V/s Demand & Supply",
