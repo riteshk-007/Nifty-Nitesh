@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "./footer";
+import SocialLinks from "./components/SocialLinks";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system">
           <Navbar />
+          <SocialLinks />
           {children}
           <Footer />
         </ThemeProvider>
