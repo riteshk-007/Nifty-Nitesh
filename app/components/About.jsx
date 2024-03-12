@@ -29,7 +29,7 @@ const About = () => {
           <Image
             width={500}
             height={300}
-            src="/about.jpg"
+            src="/about.jpeg"
             alt="Nifty Nitesh"
             className="rounded-lg"
           />

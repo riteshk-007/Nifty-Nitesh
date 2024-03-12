@@ -14,7 +14,7 @@ const AboutUs = () => {
         ABOUT US
       </p>
       <Image
-        src="/about.jpg"
+        src="/about.jpeg"
         alt="Nifty Nitesh"
         width={1920}
         height={1080}
