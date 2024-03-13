@@ -1,5 +1,6 @@
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
-import { FaFacebook, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { IoIosMail } from "react-icons/io";
 
 const SocialLinks = () => {
   return (
@@ -29,20 +30,20 @@ const SocialLinks = () => {
         <FaInstagram size={16} />
       </a>
       <a
-        href="https://www.facebook.com/share/Y6WqUbLzsFeSo5si/?mibextid=qi2Omg"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-blue-800 hover:text-gray-100 transition-colors duration-300 ease-in-out"
-      >
-        <FaFacebook size={16} />
-      </a>
-      <a
         href=" https://x.com/Niftyniteshk?t=Mak7r-pNH-Z4vcaravqXKw&s=08"
         target="_blank"
         rel="noopener noreferrer"
         className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-black hover:text-gray-100 transition-colors duration-300 ease-in-out"
       >
         <FaXTwitter size={16} />
+      </a>
+      <a
+        href="mailto:niftynitesh000@gmail.com?subject=Hello Nitesh!&body=I am interested in your work."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-red-600 hover:text-gray-100 transition-colors duration-300 ease-in-out"
+      >
+        <IoIosMail size={16} />
       </a>
     </div>
   );
