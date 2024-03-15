@@ -106,7 +106,7 @@ export const Card = [
     title: "Recoding Technical Analysis Videos",
     image: "/course/img1.png",
     text: "This course covers technical analysis, understanding how different industries affect each other, deciding how much to invest, managing risks, pricing trends, reading charts, day trading strategies, live price reading, identifying gaps, using indicators, avoiding market traps, advanced stock scanning, trading psychology, analyzing trends, and more. Perfect for anyone looking to build a career in the stock market.",
-    price: 4999,
+    price: 5999,
     discount: 8999,
     paymentType: "one time",
     link: "/",

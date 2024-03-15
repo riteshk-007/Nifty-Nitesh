@@ -47,6 +47,7 @@ const Navbar = () => {
           <Link
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
+            onClick={() => setIsOpen(false)}
           >
             {isMounted &&
               (resolvedTheme === "dark" ? (
