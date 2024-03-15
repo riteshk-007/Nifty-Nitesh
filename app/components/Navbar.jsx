@@ -62,9 +62,6 @@ const Navbar = () => {
               ))}
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <div className="mx-2">
-              <ModeToggle />
-            </div>
             <div className="lg:block hidden">
               <a
                 href="https://wa.me/+917827433875?text=I'm%20interested%20in%20your%20classes"
@@ -82,6 +79,9 @@ const Navbar = () => {
                   WhatsApp
                 </Button>
               </a>
+            </div>
+            <div className="mx-3">
+              <ModeToggle />
             </div>
             <button
               onClick={() => setIsOpen(!isOpen)}

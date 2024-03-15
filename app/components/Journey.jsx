@@ -20,7 +20,7 @@ const Journey = () => {
                 NSE
               </div>
               <div className="md:max-w-sm p-5 bg-gray-100 shadow-lg group group-hover:bg-green-500 group-hover:text-white group-hover:dark:bg-green-700 dark:bg-black rounded-md my-3 hover:bg-green-500 dark:hover:bg-green-700 hover:text-white transition-all duration-200">
-                <div className="text-xl font-bold group-hover:text-white text-sky-400">
+                <div className="text-xl font-bold group-hover:text-white text-green-500">
                   WORKING PROFESSIONALS
                 </div>
 
@@ -38,7 +38,7 @@ const Journey = () => {
                 NSE
               </div>
               <div className="md:max-w-sm p-5 bg-gray-100 shadow-lg  group group-hover:bg-green-500 group-hover:text-white group-hover:dark:bg-green-700  dark:bg-black rounded-md my-3 hover:bg-green-500 dark:hover:bg-green-700 hover:text-white transition-all duration-200">
-                <div className="text-xl font-bold group-hover:text-white text-sky-400">
+                <div className="text-xl font-bold group-hover:text-white text-green-500">
                   HOUSEWIVES
                 </div>
 
@@ -74,7 +74,7 @@ const Journey = () => {
                 NSE
               </div>
               <div className="md:max-w-sm p-5 bg-gray-100 shadow-lg  group group-hover:bg-green-500 group-hover:text-white group-hover:dark:bg-green-700  dark:bg-black rounded-md my-3 hover:bg-green-500 dark:hover:bg-green-700 hover:text-white transition-all duration-200">
-                <div className="text-xl font-bold group-hover:text-white text-sky-400">
+                <div className="text-xl font-bold group-hover:text-white text-green-500">
                   STUDENT
                 </div>
 
