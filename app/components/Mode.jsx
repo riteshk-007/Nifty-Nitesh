@@ -24,7 +24,7 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => toggleTheme()}
-      className=" flex items-center justify-center p-[6px] rounded-md bg-transparent "
+      className=" flex items-center justify-center p-[6px] rounded-full bg-transparent  border-2 mx-2"
     >
       {isDark ? (
         <TbBulbFilled size={22} className="text-green-400" />
