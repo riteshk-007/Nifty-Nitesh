@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <SocialLinks />
           {children}
+          <Analytics />
           <Footer />
         </ThemeProvider>
       </body>
