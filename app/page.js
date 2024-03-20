@@ -7,6 +7,7 @@ import Journey from "./components/Journey";
 import Location from "./components/Location";
 import Slider from "./components/Slider";
 import Works from "./components/Works";
+import { StickyScrollRevealDemo } from "./components/Program";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <Works />
       <Journey />
+      <StickyScrollRevealDemo />
       <Cards />
       <About />
       <FaqQuesAns numQuestions={5} />
