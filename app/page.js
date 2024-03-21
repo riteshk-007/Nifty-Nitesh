@@ -7,12 +7,17 @@ import Journey from "./components/Journey";
 import Location from "./components/Location";
 import Slider from "./components/Slider";
 import Works from "./components/Works";
+import { HeroParallaxDemo } from "./components/Parallax";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
     <div className="w-full flex flex-col">
       <Hero />
       <Works />
+      <Suspense>
+        <HeroParallaxDemo />
+      </Suspense>
       <Journey />
       <Cards />
       <About />
