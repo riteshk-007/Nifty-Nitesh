@@ -43,7 +43,7 @@ export const HeroParallax = ({ products }) => {
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="md:h-[200vh] lg:h-[300vh] py-40 overflow-hidden bg-gray-200 dark:bg-transparent  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -90,7 +90,7 @@ export const HeroParallax = ({ products }) => {
 export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+      <h1 className="text-center capitalize flex-wrap text-4xl sm:text-6xl lg:text-8xl p-2 md:p-4  font-bold from-purple-600 via-pink-600 to-blue-600 bg-gradient-to-r bg-clip-text text-transparent">
         Global markets <br /> in your hand
       </h1>
       {/* <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
@@ -111,7 +111,7 @@ export const ProductCard = ({ product, translate }) => {
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      className="group/product h-72 w-[20rem] md:h-80 md:w-[25rem] lg:h-96 lg:w-[30rem] relative flex-shrink-0"
     >
       <Link
         href={product.link}
@@ -119,8 +119,8 @@ export const ProductCard = ({ product, translate }) => {
       >
         <Image
           src={product.thumbnail}
-          height="600"
-          width="600"
+          height="400"
+          width="400"
           className="object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.title}
         />
