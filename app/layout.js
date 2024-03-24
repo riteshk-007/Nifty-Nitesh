@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
 import { Analytics } from "@vercel/analytics/react";
+import Head from "next/head";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
@@ -21,14 +22,13 @@ export const metadata = {
     "Nifty Nitesh",
     "stock market",
   ],
-  icons: {
-    icon: ["/favicon.ico?v=4"],
-    apple: ["/apple-touch-icon.png?v=4"],
-    shortcut: ["/apple-touch-icon.png"],
-  },
-  manifest: "/site.webmanifest",
   twitter: {
-    card: "/card.png",
+    card: "summary_large_image",
+    image: "/opengraph-image.png",
+  },
+  facebook: {
+    card: "summary_large_image",
+    image: "/opengraph-image.png",
   },
 };
 
