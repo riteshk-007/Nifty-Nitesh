@@ -1,11 +1,11 @@
 export default function sitemap() {
   return [
     {
-      url: "https://niftynitesh.com/",
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
       lastModified: new Date(),
     },
     {
-      url: "https://niftynitesh.com/about",
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}about`,
       lastModified: new Date(),
     },
     {
