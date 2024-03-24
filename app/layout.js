@@ -27,6 +27,9 @@ export const metadata = {
     shortcut: ["/apple-touch-icon.png"],
   },
   manifest: "/site.webmanifest",
+  twitter: {
+    card: "/card.png",
+  },
 };
 
 export default function RootLayout({ children }) {
