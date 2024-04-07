@@ -1,5 +1,5 @@
 import React from "react";
-import Contactform from "../components/Contact";
+import Contactform from "../../components/Contact";
 export const metadata = {
   title: "Contact - Share Market, Finance, and Investing Classes",
   description: "Contact us",
