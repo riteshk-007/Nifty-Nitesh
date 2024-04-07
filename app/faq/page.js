@@ -1,4 +1,4 @@
-import FaqQuesAns from "../components/FaqQuesAns";
+import FaqQuesAns from "../../components/FaqQuesAns";
 
 export const metadata = {
   title: "FAQ - Share Market, Finance, and Investing Classes",

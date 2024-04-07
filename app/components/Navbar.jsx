@@ -62,11 +62,12 @@ const Navbar = () => {
               ))}
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <div className="lg:block hidden">
+            <div className="flex items-center justify-center">
               <a
                 href="https://wa.me/+917827433875?text=I'm%20interested%20in%20your%20classes"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="lg:block hidden"
               >
                 <Button variant="success">
                   <Image
@@ -79,8 +80,22 @@ const Navbar = () => {
                   WhatsApp
                 </Button>
               </a>
+              <a
+                href="https://wa.me/+917827433875?text=I'm%20interested%20in%20your%20classes"
+                target="_blank"
+                rel="noopener noreferrer"
+                className=" lg:hidden flex items-center justify-center"
+              >
+                <Image
+                  src="/whatsapp.png"
+                  alt="whatsapp"
+                  width={20}
+                  height={20}
+                  className="inline-block"
+                />
+              </a>
             </div>
-            <div className="mx-3">
+            <div className="mx-2">
               <ModeToggle />
             </div>
             <button

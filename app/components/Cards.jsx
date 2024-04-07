@@ -24,7 +24,7 @@ const Cards = () => {
         Our Classes
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
-        {Card?.map((item) => (
+        {Card?.map((item, index) => (
           <div
             key={item?.id}
             className="md:max-w-96 border-2 dark:border shadow-lg rounded-lg overflow-hidden bg-gray-100 dark:bg-black flex flex-col items-start gap-3 justify-start "
@@ -34,7 +34,7 @@ const Cards = () => {
               height={300}
               src={item?.image}
               alt="Nifty Nitesh"
-              className=" border-b-2  border-green-500 dark:border-green-400"
+              className=" border-b-2 border-green-500 dark:border-green-400"
             />
             <h2>
               <span className="text-base md:text-lg px-3 font-bold text-gray-900 dark:text-gray-200 text-center uppercase">
@@ -52,7 +52,7 @@ const Cards = () => {
               <FaStar />
             </span>
             <div className="flex w-full items-center  justify-between p-3">
-              <span className="text-xs flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
+              <span className="text-lg flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
                 <span className="flex items-center justify-center">
                   {"₹"}
                   {item?.price} <p className="text-xs">/-{item?.paymentType}</p>
@@ -66,7 +66,13 @@ const Cards = () => {
                 variant="success"
                 disabled={item?.btnText === "Coming Soon"}
               >
-                <Link href={item.link}>{item?.btnText}</Link>
+                {index === 2 ? (
+                  <a href={item.link} target="_blank" rel="noreferrer">
+                    {item?.btnText}
+                  </a>
+                ) : (
+                  <Link href={item.link}>{item?.btnText}</Link>
+                )}
               </Button>
             </div>
           </div>
@@ -77,7 +83,8 @@ const Cards = () => {
 };
 
 export default Cards;
-
+let message = "I am interested in the recording classes videos";
+message = encodeURIComponent(message);
 export const Card = [
   {
     id: 1,
@@ -109,7 +116,7 @@ export const Card = [
     price: 5999,
     discount: 8999,
     paymentType: "one time",
-    link: "/",
-    btnText: "Coming Soon",
+    link: `https://wa.me/+917827433875?text=${message}`,
+    btnText: "Enroll Now",
   },
 ];
