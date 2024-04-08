@@ -1,63 +1,69 @@
-"use client";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+import { LuCandlestickChart } from "react-icons/lu";
+import { IoBarChartOutline } from "react-icons/io5";
+import { FaUserFriends, FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
-import React from "react";
-
 const Slider = () => {
-  const plugin = React.useRef(
-    Autoplay({ delay: 2500, stopOnInteraction: true })
-  );
+  const features = [
+    {
+      icon: <IoBarChartOutline fontSize={23} />,
+      title: "Analytics",
+    },
+    {
+      icon: <FaUserFriends fontSize={23} />,
+      title: "Life Time Mentorship",
+    },
+    {
+      icon: <LuCandlestickChart fontSize={23} />,
+      title: "Free access Platform for trade ",
+    },
+    {
+      icon: <FaWhatsapp fontSize={23} />,
+      title: "Free access to our Swing Trade WhatsApp channel",
+    },
+  ];
   return (
-    <div className="w-full flex  items-center justify-center gap-2 md:gap-4 p-5 bg-gray-100 dark:bg-black/30 relative">
-      <Carousel
-        plugins={[plugin.current]}
-        className="w-full md:w-3/4"
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
-        <p className="w-full md:w-4/5 flex items-center justify-start text-xs sm:text-lg md:text-xl font-medium text-center md:text-start text-gray-500 dark:text-gray-400 absolute left-0 -top-2 sm:top-0   lg:top-[7%] xl:top-[10%]">
-          Follow our journey and join the community on our social media pages.
-          We share regular updates, insights, and inspiration. Connect with us
-          on , Instagram, and Twitter.
-        </p>
-        <CarouselContent>
-          {["img1.png", "img2.png", "img3.png"].map((img, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1 flex">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-2 ">
-                    <Image
-                      width={1920}
-                      height={1080}
-                      src={`/ss/${img}`}
-                      alt="carousel"
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="hidden md:flex" />
-        <CarouselNext className="hidden md:flex" />
-      </Carousel>
-    </div>
+    <section className="py-14 bg-gray-100 dark:bg-black">
+      <div className=" mx-auto px-4 text-gray-600 gap-16 justify-between md:px-8 lg:flex">
+        <div>
+          <div className="max-w-xl space-y-3">
+            <p className="text-green-500 dark:text-green-400 text-3xl font-semibold sm:text-4xl">
+              Smart Money Concept
+            </p>
+            <p className="text-gray-800 dark:text-gray-200">
+              We specialize in working with Demand Supply Stock, Forex, Crypto,
+              and any other chart-intensive sectors worldwide. Our expertise
+              allows us to navigate these complex landscapes effectively.
+            </p>
+          </div>
+          <div className="mt-12 w-full md:w-1/2 ">
+            <ul className="space-y-8">
+              {features.map((item, idx) => (
+                <li key={idx} className="flex gap-x-4">
+                  <div className="flex-none w-12 h-12 bg-indigo-50 dark:bg-green-100 text-green-600 rounded-lg flex items-center justify-center">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h4 className="text-lg text-gray-800 dark:text-gray-200 font-semibold">
+                      {item.title}
+                    </h4>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="mt-12 lg:mt-0 w-full lg:w-1/2 flex items-center justify-center">
+          <Image
+            width={1920}
+            height={1080}
+            src="/bank.png"
+            className="w-full shadow-lg rounded-lg border"
+            alt="brow"
+          />
+        </div>
+      </div>
+    </section>
   );
 };
 
 export default Slider;
-
-const Card = ({ children }) => {
-  return <div className=" w-full">{children}</div>;
-};
-
-const CardContent = ({ children, className }) => {
-  return <div className={className}>{children}</div>;
-};
