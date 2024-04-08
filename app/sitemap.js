@@ -24,5 +24,9 @@ export default function sitemap() {
       url: `${process.env.NEXT_PUBLIC_BASE_URL}faq`,
       lastModified: new Date(),
     },
+    {
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}demo-classes`,
+      lastModified: new Date(),
+    },
   ];
 }

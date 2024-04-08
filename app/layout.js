@@ -6,6 +6,7 @@ import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
 import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
+import DemoBtn from "./components/DemoBtn/DemoBtn";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     image: "/opengraph-image.png",
   },
+  metadataBase: "https://niftynitesh.com/",
 };
 
 export default function RootLayout({ children }) {
@@ -39,6 +41,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider attribute="class" defaultTheme="system">
           <Navbar />
           <SocialLinks />
+          <DemoBtn />
           {children}
           <Analytics />
           <Footer />
