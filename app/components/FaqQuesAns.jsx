@@ -14,7 +14,9 @@ const FaqQuesAns = ({ numQuestions }) => {
       <Accordion type="single" collapsible className="w-full">
         {questions?.slice(0, numQuestions).map((question, index) => (
           <AccordionItem value={`item-${index + 1}`} key={`item-${index + 1}`}>
-            <AccordionTrigger>{question.trigger}</AccordionTrigger>
+            <AccordionTrigger className="text-base text-start">
+              {question.trigger}
+            </AccordionTrigger>
             <AccordionContent>{question.content}</AccordionContent>
           </AccordionItem>
         ))}

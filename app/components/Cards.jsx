@@ -13,21 +13,20 @@ const Cards = () => {
       return text;
     }
   }
-  const text =
-    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium modi possimus aperiam velit nulla voluptatum explicabo similique voluptatem, aut dignissimos enim incidunt itaque, quidem minus sed doloremque dolore odio nisi!";
   return (
     <div className="w-full flex flex-col items-center justify-center gap-2 md:gap-4 p-5  dark:bg-black">
-      <p className="text-xs md:text-base font-semibold text-gray-500 dark:text-gray-300 text-center uppercase">
-        OUR COURSES
+      <p className="text-sm md:text-xl font-semibold text-gray-500 dark:text-gray-300 text-center uppercase">
+        Embark on a transformative learning journey with our comprehensive
+        course.
       </p>
-      <h1 className="text-base md:text-4xl font-bold text-center text-green-500 dark:text-green-400 ">
+      <h1 className="text-lg md:text-4xl font-bold text-center text-green-500 dark:text-green-400 ">
         Our Classes
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
         {Card?.map((item, index) => (
           <div
             key={item?.id}
-            className="md:max-w-96 border-2 dark:border shadow-lg rounded-lg overflow-hidden bg-gray-100 dark:bg-black flex flex-col items-start gap-3 justify-start "
+            className="md:max-w-96 border-2 dark:border shadow-lg rounded-lg overflow-hidden bg-gray-100 dark:bg-black flex flex-col items-start gap-2 md:gap-3 justify-start "
           >
             <Image
               width={500}
@@ -37,11 +36,11 @@ const Cards = () => {
               className=" border-b-2 border-green-500 dark:border-green-400"
             />
             <h2>
-              <span className="text-base md:text-lg px-3 font-bold text-gray-900 dark:text-gray-200 text-center uppercase">
+              <span className="text-base md:text-lg px-2 flex  md:px-3 font-bold text-gray-900 dark:text-gray-200 text-start uppercase">
                 {item?.title}
               </span>
             </h2>
-            <p className="text-xs md:text-sm font-semibold text-gray-500 dark:text-gray-300 text-start px-3">
+            <p className="text-sm font-semibold text-gray-500 dark:text-gray-300 text-start px-3">
               {truncateText(item?.text, 20)}
             </p>
             <span className="flex items-center justify-center space-x-1 px-3 text-yellow-500 dark:text-yellow-400">
@@ -52,12 +51,12 @@ const Cards = () => {
               <FaStar />
             </span>
             <div className="flex w-full items-center  justify-between p-3">
-              <span className="text-lg flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
+              <span className="text-xl flex-col flex md:text-2xl font-semibold text-black  dark:text-white text-start">
                 <span className="flex items-center justify-center">
                   {"₹"}
-                  {item?.price} <p className="text-xs">/-{item?.paymentType}</p>
+                  {item?.price} <p className="text-sm">/-{item?.paymentType}</p>
                 </span>
-                <span className="line-through text-sm text-gray-500 dark:text-gray-400">
+                <span className="line-through text-base text-gray-500 dark:text-gray-400">
                   ₹ {item?.discount}
                 </span>
               </span>
@@ -110,7 +109,7 @@ export const Card = [
   },
   {
     id: 3,
-    title: "Recoding Technical Analysis Videos",
+    title: "Recording Technical Analysis Videos",
     image: "/course/img1.png",
     text: "This course covers technical analysis, understanding how different industries affect each other, deciding how much to invest, managing risks, pricing trends, reading charts, day trading strategies, live price reading, identifying gaps, using indicators, avoiding market traps, advanced stock scanning, trading psychology, analyzing trends, and more. Perfect for anyone looking to build a career in the stock market.",
     price: 5999,

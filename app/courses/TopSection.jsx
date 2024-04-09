@@ -23,7 +23,7 @@ const Top = ({
       <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl flex items-center justify-center gap-2 font-bold text-black dark:text-white mt-5 mb-3 sm:mt-10 sm:mb-5 md:mt-20 md:mb-10 ml-3 sm:ml-0 text-center">
         <p className="text-green-500 dark:text-green-400">{head}</p> in {area}
       </h1>
-      <p className="text-xs md:text-sm lg:text-lg  text-gray-700 dark:text-gray-300 text-start px-3">
+      <p className="text-sm lg:text-lg  text-gray-700 dark:text-gray-300 text-start px-3">
         {description}
       </p>
 

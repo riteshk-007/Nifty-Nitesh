@@ -2,7 +2,7 @@ const Journey = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center gap-2 md:gap-4 p-5 bg-gray-100 dark:bg-black/30">
       <div className="w-full md:w-4/5 flex items-center justify-center lg:justify-start">
-        <span className="text-xs sm:text-sm md:text-lg font-bold text-center text-gray-500">
+        <span className="text-sm md:text-lg font-bold text-center text-gray-500">
           JOURNEY OF A STUDENT AT Nifty Nitesh
         </span>
       </div>

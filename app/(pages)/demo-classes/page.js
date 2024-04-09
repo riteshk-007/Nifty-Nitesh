@@ -4,7 +4,7 @@ import { FaRegPlayCircle } from "react-icons/fa";
 const DemoClasses = () => {
   return (
     <>
-      <h1 className="text-3xl md:text-5xl font-bold text-green-600 text-center my-5">
+      <h1 className="text-3xl md:text-5xl font-bold text-green-500 dark:text-green-400 text-center my-5">
         Demo Classes
       </h1>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 p-5">
@@ -21,7 +21,7 @@ const DemoClasses = () => {
             className="rounded-lg"
           />
           <div className="absolute bottom-1 md:bottom-3 right-2 md:right-3">
-            <h1 className="text-xl md:text-3xl font-bold text-[#44ff00]">
+            <h1 className="text-xl md:text-3xl font-bold text-white">
               Class 01
             </h1>
           </div>
@@ -41,7 +41,7 @@ const DemoClasses = () => {
             className="rounded-lg"
           />
           <div className="absolute bottom-1 md:bottom-3 right-2 md:right-3">
-            <h1 className="text-xl md:text-3xl font-bold text-[#44ff00]">
+            <h1 className="text-xl md:text-3xl font-bold text-white">
               Class 02
             </h1>
           </div>
@@ -49,7 +49,7 @@ const DemoClasses = () => {
         </a>
       </div>
       <div className="w-full flex items-center justify-center p-3">
-        <span className="text-sm md:mb-5 md:text-base text-center w-full font-bold  text-green-600 uppercase px-2 bg-[#f0f0f0] dark:bg-gray-950 p-1 rounded">
+        <span className="text-sm md:mb-5 md:text-base text-center w-full font-bold   uppercase px-2 bg-[#f0f0f0] dark:bg-gray-950 p-1 rounded">
           If you have enjoyed our demo classes, we invite you to continue with
           this course. We offer the flexibility to attend classes in a way that
           suits you best - online, offline, or through recorded videos. We are

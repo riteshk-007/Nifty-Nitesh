@@ -5,10 +5,10 @@ import Link from "next/link";
 const About = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center gap-2 md:gap-4 p-5  dark:bg-black">
-      <p className="text-xs md:text-base font-semibold text-gray-700 dark:text-gray-300 text-center uppercase">
+      <p className="text-xl font-semibold text-gray-700 dark:text-gray-300 text-center uppercase">
         ABOUT US
       </p>
-      <h1 className="text-base md:text-4xl font-bold text-center">
+      <h1 className="text-xl md:text-4xl font-bold text-center">
         {"Stock Market Institute in Delhi - "}
         <span className="text-green-500 dark:text-green-400 ">
           Nifty Nitesh
@@ -16,10 +16,10 @@ const About = () => {
       </h1>
 
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-2 md:gap-4">
-        <p className="text-xs md:text-base font-semibold text-gray-500 dark:text-gray-300 text-center uppercase">
+        <p className="text-base font-semibold text-gray-500 dark:text-gray-300 text-center uppercase">
           OUR MISSION
         </p>
-        <p className="text-xs md:text-base font-semibold text-gray-500 dark:text-gray-300 text-center">
+        <p className="text-sm md:text-base font-semibold text-gray-500 dark:text-gray-300 text-center">
           {"Our mission is to provide quality education to the students and "}
           {"make them understand the stock market in a simple way."}
         </p>
