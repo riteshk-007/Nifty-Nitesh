@@ -59,6 +59,7 @@ const Slider = () => {
             src="/bank.png"
             className="w-full shadow-lg rounded-lg border"
             alt="brow"
+            loading="lazy"
           />
         </div>
       </div>

@@ -56,9 +56,16 @@ const Navbar = () => {
                   height={90}
                   src="/light-logo.png"
                   alt="Logo"
+                  loading="lazy"
                 />
               ) : (
-                <Image width={95} height={90} src="/dark-logo.png" alt="Logo" />
+                <Image
+                  width={95}
+                  height={90}
+                  src="/dark-logo.png"
+                  alt="Logo"
+                  loading="lazy"
+                />
               ))}
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -92,6 +99,7 @@ const Navbar = () => {
                   width={20}
                   height={20}
                   className="inline-block"
+                  loading="lazy"
                 />
               </a>
             </div>

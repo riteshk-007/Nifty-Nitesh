@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Slider from "react-slick";
 
@@ -53,19 +53,27 @@ const CarouselScroll = ({ images }) => {
 
   return (
     <div className="w-full relative ">
-      <Slider ref={sliderRef} {...settings}>
-        {images.map((image, index) => (
-          <div key={index} className="w-full ">
-            <Image
-              src={image.src}
-              alt="carousel"
-              width={1920}
-              height={1080}
-              layout="responsive"
-            />
+      <Suspense
+        fallback={
+          <div className="w-full h-96 flex items-center justify-center">
+            Loading...
           </div>
-        ))}
-      </Slider>
+        }
+      >
+        <Slider ref={sliderRef} {...settings}>
+          {images.map((image, index) => (
+            <div key={index}>
+              <Image
+                src={image.src}
+                alt="carousel"
+                width={1920}
+                height={1080}
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </Slider>
+      </Suspense>
     </div>
   );
 };

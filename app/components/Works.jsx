@@ -34,12 +34,18 @@ const Works = () => {
       <h1 className="text-lg md:text-4xl font-bold">How Does it Works</h1>
 
       <div className=" grid grid-cols-2 lg:grid-cols-4 gap-1.5 md:my-5  md:gap-5 flex-wrap justify-center">
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
           <div
             key={index}
             className="flex flex-col  items-center justify-center  bg-white dark:bg-black p-2 md:p-5 rounded-lg shadow-md md:w-60 md:h-80 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105"
           >
-            <Image src={item.image} width={180} height={150} alt="image" />
+            <Image
+              src={item.image}
+              width={180}
+              height={150}
+              alt="image"
+              loading="lazy"
+            />
             <h1 className="text-base md:text-lg font-bold text-center">
               {item.title}
             </h1>

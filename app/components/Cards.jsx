@@ -34,6 +34,7 @@ const Cards = () => {
               src={item?.image}
               alt="Nifty Nitesh"
               className=" border-b-2 border-green-500 dark:border-green-400"
+              loading="lazy"
             />
             <h2>
               <span className="text-base md:text-lg px-2 flex  md:px-3 font-bold text-gray-900 dark:text-gray-200 text-start uppercase">

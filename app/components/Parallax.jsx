@@ -1,9 +1,13 @@
 "use client";
 import { HeroParallax } from "@/components/ui/hero-parallax";
-import React from "react";
+import React, { Suspense } from "react";
 
 export function HeroParallaxDemo() {
-  return <HeroParallax products={products} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HeroParallax products={products} />/
+    </Suspense>
+  );
 }
 export const products = [
   {

@@ -32,6 +32,7 @@ const About = () => {
             src="/about.jpeg"
             alt="Nifty Nitesh"
             className="rounded-lg"
+            loading="lazy"
           />
         </div>
         <span className="text-xs lg:text-sm  mx-2 font-semibold text-gray-700 dark:text-gray-300 text-start w-full md:w-1/2  my-3 flex flex-col">

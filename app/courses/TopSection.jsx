@@ -35,6 +35,7 @@ const Top = ({
             height={500}
             alt={head}
             className="rounded-lg"
+            loading="lazy"
           />
         </div>
         <div className="w-full p-1 md:w-1/4 flex items-center justify-center flex-col shadow-md mt-5 rounded-md border m-1">
