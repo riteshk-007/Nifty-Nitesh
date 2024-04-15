@@ -5,12 +5,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
 import { Analytics } from "@vercel/analytics/react";
-import Head from "next/head";
 import DemoBtn from "./components/DemoBtn/DemoBtn";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
 export const metadata = {
+  manifest: "/manifest.json",
   title: "Nifty Nitesh - Share Market, Finance, and Investing Classes",
   description:
     "Providing online and offline classes on share market, finance, and investing",
@@ -34,6 +34,9 @@ export const metadata = {
   metadataBase: "https://niftynitesh.com/",
 };
 
+export const viewport = {
+  themeColor: "#000000",
+};
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
