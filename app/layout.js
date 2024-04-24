@@ -11,25 +11,57 @@ const inter = Quicksand({ subsets: ["latin"] });
 
 export const metadata = {
   manifest: "/manifest.json",
-  title: "Nifty Nitesh - Share Market, Finance, and Investing Classes",
+  title: "Nifty Nitesh - Share Market Classes Near You",
   description:
-    "Providing online and offline classes on share market, finance, and investing",
+    "Learn share market, stock trading, fundamental analysis, and technical analysis with Nifty Nitesh's online and offline classes in Rajapuri, Uttam Nagar, and New Delhi.",
   keywords: [
-    "Share Market",
-    "Finance",
-    "Investing",
-    "Online Classes",
-    "Offline Classes",
-    "Nifty Nitesh",
-    "stock market",
+    "share market class",
+    "stock market class",
+    "online share market class",
+    "share market class near me",
+    "share market class in rajapuri",
+    "stock trading courses",
+    "fundamental analysis",
+    "technical analysis course",
+    "learn stock market",
+    "share trading",
+    "financial markets",
   ],
-  twitter: {
-    card: "summary_large_image",
-    image: "/opengraph-image.png",
+  openGraph: {
+    title: "Nifty Nitesh - Share Market Classes Near You",
+    description:
+      "Learn share market, stock trading, fundamental analysis, and technical analysis with Nifty Nitesh's online and offline classes in Rajapuri, Uttam Nagar, and New Delhi.",
+    url: "https://niftynitesh.com",
+    siteName: "Nifty Nitesh",
+    images: [
+      {
+        url: "https://www.niftynitesh.com/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Nifty Nitesh Share Market Classes",
+      },
+    ],
+    locale: "en-US",
+    type: "website",
   },
-  facebook: {
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: "Nifty Nitesh - Share Market Classes Near You",
     card: "summary_large_image",
-    image: "/opengraph-image.png",
+  },
+  icons: {
+    shortcut: "/favicon.ico",
   },
   metadataBase: "https://niftynitesh.com/",
 };
