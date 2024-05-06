@@ -4,9 +4,25 @@ import ModuleBox from "../../courses/Modules";
 import { list1, list2, list3, list4 } from "../../courses/ModuleList";
 
 export const metadata = {
-  title: "Offline Classes - Share Market, Finance, and Investing Classes",
-  description: "Offline Classes in Delhi",
-  kewords: "Offline Classes, Offline Classes in Delhi",
+  title: "Offline Share Market & Stock Trading Classes in Delhi | Nifty Nitesh",
+  description:
+    "Attend offline share market, stock trading, technical analysis, and fundamental analysis classes by Nifty Nitesh in Delhi. Learn from experienced professionals in a classroom setting.",
+  keywords: [
+    "offline share market classes",
+    "offline stock trading classes",
+    "offline technical analysis classes",
+    "offline fundamental analysis classes",
+    "offline investing classes in delhi",
+    "share market classroom training in delhi",
+    "stock trading classroom courses in delhi",
+    "nifty nitesh offline classes",
+  ],
+  openGraph: {
+    title:
+      "Offline Share Market & Stock Trading Classes in Delhi | Nifty Nitesh",
+    description:
+      "Attend offline share market, stock trading, technical analysis, and fundamental analysis classes by Nifty Nitesh in Delhi. Learn from experienced professionals in a classroom setting.",
+  },
 };
 const Offline = () => {
   let message = "I'm interested in offline classes";

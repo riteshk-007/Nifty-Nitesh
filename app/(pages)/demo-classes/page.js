@@ -1,6 +1,27 @@
 import Image from "next/image";
 import { FaRegPlayCircle } from "react-icons/fa";
-
+export const metadata = {
+  title: "Free Demo Classes - Share Market & Stock Trading | Nifty Nitesh",
+  description:
+    "Watch free demo classes to get a glimpse of Nifty Nitesh's share market, stock trading, technical analysis, and fundamental analysis classes in Delhi. Learn from industry experts.",
+  keywords: [
+    "share market classes demo",
+    "stock trading classes demo",
+    "technical analysis classes demo",
+    "fundamental analysis classes demo",
+    "investing classes demo",
+    "share market education demo",
+    "stock market training demo",
+    "nifty nitesh demo",
+    "free demo classes share market",
+    "free demo classes stock trading",
+  ],
+  openGraph: {
+    title: "Free Demo Classes - Share Market & Stock Trading | Nifty Nitesh",
+    description:
+      "Watch free demo classes to get a glimpse of Nifty Nitesh's share market, stock trading, technical analysis, and fundamental analysis classes in Delhi. Learn from industry experts.",
+  },
+};
 const DemoClasses = () => {
   return (
     <>

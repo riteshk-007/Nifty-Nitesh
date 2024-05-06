@@ -3,9 +3,25 @@ import ModuleBox from "../../courses/Modules";
 import Top from "../../courses/TopSection";
 
 export const metadata = {
-  title: "Online Classes - Share Market, Finance, and Investing Classes",
-  description: "Online Classes in India",
-  kewords: "Online Classes, Online Classes in India",
+  title: "Online Share Market & Stock Trading Classes in India | Nifty Nitesh",
+  description:
+    "Enroll in online share market, stock trading, technical analysis, and fundamental analysis classes by Nifty Nitesh. Learn from industry experts from the comfort of your home in India.",
+  keywords: [
+    "online share market classes",
+    "online stock trading classes",
+    "online technical analysis classes",
+    "online fundamental analysis classes",
+    "online investing classes in india",
+    "share market online training in india",
+    "stock trading online courses in india",
+    "nifty nitesh online classes",
+  ],
+  openGraph: {
+    title:
+      "Online Share Market & Stock Trading Classes in India | Nifty Nitesh",
+    description:
+      "Enroll in online share market, stock trading, technical analysis, and fundamental analysis classes by Nifty Nitesh. Learn from industry experts from the comfort of your home in India.",
+  },
 };
 const Online = () => {
   let message = "I'm interested in online classes";

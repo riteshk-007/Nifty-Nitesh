@@ -2,10 +2,27 @@ import Image from "next/image";
 import React from "react";
 
 export const metadata = {
-  title: "About Us - Share Market, Finance, and Investing Classes",
-  description: "Stock Market Institute in Delhi - Nifty Nitesh",
-  keywords:
-    "Stock Market Institute in Delhi, Stock market courses in Delhi, Stock market coaching in Delhi",
+  title: "About Nifty Nitesh - Share Market Classes & Stock Trading Institute",
+  description:
+    "Learn about Nifty Nitesh, a leading share market and stock trading institute in Delhi, offering comprehensive classes on technical analysis, fundamental analysis, and investing strategies.",
+  keywords: [
+    "share market institute in delhi",
+    "stock trading institute in delhi",
+    "share market classes in delhi",
+    "stock market courses in delhi",
+    "stock market coaching in delhi",
+    "technical analysis classes",
+    "fundamental analysis training",
+    "investing strategies courses",
+    "share market education",
+    "stock trading lessons",
+  ],
+  openGraph: {
+    title:
+      "About Nifty Nitesh - Share Market Classes & Stock Trading Institute",
+    description:
+      "Learn about Nifty Nitesh, a leading share market and stock trading institute in Delhi, offering comprehensive classes on technical analysis, fundamental analysis, and investing strategies.",
+  },
 };
 const AboutUs = () => {
   return (

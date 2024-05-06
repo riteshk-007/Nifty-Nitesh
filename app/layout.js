@@ -11,15 +11,17 @@ const inter = Quicksand({ subsets: ["latin"] });
 
 export const metadata = {
   manifest: "/manifest.json",
-  title: "Nifty Nitesh - Share Market Classes Near You",
+  title: "Share Market & Stock Trading Classes Near You | Nifty Nitesh",
   description:
-    "Learn share market, stock trading, fundamental analysis, and technical analysis with Nifty Nitesh's online and offline classes in Rajapuri, Uttam Nagar, and New Delhi.",
+    "Learn share market, stock trading, technical analysis & fundamental analysis through online and offline classes by experts at Nifty Nitesh. Find the best share market classes near you in Delhi, Rajapuri & Uttam Nagar.",
   keywords: [
     "share market class",
     "stock market class",
-    "online share market class",
+    "share market classes",
     "share market class near me",
-    "share market class in rajapuri",
+    "stock market",
+    "stock market class",
+    "online share market class",
     "stock trading courses",
     "fundamental analysis",
     "technical analysis course",
@@ -28,9 +30,9 @@ export const metadata = {
     "financial markets",
   ],
   openGraph: {
-    title: "Nifty Nitesh - Share Market Classes Near You",
+    title: "Share Market & Stock Trading Classes Near You | Nifty Nitesh",
     description:
-      "Learn share market, stock trading, fundamental analysis, and technical analysis with Nifty Nitesh's online and offline classes in Rajapuri, Uttam Nagar, and New Delhi.",
+      "Learn share market, stock trading, technical analysis & fundamental analysis through online and offline classes by experts at Nifty Nitesh. Find the best share market classes near you in Delhi, Rajapuri & Uttam Nagar.",
     url: "https://niftynitesh.com",
     siteName: "Nifty Nitesh",
     images: [
