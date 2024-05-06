@@ -6,6 +6,8 @@ import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
 import { Analytics } from "@vercel/analytics/react";
 import DemoBtn from "./components/DemoBtn/DemoBtn";
+import Head from "next/head";
+import { schema } from "./schema";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
@@ -83,6 +85,12 @@ export default function RootLayout({ children }) {
           <Analytics />
           <Footer />
         </ThemeProvider>
+        <Head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        </Head>
       </body>
     </html>
   );
