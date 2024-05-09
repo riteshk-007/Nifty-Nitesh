@@ -61,7 +61,7 @@ export const metadata = {
     },
   },
   twitter: {
-    title: "Nifty Nitesh - Share Market Classes Near You",
+    title: "Nifty Nitesh - Share Market Classes Near me",
     card: "summary_large_image",
   },
   icons: {
