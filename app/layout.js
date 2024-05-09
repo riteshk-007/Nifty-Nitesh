@@ -13,7 +13,7 @@ const inter = Quicksand({ subsets: ["latin"] });
 
 export const metadata = {
   manifest: "/manifest.json",
-  title: "Share Market & Stock Trading Classes Near You | Nifty Nitesh",
+  title: "Share Market & Stock Trading Classes Near me | Nifty Nitesh",
   description:
     "Learn share market, stock trading, technical analysis & fundamental analysis through online and offline classes by experts at Nifty Nitesh. Find the best share market classes near you in Delhi, Rajapuri & Uttam Nagar.",
   keywords: [
