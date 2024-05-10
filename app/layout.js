@@ -13,28 +13,27 @@ const inter = Quicksand({ subsets: ["latin"] });
 
 export const metadata = {
   manifest: "/manifest.json",
-  title: "Share Market & Stock Trading Classes Near me | Nifty Nitesh",
+  title: "Learn Share Market, Stock Trading, Demand & Supply Analysis in Delhi",
   description:
-    "Learn share market, stock trading, technical analysis & fundamental analysis through online and offline classes by experts at Nifty Nitesh. Find the best share market classes near you in Delhi, Rajapuri & Uttam Nagar.",
+    "Nifty Nitesh offers comprehensive share market and stock trading courses covering technical analysis, fundamental analysis, demand and supply dynamics taught by industry experts. Gain in-depth knowledge and trading strategies. Find classes near you in Delhi, Rajapuri & Uttam Nagar.",
   keywords: [
     "share market class",
-    "stock market class",
-    "share market classes",
-    "share market class near me",
-    "stock market",
-    "stock market class",
-    "online share market class",
-    "stock trading courses",
-    "fundamental analysis",
+    "stock trading classes",
     "technical analysis course",
+    "fundamental analysis training",
+    "demand and supply analysis",
     "learn stock market",
-    "share trading",
-    "financial markets",
+    "share trading education",
+    "financial markets training",
+    "Delhi",
+    "Rajapuri",
+    "Uttam Nagar",
   ],
   openGraph: {
-    title: "Share Market & Stock Trading Classes Near me | Nifty Nitesh",
+    title:
+      "Learn Share Market, Stock Trading, Demand & Supply Analysis in Delhi",
     description:
-      "Learn share market, stock trading, technical analysis & fundamental analysis through online and offline classes by experts at Nifty Nitesh. Find the best share market classes near you in Delhi, Rajapuri & Uttam Nagar.",
+      "Nifty Nitesh offers comprehensive share market and stock trading courses covering technical analysis, fundamental analysis, demand and supply dynamics taught by industry experts. Gain in-depth knowledge and trading strategies. Find classes near you in Delhi, Rajapuri & Uttam Nagar.",
     url: "https://niftynitesh.com",
     siteName: "Nifty Nitesh",
     images: [
@@ -61,7 +60,7 @@ export const metadata = {
     },
   },
   twitter: {
-    title: "Nifty Nitesh - Share Market Classes Near me",
+    title: "Nifty Nitesh - Share Market, Demand & Supply Classes in Delhi",
     card: "summary_large_image",
   },
   icons: {
