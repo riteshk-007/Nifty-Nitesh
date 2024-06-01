@@ -6,39 +6,47 @@ import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
 import { Analytics } from "@vercel/analytics/react";
 import DemoBtn from "./components/DemoBtn/DemoBtn";
-import Head from "next/head";
-import { schema } from "./schema";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
 export const metadata = {
   manifest: "/manifest.json",
-  title: "Learn Share Market, Stock Trading, Demand & Supply Analysis in Delhi",
+  title: "Best Share Market & Stock Trading Classes in Delhi - Nifty Nitesh",
   description:
-    "Nifty Nitesh offers comprehensive share market and stock trading courses covering technical analysis, fundamental analysis, demand and supply dynamics taught by industry experts. Gain in-depth knowledge and trading strategies. Find classes near you in Delhi, Rajapuri & Uttam Nagar.",
+    "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi. Learn technical analysis, fundamental analysis, demand and supply trading, and smart money concepts. Available in Rajapuri, Uttam Nagar, and nearby areas.",
   keywords: [
+    "share market",
+    "stock market",
+    "stock market classes",
+    "share market classes",
     "share market class",
-    "stock trading classes",
-    "technical analysis course",
-    "fundamental analysis training",
-    "demand and supply analysis",
-    "learn stock market",
-    "share trading education",
-    "financial markets training",
-    "Delhi",
-    "Rajapuri",
-    "Uttam Nagar",
+    "stock market class",
+    "share market class near me",
+    "stock market class near me",
+    "share market class Rajapuri",
+    "stock market class Rajapuri",
+    "demand supply",
+    "5 star setup",
+    "institution footprint",
+    "basic share market",
+    "advance share market",
+    "basic stock market",
+    "advance stock market",
+    "demand supply trading",
+    "smart money concept",
+    "trading strategies",
+    "financial education",
+    "Delhi stock market classes",
   ],
   openGraph: {
-    title:
-      "Learn Share Market, Stock Trading, Demand & Supply Analysis in Delhi",
+    title: "Best Share Market & Stock Trading Classes in Delhi - Nifty Nitesh",
     description:
-      "Nifty Nitesh offers comprehensive share market and stock trading courses covering technical analysis, fundamental analysis, demand and supply dynamics taught by industry experts. Gain in-depth knowledge and trading strategies. Find classes near you in Delhi, Rajapuri & Uttam Nagar.",
+      "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi. Learn technical analysis, fundamental analysis, demand and supply trading, and smart money concepts. Available in Rajapuri, Uttam Nagar, and nearby areas.",
     url: "https://niftynitesh.com",
     siteName: "Nifty Nitesh",
     images: [
       {
-        url: "https://www.niftynitesh.com/opengraph-image.jpg",
+        url: "https://www.niftynitesh.com/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "Nifty Nitesh Share Market Classes",
@@ -60,13 +68,75 @@ export const metadata = {
     },
   },
   twitter: {
-    title: "Nifty Nitesh - Share Market, Demand & Supply Classes in Delhi",
+    title: "Nifty Nitesh - Share Market & Stock Trading Classes in Delhi",
     card: "summary_large_image",
   },
   icons: {
     shortcut: "/favicon.ico",
   },
   metadataBase: "https://niftynitesh.com/",
+  schema: {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Nifty Nitesh",
+    url: "https://niftynitesh.com",
+    logo: "https://www.niftynitesh.com/favicon.ico",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+91-7827433875",
+      contactType: "Customer Service",
+      areaServed: "IN",
+      availableLanguage: ["en", "hi"],
+    },
+    sameAs: [
+      "https://www.facebook.com/niftynitesh",
+      "https://www.twitter.com/niftynitesh",
+      "https://www.instagram.com/niftynitesh",
+    ],
+    description:
+      "Nifty Nitesh offers comprehensive share market and stock trading courses in Delhi. Learn from industry experts about technical analysis, fundamental analysis, and demand and supply trading strategies.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Rajapuri, Uttam Nagar",
+      addressLocality: "New Delhi",
+      postalCode: "110059",
+      addressCountry: "IN",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "128",
+    },
+    offers: {
+      "@type": "Online Classes",
+      url: "https://niftynitesh.com/online-classes",
+      availability: "https://schema.org/InStock",
+    },
+    course: [
+      {
+        "@type": "Course",
+        name: "Basic Share Market Course",
+        description:
+          "An introductory course to understand the basics of share market trading.",
+        provider: {
+          "@type": "Organization",
+          name: "Nifty Nitesh",
+          sameAs: "https://niftynitesh.com",
+        },
+      },
+      {
+        "@type": "Course",
+        name: "Advanced Share Market Course",
+        description:
+          "An advanced course covering technical analysis, fundamental analysis, and trading strategies.",
+        provider: {
+          "@type": "Organization",
+          name: "Nifty Nitesh",
+          sameAs: "https://niftynitesh.com",
+        },
+      },
+    ],
+  },
 };
 
 export const viewport = {
@@ -84,12 +154,6 @@ export default function RootLayout({ children }) {
           <Analytics />
           <Footer />
         </ThemeProvider>
-        <Head>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-          />
-        </Head>
       </body>
     </html>
   );
