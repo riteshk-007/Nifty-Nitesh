@@ -43,6 +43,7 @@ const Online = () => {
         description={
           "This online course covers everything about analyzing stocks using charts and numbers. You'll learn how different industries relate, how to decide how much to invest, and ways to manage risks. We'll delve into topics like setting prices, why people buy and sell stocks, reading detailed charts, smart strategies for daily trading, watching live prices, spotting market trends, and more. It's tailored for those aiming to build a career in the stock market."
         }
+        disabled={false}
       />
       <h1 className="text-3xl font-bold text-center mt-10 mb-5 dark:text-green-500 text-green-500">
         What Will You Learn{" "}
