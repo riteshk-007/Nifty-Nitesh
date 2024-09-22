@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
-import { FaAngleDown } from "react-icons/fa";
+import { FaAngleDown, FaUser } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
 import Link from "next/link";
 import { ModeToggle } from "./Mode";
@@ -68,7 +68,7 @@ const Navbar = () => {
                 />
               ))}
           </Link>
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <div className="flex md:order-2 space-x-2 md:space-x-0 rtl:space-x-reverse">
             <div className="flex items-center justify-center">
               <a
                 href="https://wa.me/+917827433875?text=I'm%20interested%20in%20your%20classes"
@@ -103,9 +103,15 @@ const Navbar = () => {
                 />
               </a>
             </div>
-            <div className="mx-2">
+            <div>
               <ModeToggle />
             </div>
+            <Link
+              href={"/authentication"}
+              className=" flex items-center justify-center p-2 rounded-full bg-transparent  border-2 mx-2"
+            >
+              <FaUser className="dark:text-green-400 text-black" />
+            </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
@@ -123,7 +129,7 @@ const Navbar = () => {
               isOpen ? "block" : "hidden"
             } items-center justify-between  w-full md:flex md:w-auto md:order-1 bg-gray-50 dark:bg-gray-800 md:bg-white md:dark:bg-black`}
           >
-            <ul className="flex flex-col items-start p-4 md:p-0 mt-4 font-medium border border-gray-100  rounded-lg bg-gray-50  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black dark:border-gray-700">
+            <ul className="flex flex-col items-start p-4 md:p-0 mt-4 font-medium border border-gray-100  rounded-lg bg-gray-50  lg:space-x-8 md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black dark:border-gray-700">
               <li>
                 <Link
                   href="/"
