@@ -43,6 +43,7 @@ const Offline = () => {
         description={
           "This course covers all about understanding stocks through charts and numbers. We'll look at how different industries are connected, how to decide how much to invest, and ways to stay safe with your money. You'll learn about things like how prices are set, why people buy and sell stocks, reading detailed charts, smart strategies for daily trading, watching live prices, spotting market trends, and more. It's perfect for those aiming to start a career in the stock market."
         }
+        disabled={true}
       />
       <h1 className="text-3xl font-bold text-center mt-10 mb-5 dark:text-green-500 text-green-500">
         What Will You Learn{" "}

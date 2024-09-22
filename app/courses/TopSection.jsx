@@ -17,6 +17,7 @@ const Top = ({
   message,
   description,
   area,
+  disabled,
 }) => {
   return (
     <>
@@ -87,11 +88,21 @@ const Top = ({
             <hr className="w-full bg-gray-700 dark:bg-gray-300" />
           </span>
           <span className="w-full flex items-center justify-center px-1 my-2">
-            <Button variant="success" className="text-white font-bold shadow">
+            <Button
+              disabled={disabled}
+              variant="success"
+              className={`${
+                disabled ? "cursor-not-allowed" : "text-white font-bold shadow"
+              }`}
+            >
               <a
-                href={`https://wa.me/+917827433875?text=${message}`}
+                href={
+                  disabled ? "#" : `https://wa.me/+917827433875?text=${message}`
+                }
                 target="_blank"
-                className="text-white font-bold"
+                className={`${
+                  disabled ? "pointer-events-none" : "text-white font-bold"
+                }`}
                 rel="noreferrer"
               >
                 Join Now
