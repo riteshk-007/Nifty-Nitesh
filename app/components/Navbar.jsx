@@ -175,7 +175,7 @@ const Navbar = () => {
                             Online Courses
                           </Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link
                             href="/offline-classes"
                             onClick={() => setIsOpen(false)}
@@ -183,7 +183,7 @@ const Navbar = () => {
                           >
                             Offline Courses
                           </Link>
-                        </li>
+                        </li> */}
                       </ul>
                       <div className="py-1">
                         <Link

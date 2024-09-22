@@ -34,9 +34,9 @@ const Offline = () => {
         area={"Delhi"}
         img={"/course/img2.png"}
         title={"Offline Classes in Delhi"}
-        price={"2999"}
-        discount={"6999"}
-        duration={"3-4 Months"}
+        price={"3,999"}
+        discount={"8,999"}
+        duration={"3 Months"}
         time={"Monday to Friday"}
         lang={"Hindi, English"}
         message={encodedMessage}

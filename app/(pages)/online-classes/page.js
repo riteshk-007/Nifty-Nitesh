@@ -34,9 +34,9 @@ const Online = () => {
         area={"India"}
         img={"/course/img3.png"}
         title={"Online Classes in India"}
-        price={"2666"}
-        discount={"6500"}
-        duration={"3-4 Months"}
+        price={"2,999"}
+        discount={"7,500"}
+        duration={"3 Months"}
         time={"Monday to Friday"}
         lang={"Hindi, English"}
         message={encodedMessage}
