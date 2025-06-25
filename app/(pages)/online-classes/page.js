@@ -328,7 +328,7 @@ const OnlineCourses = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-              What You'll{" "}
+              What You&apos;ll{" "}
               <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
                 Learn
               </span>
@@ -679,7 +679,7 @@ const OnlineCourses = () => {
                       </div>
                     </div>
                     <p className="text-gray-300 italic">
-                      "{testimonial.feedback}"
+                      &quot;{testimonial.feedback}&quot;
                     </p>
                   </CardContent>
                 </Card>
@@ -702,7 +702,7 @@ const OnlineCourses = () => {
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
               Pricing &{" "}
               <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
-                What's Included
+                What&apos;s Included
               </span>
             </h2>
           </motion.div>
