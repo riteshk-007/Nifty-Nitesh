@@ -6,13 +6,11 @@ import {
   Users,
   GraduationCap,
   TrendingUp,
-  Play,
   Clock,
-  BookOpen,
-  Award,
-  Headphones,
+  CheckCircle,
   Target,
-  Zap,
+  Shield,
+  Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -135,7 +133,7 @@ const ModernStats = () => {
       iconBg: "bg-emerald-500/20",
     },
     {
-      icon: Play,
+      icon: Target,
       title: "Premium Video Library",
       description:
         "300+ step-by-step video tutorials with practical examples and proven trading strategies",
@@ -144,7 +142,7 @@ const ModernStats = () => {
       iconBg: "bg-green-500/20",
     },
     {
-      icon: BookOpen,
+      icon: CheckCircle,
       title: "Complete Study Materials",
       description:
         "Comprehensive guides, charts, templates and trading resources for all skill levels",
@@ -153,7 +151,7 @@ const ModernStats = () => {
       iconBg: "bg-emerald-600/20",
     },
     {
-      icon: Headphones,
+      icon: Shield,
       title: "Personal Mentorship",
       description:
         "Direct access to expert mentors with 1-on-1 guidance and doubt clearing sessions",
@@ -203,42 +201,19 @@ const ModernStats = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-6 py-2 mb-6"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Target className="w-4 h-4 text-emerald-400" />
-            <span className="text-emerald-400 font-semibold text-sm uppercase tracking-wider">
-              Our Achievements
-            </span>
-          </motion.div>
-
-          <motion.h2
-            className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-emerald-200 to-emerald-400 bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            Why Choose{" "}
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+            Our{" "}
             <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
-              Our Platform
+              Impact
             </span>
-          </motion.h2>
-
-          <motion.p
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            Join thousands of successful traders who trust our expertise and
-            proven teaching methods
-          </motion.p>
+          </h2>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
+            Join thousands of successful traders who have transformed their
+            financial future with our proven methods and expert guidance.
+          </p>
         </motion.div>
 
-        {/* Stats Section */}
+        {/* Stats Grid */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
           variants={containerVariants}
@@ -254,38 +229,33 @@ const ModernStats = () => {
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               <Card
-                className={`bg-gradient-to-br from-gray-900/50 to-black/50 border-2 ${stat.borderColor} backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500`}
+                className={`bg-gradient-to-br ${stat.bgColor} border ${stat.borderColor} backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500 text-center`}
               >
-                <CardContent className="p-8 text-center">
+                <CardContent className="p-8">
                   <motion.div
-                    className={`w-20 h-20 bg-gradient-to-br ${stat.bgColor} rounded-2xl flex items-center justify-center mx-auto mb-6 border ${stat.borderColor}`}
+                    className="w-16 h-16 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/20"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <stat.icon className={`w-10 h-10 ${stat.color}`} />
+                    <stat.icon className={`w-8 h-8 ${stat.color}`} />
                   </motion.div>
 
-                  <div className="mb-4">
-                    <div className="flex items-center justify-center">
-                      <motion.span
-                        className={`text-4xl font-bold ${stat.color}`}
-                        key={stat.number}
-                        initial={{ scale: 0.5, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {stat.number}
-                      </motion.span>
-                      <span className={`text-2xl font-bold ${stat.color} ml-1`}>
-                        {stat.suffix}
-                      </span>
-                    </div>
-                  </div>
+                  <motion.div
+                    className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}
+                    animate={isVisible ? { scale: [1, 1.1, 1] } : {}}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.1,
+                    }}
+                  >
+                    {stat.number}
+                    {stat.suffix}
+                  </motion.div>
 
                   <h3 className="text-xl font-bold text-white mb-2">
                     {stat.label}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     {stat.description}
                   </p>
                 </CardContent>
@@ -295,6 +265,25 @@ const ModernStats = () => {
         </motion.div>
 
         {/* Features Section */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            What Makes Us{" "}
+            <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
+              Different
+            </span>
+          </h3>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
+            Experience comprehensive trading education with hands-on learning
+            and continuous support from industry experts.
+          </p>
+        </motion.div>
+
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
           variants={containerVariants}
@@ -306,26 +295,26 @@ const ModernStats = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -5 }}
+              whileHover={{ y: -5, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               <Card
-                className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-500`}
+                className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500`}
               >
                 <CardContent className="p-8">
-                  <div className="flex items-start space-x-6">
+                  <div className="flex items-start space-x-4">
                     <motion.div
-                      className={`w-16 h-16 ${feature.iconBg} rounded-2xl flex items-center justify-center flex-shrink-0 border border-emerald-500/20`}
+                      className={`w-12 h-12 ${feature.iconBg} rounded-xl flex items-center justify-center border border-emerald-500/20 flex-shrink-0`}
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6 }}
                     >
-                      <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                      <feature.icon className={`w-6 h-6 ${feature.color}`} />
                     </motion.div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-4">
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-3">
                         {feature.title}
-                      </h3>
-                      <p className="text-gray-300 leading-relaxed text-lg">
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
@@ -336,7 +325,7 @@ const ModernStats = () => {
           ))}
         </motion.div>
 
-        {/* Call to Action */}
+        {/* CTA Section */}
         <motion.div
           className="text-center bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-3xl p-12 border border-emerald-500/20 backdrop-blur-sm"
           initial={{ opacity: 0, y: 30 }}
@@ -344,27 +333,19 @@ const ModernStats = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 mb-6"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-          >
-            <Zap className="w-6 h-6 text-emerald-400" />
-            <span className="text-2xl">🚀</span>
-          </motion.div>
-
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Join Our Success Story?
-          </h3>
-          <p className="text-gray-300 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
-            Start your trading journey today with expert guidance and proven
-            strategies that actually work
+          <h4 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Ready to Transform Your Trading?
+          </h4>
+          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+            Join our comprehensive trading programs and start your journey
+            towards financial independence with expert guidance and proven
+            strategies.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
-                className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-6 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+                className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
                 asChild
               >
                 <a
@@ -373,52 +354,11 @@ const ModernStats = () => {
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3"
                 >
-                  <Users className="w-5 h-5" />
-                  <span>Join Our Community</span>
-                </a>
-              </Button>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant="outline"
-                className="bg-transparent border-2 border-emerald-500 text-emerald-400 font-bold px-8 py-6 rounded-full hover:bg-emerald-500/10 transition-all duration-300"
-                asChild
-              >
-                <a
-                  href="/online-classes"
-                  className="flex items-center space-x-3"
-                >
-                  <GraduationCap className="w-5 h-5" />
-                  <span>Explore Courses</span>
+                  <span>Start Learning Today</span>
                 </a>
               </Button>
             </motion.div>
           </div>
-
-          {/* Trust Indicators */}
-          <motion.div
-            className="flex flex-wrap justify-center items-center gap-6 mt-8 pt-8 border-t border-emerald-500/20"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {[
-              "✅ No Hidden Fees",
-              "🔒 Secure Learning",
-              "📱 Mobile Friendly",
-              "🎯 Proven Results",
-            ].map((item, index) => (
-              <Badge
-                key={index}
-                variant="outline"
-                className="border-emerald-500/30 text-emerald-400 px-4 py-2"
-              >
-                {item}
-              </Badge>
-            ))}
-          </motion.div>
         </motion.div>
       </div>
     </div>

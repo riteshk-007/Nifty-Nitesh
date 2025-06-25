@@ -9,13 +9,13 @@ const Hero = () => {
     <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Grid Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f0a] via-[#003d2b] to-[#0a0f0a]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f0a] via-[#032d20] to-[#0a0f0a]" />
         <motion.div
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px)
+              linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
             `,
             backgroundSize: "60px 60px",
           }}
