@@ -167,14 +167,15 @@ const AboutUs = () => {
                 </p>
                 <p className="text-lg leading-relaxed">
                   From humble beginnings to becoming a trusted name in trading
-                  education, we've consistently focused on delivering value
+                  education, we&apos;ve consistently focused on delivering value
                   through comprehensive courses, personalized mentorship, and a
                   community-driven approach to learning.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  Today, we're proud to have transformed the careers of 500+
-                  traders across India, with our students consistently achieving
-                  profitable results and building sustainable trading careers.
+                  Today, we&apos;re proud to have transformed the careers of
+                  500+ traders across India, with our students consistently
+                  achieving profitable results and building sustainable trading
+                  careers.
                 </p>
               </div>
             </div>
@@ -235,10 +236,10 @@ const AboutUs = () => {
                 Our Vision
               </h3>
               <p className="text-text-secondary text-lg leading-relaxed">
-                To become India's most trusted and comprehensive online trading
-                education platform, fostering a new generation of confident,
-                knowledgeable, and successful traders who contribute to the
-                growth of the financial markets ecosystem.
+                To become India&apos;s most trusted and comprehensive online
+                trading education platform, fostering a new generation of
+                confident, knowledgeable, and successful traders who contribute
+                to the growth of the financial markets ecosystem.
               </p>
             </div>
           </div>

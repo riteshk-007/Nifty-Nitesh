@@ -94,7 +94,8 @@ const ContactForm = () => {
             Message Sent Successfully!
           </h3>
           <p className="text-text-secondary mb-6">
-            Thank you for reaching out. We'll get back to you within 24 hours.
+            Thank you for reaching out. We&apos;ll get back to you within 24
+            hours.
           </p>
           <button onClick={() => setShowSuccess(false)} className="btn-primary">
             Send Another Message
@@ -143,8 +144,8 @@ const ContactForm = () => {
                     Send us a Message
                   </h2>
                   <p className="text-text-secondary">
-                    Fill out the form below and we'll get back to you with a
-                    personalized response.
+                    Fill out the form below and we&apos;ll get back to you with
+                    a personalized response.
                   </p>
                 </div>
 

@@ -62,7 +62,7 @@ const Hero = () => {
         >
           <HiStar className="text-accent w-4 h-4" />
           <span className="text-text-secondary text-sm font-medium">
-            India's Leading Trading Institute
+            India&apos;s Leading Trading Institute
           </span>
           <HiStar className="text-accent w-4 h-4" />
         </motion.div>

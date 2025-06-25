@@ -316,7 +316,7 @@ const About = () => {
               </h3>
 
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                Welcome to India's premier stock market institute. We offer
+                Welcome to India&apos;s premier stock market institute. We offer
                 comprehensive courses designed for sustainable growth, providing
                 deep knowledge of stock market trading with current strategies
                 and proven methodologies.
