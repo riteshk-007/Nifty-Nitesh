@@ -97,7 +97,11 @@ const Top = ({
             >
               <a
                 href={
-                  disabled ? "#" : `https://wa.me/+917827433875?text=${message}`
+                  disabled
+                    ? "#"
+                    : `mailto:niftynitesh000@gmail.com?subject=Course%20Interest&body=${encodeURIComponent(
+                        message
+                      )}`
                 }
                 target="_blank"
                 className={`${

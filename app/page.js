@@ -1,39 +1,62 @@
 import Link from "next/link";
 import About from "./components/About";
-import Cards from "./components/Cards";
 import FaqQuesAns from "./components/FaqQuesAns";
 import Hero from "./components/Hero";
 import Journey from "./components/Journey";
-import Location from "./components/Location";
-import Slider from "./components/Slider";
-import Works from "./components/Works";
+import ModernStats from "./components/ModernStats";
 import { HeroParallaxDemo } from "./components/Parallax";
 import { Suspense } from "react";
+import { Button } from "@/components/ui/button";
+import FeaturesShowcase from "./components/Slider";
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col bg-bg-primary min-h-screen">
+      {/* Hero Section */}
       <Hero />
-      <Works />
+
+      {/* Chart Analysis Parallax */}
       <Suspense>
         <HeroParallaxDemo />
       </Suspense>
+
+      {/* How It Works - Journey Section */}
       <Journey />
-      <Cards />
+
+      {/* Modern Stats Section */}
+      <ModernStats />
+
+      {/* About Section */}
       <About />
-      <FaqQuesAns numQuestions={5} />
-      <Link
-        href="/faq"
-        className="text-center text-green-500 font-bold text-lg mb-5 md:text-xl"
-      >
-        View All FAQ
-      </Link>
-      <Slider />
-      <div className="w-full items-center justify-center flex-col p-5">
-        <h1 className="text-2xl lg:text-4xl font-bold text-center text-gray-800 dark:text-gray-300 mb-5">
-          Our Location
-        </h1>
-        <Location />
+
+      {/* FAQ Section */}
+      <div className="w-full bg-bg-secondary py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
+              Frequently Asked <span className="gradient-text">Questions</span>
+            </h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto">
+              Get answers to common questions about our trading courses and
+              programs.
+            </p>
+          </div>
+
+          <FaqQuesAns numQuestions={5} />
+
+          <div className="text-center mt-8">
+            <Link href="/faq">
+              <Button variant="secondary" size="lg">
+                View All FAQ →
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Student Reviews */}
+      <div className="w-full py-16">
+        <FeaturesShowcase />
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
-import { Quicksand } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
 import { Analytics } from "@vercel/analytics/react";
-import DemoBtn from "./components/DemoBtn/DemoBtn";
 
-const inter = Quicksand({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata = {
   manifest: "/manifest.json",
@@ -107,7 +108,7 @@ export const metadata = {
     logo: "https://www.niftynitesh.com/favicon.ico",
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+91-7827433875",
+      email: "niftynitesh000@gmail.com",
       contactType: "Customer Service",
       areaServed: "IN",
       availableLanguage: ["en", "hi"],
@@ -166,18 +167,17 @@ export const metadata = {
 export const viewport = {
   themeColor: "#000000",
 };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system">
-          <Navbar />
-          <SocialLinks />
-          <DemoBtn />
-          {children}
-          <Analytics />
-          <Footer />
-        </ThemeProvider>
+        <Navbar />
+        <SocialLinks />
+
+        {children}
+        <Analytics />
+        <Footer />
       </body>
     </html>
   );

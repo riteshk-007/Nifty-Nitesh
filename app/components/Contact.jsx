@@ -1,11 +1,31 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
-import Location from "./Location";
+import { motion } from "framer-motion";
+import {
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaWhatsapp,
+  FaClock,
+  FaHeadset,
+  FaGlobe,
+  FaArrowRight,
+  FaCheckCircle,
+} from "react-icons/fa";
 
-const Contactform = () => {
+const ContactForm = () => {
   const [state, handleSubmit] = useForm("xpzvljeg");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState("");
+
+  const courses = [
+    "Beginner Trading Course",
+    "Advanced Trading Mastery",
+    "Premium Video Library",
+    "Personal Mentorship",
+    "Custom Training Program",
+  ];
 
   useEffect(() => {
     if (state.succeeded) {
@@ -16,201 +36,362 @@ const Contactform = () => {
     }
   }, [state.succeeded]);
 
+  const contactInfo = [
+    {
+      icon: FaEnvelope,
+      title: "Email Support",
+      info: "niftynitesh000@gmail.com",
+      description: "We'll respond within 24 hours",
+      action: "mailto:niftynitesh000@gmail.com",
+    },
+    {
+      icon: FaWhatsapp,
+      title: "WhatsApp Channel",
+      info: "Quick Updates",
+      description: "Join for trading updates and tips",
+      action: "https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V",
+    },
+    {
+      icon: FaGlobe,
+      title: "Online Platform",
+      info: "Learn from Anywhere",
+      description: "Comprehensive online trading education",
+      action: null,
+    },
+  ];
+
+  const responseInfo = [
+    {
+      icon: FaClock,
+      title: "Quick Response",
+      description:
+        "We respond to all inquiries within 2-4 hours during business days",
+    },
+    {
+      icon: FaHeadset,
+      title: "Expert Support",
+      description: "Get guidance from experienced trading professionals",
+    },
+    {
+      icon: FaCheckCircle,
+      title: "Personalized Consultation",
+      description: "Free consultation to understand your trading goals",
+    },
+  ];
+
   if (showSuccess) {
     return (
-      <div className="w-full mx-auto flex items-center justify-center p-2">
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-          <strong className="font-bold">Success!</strong>
-          <span className="block sm:inline">
-            Your message has been sent successfully.
-          </span>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-primary">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="glass-card p-12 text-center max-w-md mx-auto"
+        >
+          <div className="w-20 h-20 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <FaCheckCircle className="w-10 h-10 text-accent" />
+          </div>
+          <h3 className="text-2xl font-bold text-text-primary mb-4">
+            Message Sent Successfully!
+          </h3>
+          <p className="text-text-secondary mb-6">
+            Thank you for reaching out. We'll get back to you within 24 hours.
+          </p>
+          <button onClick={() => setShowSuccess(false)} className="btn-primary">
+            Send Another Message
+          </button>
+        </motion.div>
       </div>
     );
   }
+
   return (
-    <section>
-      <div
-        id="map"
-        className="relative h-[350px] overflow-hidden bg-cover bg-[50%] bg-no-repeat"
-      >
-        <Location />
-      </div>
-      <div className="container px-6 md:px-10">
-        <div className="block rounded-lg bg-[hsla(0,0%,100%,0.8)] dark:bg-black  px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]  md:py-16 md:px-12 -mt-[100px] backdrop-blur-[30px]  border-gray-300 dark:border-gray-800 border-2">
-          <div className="flex flex-wrap">
-            <div className="mb-12 w-full shrink-0 grow-0 basis-auto md:px-3 lg:mb-0 lg:w-5/12 lg:px-6">
-              <form onSubmit={handleSubmit}>
-                <div className="relative mb-6" data-te-input-wrapper-init="">
-                  <label
-                    className="pointer-events-none   mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
-                    htmlFor="exampleInput90"
-                  >
-                    Name
-                  </label>
-                  <input
-                    className="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "
-                    id="exampleInput90"
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    required
-                  />
+    <div className="min-h-screen bg-gradient-primary">
+      {/* Hero Section */}
+      <section className="section">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <p className="text-accent font-semibold mb-4 uppercase tracking-wider text-sm">
+              GET IN TOUCH
+            </p>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">
+              Start Your <span className="gradient-text">Trading Journey</span>{" "}
+              Today
+            </h1>
+            <p className="text-text-secondary text-xl max-w-3xl mx-auto text-balance">
+              Ready to transform your financial future? Connect with our expert
+              team and get personalized guidance for your trading education.
+            </p>
+          </motion.div>
 
-                  <ValidationError
-                    prefix="name"
-                    field="name"
-                    errors={state.errors}
-                  />
-                </div>
-                <div className="relative mb-6" data-te-input-wrapper-init="">
-                  <label
-                    className="pointer-events-none   mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
-                    htmlFor="exampleInput91"
-                  >
-                    Email address
-                  </label>
-                  <input
-                    className="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "
-                    id="exampleInput91"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    required
-                  />
-
-                  <ValidationError
-                    prefix="email"
-                    field="email"
-                    errors={state.errors}
-                  />
-                </div>
-                <div className="relative mb-6" data-te-input-wrapper-init="">
-                  <label
-                    htmlFor="exampleFormControlTextarea1"
-                    className="pointer-events-none   mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-800 dark:text-gray-300 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none "
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    className="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "
-                    id="exampleFormControlTextarea1"
-                    rows={3}
-                    name="message"
-                    placeholder="Message"
-                    required
-                  />
-
-                  <ValidationError
-                    prefix="message"
-                    field="message"
-                    errors={state.errors}
-                  />
+          {/* Main Contact Section */}
+          <div className="grid lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:col-span-2"
+            >
+              <div className="glass-card p-8">
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold text-text-primary mb-4">
+                    Send us a Message
+                  </h2>
+                  <p className="text-text-secondary">
+                    Fill out the form below and we'll get back to you with a
+                    personalized response.
+                  </p>
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-green-500 dark:bg-green-600 text-white  py-3 rounded-md hover:bg-green-500 transition-all duration-200 ease-linear focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-neutral-100 focus:ring-opacity-50"
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-text-primary text-sm font-semibold mb-3">
+                        Full Name *
+                      </label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                      />
+                      <ValidationError
+                        prefix="Name"
+                        field="name"
+                        errors={state.errors}
+                        className="text-red-400 text-sm mt-1"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-text-primary text-sm font-semibold mb-3">
+                        Email Address *
+                      </label>
+                      <input
+                        className="form-input"
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        required
+                      />
+                      <ValidationError
+                        prefix="Email"
+                        field="email"
+                        errors={state.errors}
+                        className="text-red-400 text-sm mt-1"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-text-primary text-sm font-semibold mb-3">
+                      Course Interest
+                    </label>
+                    <select
+                      className="form-input"
+                      name="course"
+                      value={selectedCourse}
+                      onChange={(e) => setSelectedCourse(e.target.value)}
+                    >
+                      <option value="">Select a course</option>
+                      {courses.map((course, index) => (
+                        <option key={index} value={course}>
+                          {course}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-text-primary text-sm font-semibold mb-3">
+                      Message *
+                    </label>
+                    <textarea
+                      className="form-input resize-none"
+                      rows={6}
+                      name="message"
+                      placeholder="Tell us about your trading experience, goals, and how we can help you..."
+                      required
+                    />
+                    <ValidationError
+                      prefix="Message"
+                      field="message"
+                      errors={state.errors}
+                      className="text-red-400 text-sm mt-1"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={state.submitting}
+                    className="btn-primary w-full md:w-auto px-8 py-4 flex items-center justify-center space-x-2"
+                  >
+                    {state.submitting ? (
+                      <>
+                        <div className="spinner"></div>
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <FaArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+
+            {/* Contact Information */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="space-y-6"
+            >
+              <div className="glass-card p-6">
+                <h3 className="text-xl font-bold text-text-primary mb-6">
+                  Contact Information
+                </h3>
+
+                <div className="space-y-4">
+                  {contactInfo.map((contact, index) => (
+                    <motion.div
+                      key={index}
+                      className="group cursor-pointer"
+                      whileHover={{ scale: 1.02 }}
+                      onClick={() =>
+                        contact.action && window.open(contact.action, "_blank")
+                      }
+                    >
+                      <div className="flex items-start space-x-4 p-4 rounded-xl border border-border-secondary group-hover:border-accent/50 transition-all">
+                        <div className="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors">
+                          <contact.icon className="w-4 h-4 text-accent" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-text-primary font-semibold text-sm">
+                            {contact.title}
+                          </h4>
+                          <p className="text-accent font-medium text-sm">
+                            {contact.info}
+                          </p>
+                          <p className="text-text-muted text-xs">
+                            {contact.description}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Response Time Information */}
+              <div className="glass-card p-6">
+                <h3 className="text-xl font-bold text-text-primary mb-6">
+                  What to Expect
+                </h3>
+
+                <div className="space-y-4">
+                  {responseInfo.map((info, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <div className="w-8 h-8 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <info.icon className="w-3 h-3 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="text-text-primary font-semibold text-sm mb-1">
+                          {info.title}
+                        </h4>
+                        <p className="text-text-secondary text-xs leading-relaxed">
+                          {info.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quick Action Button */}
+              <div className="glass-card p-6">
+                <h3 className="text-lg font-bold text-text-primary mb-4">
+                  Need Immediate Help?
+                </h3>
+                <p className="text-text-secondary text-sm mb-4">
+                  Get instant support via WhatsApp for quick queries.
+                </p>
+                <a
+                  href="https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary w-full justify-center"
                 >
-                  send message
-                </button>
-              </form>
-            </div>
-            <div className="w-full shrink-0 grow-0 basis-auto lg:w-7/12">
-              <div className="flex flex-wrap">
-                <div className="mb-12 w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:w-full lg:px-6 xl:w-6/12">
-                  <div className="flex items-start">
-                    <div className="shrink-0">
-                      <div className="inline-block rounded-md bg-green-500 p-4 text-primary">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="h-6 w-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M14.25 9.75v-4.5m0 4.5h4.5m-4.5 0l6-6m-3 18c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="ml-6 grow text-neutral-800 dark:text-gray-300">
-                      <p className="mb-2 font-bold ">Technical support</p>
-                      <p className="text-sm ">niftynitesh000@gmail.com</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="mb-12 w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:w-full lg:px-6 xl:w-6/12">
-                  <div className="flex items-start">
-                    <div className="srink-0">
-                      <div className="inline-block rounded-md bg-green-500 p-4 text-primary">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="w-7 h-7"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="ml-6 grow text-neutral-800 dark:text-gray-300">
-                      <p className="mb-2 font-bold ">Address</p>
-                      <p className="text-sm text-neutral-800 dark:text-gray-300">
-                        IRDCS
-                        <br />
-                        G2688A first floor vishwas park near aakash healthcare
-                        110059
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                  <FaWhatsapp className="w-4 h-4" />
+                  <span>WhatsApp Now</span>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-                <div className="w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:w-full lg:px-6 xl:mb-12 xl:w-6/12">
-                  <div className="align-start flex">
-                    <div className="shrink-0">
-                      <div className="inline-block rounded-md bg-green-500 p-4 text-primary">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="ml-6 grow text-neutral-800 dark:text-gray-300">
-                      <p className="mb-2 font-bold ">Mobile</p>
-                      <p className="text-neutral-800 dark:text-gray-300">
-                        {" "}
-                        +91 7827433875
-                      </p>
-                    </div>
-                  </div>
+      {/* Office Hours Section */}
+      <section className="section-sm bg-bg-secondary">
+        <div className="container">
+          <div className="glass-card p-8 text-center">
+            <h3 className="text-2xl font-bold text-text-primary mb-6">
+              Office Hours & <span className="gradient-text">Support</span>
+            </h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div>
+                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FaClock className="w-6 h-6 text-accent" />
                 </div>
+                <h4 className="text-text-primary font-semibold mb-2">
+                  Support Hours
+                </h4>
+                <p className="text-text-secondary text-sm">
+                  Monday - Friday
+                  <br />
+                  9:00 AM - 6:00 PM IST
+                </p>
+              </div>
+              <div>
+                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FaWhatsapp className="w-6 h-6 text-accent" />
+                </div>
+                <h4 className="text-text-primary font-semibold mb-2">
+                  WhatsApp Support
+                </h4>
+                <p className="text-text-secondary text-sm">
+                  Available 24/7
+                  <br />
+                  For urgent queries
+                </p>
+              </div>
+              <div>
+                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FaEnvelope className="w-6 h-6 text-accent" />
+                </div>
+                <h4 className="text-text-primary font-semibold mb-2">
+                  Email Response
+                </h4>
+                <p className="text-text-secondary text-sm">
+                  Within 24 hours
+                  <br />
+                  Detailed responses
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
-export default Contactform;
+
+export default ContactForm;

@@ -4,49 +4,78 @@ import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
 
 const SocialLinks = () => {
+  const socialLinks = [
+    {
+      href: "https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V",
+      icon: <FaWhatsapp size={20} />,
+      label: "WhatsApp",
+      color: "hover:bg-green-500 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)]",
+    },
+    {
+      href: "https://youtube.com/@Nifty-Nitesh?si=f7EmRh97E2KjE5k6",
+      icon: <FaYoutube size={20} />,
+      label: "YouTube",
+      color: "hover:bg-red-600 hover:shadow-[0_0_20px_rgba(220,38,38,0.6)]",
+    },
+    {
+      href: "https://www.instagram.com/nifty_nitesh?igsh=ZzhlbmIwdnc5czBl",
+      icon: <FaInstagram size={20} />,
+      label: "Instagram",
+      color: "hover:bg-pink-600 hover:shadow-[0_0_20px_rgba(219,39,119,0.6)]",
+    },
+    {
+      href: "https://x.com/Niftyniteshk?t=Mak7r-pNH-Z4vcaravqXKw&s=08",
+      icon: <FaXTwitter size={20} />,
+      label: "Twitter",
+      color: "hover:bg-black hover:shadow-[0_0_20px_rgba(0,0,0,0.6)]",
+    },
+    {
+      href: "mailto:niftynitesh000@gmail.com?subject=Hello Nitesh!&body=I am interested in your work.",
+      icon: <IoIosMail size={20} />,
+      label: "Email",
+      color: "hover:bg-blue-600 hover:shadow-[0_0_20px_rgba(37,99,235,0.6)]",
+    },
+  ];
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="fixed right-0 top-1/2 transform -translate-y-1/2 space-y-3 bg-gray-800 p-2 rounded-l-xl z-50 overflow-hidden">
-        <a
-          href="https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-green-400 hover:text-gray-100 transition-colors duration-300 ease-in-out"
-        >
-          <FaWhatsapp size={16} />
-        </a>
-        <a
-          href="https://youtube.com/@Nifty-Nitesh?si=f7EmRh97E2KjE5k6"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-red-700 hover:text-gray-100 transition-colors duration-300 ease-in-out"
-        >
-          <FaYoutube size={16} />
-        </a>
-        <a
-          href="https://www.instagram.com/nifty_nitesh?igsh=ZzhlbmIwdnc5czBl"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-pink-700 hover:text-gray-100 transition-colors duration-300 ease-in-out"
-        >
-          <FaInstagram size={16} />
-        </a>
-        <a
-          href=" https://x.com/Niftyniteshk?t=Mak7r-pNH-Z4vcaravqXKw&s=08"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-black hover:text-gray-100 transition-colors duration-300 ease-in-out"
-        >
-          <FaXTwitter size={16} />
-        </a>
-        <a
-          href="mailto:niftynitesh000@gmail.com?subject=Hello Nitesh!&body=I am interested in your work."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block border-2 border-gray-400 text-white rounded-full p-1 hover:bg-red-600 hover:text-gray-100 transition-colors duration-300 ease-in-out"
-        >
-          <IoIosMail size={16} />
-        </a>
+      <div className="fixed right-4 top-1/2 transform -translate-y-1/2 z-50">
+        <div className="glass-effect rounded-2xl p-3 border border-accent/30 shadow-glow">
+          <div className="space-y-3">
+            {socialLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`
+                  group flex items-center justify-center w-12 h-12 
+                  bg-background-card/80 backdrop-blur-sm 
+                  rounded-xl border border-accent/20 
+                  text-text-primary transition-all duration-300 
+                  ${link.color}
+                  hover:text-white hover:scale-110 hover:border-transparent
+                  active:scale-95
+                `}
+                aria-label={link.label}
+              >
+                <div className="group-hover:animate-pulse">{link.icon}</div>
+              </a>
+            ))}
+          </div>
+
+          {/* Pulse indicator */}
+          <div className="mt-4 flex justify-center">
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+          </div>
+
+          {/* Connect label */}
+          <div className="mt-2 text-center">
+            <span className="text-xs text-text-secondary font-medium">
+              Connect
+            </span>
+          </div>
+        </div>
       </div>
     </Suspense>
   );
