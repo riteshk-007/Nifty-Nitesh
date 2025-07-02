@@ -269,153 +269,117 @@ const getCategoryBadgeStyle = (category) => {
 
 export default FaqQuesAns;
 
-// Enhanced FAQ questions with categories
 const questions = [
-  // General Questions
+  // 🔹 General Questions
   {
     category: "general",
-    trigger: "What makes Nifty Nitesh different from other trading institutes?",
+    trigger:
+      "How is Nifty Nitesh different from other trading courses in India?",
     content:
-      "We focus on advanced demand-supply analysis and institutional footprints rather than traditional support-resistance methods. Our approach helps students understand smart money concepts and trade alongside institutional players for consistent profitability.",
+      "We’re a trader-led education platform that focuses on demand-supply and institutional trading — not indicators or retail noise. Our teaching is based on how smart money moves the market, using clear logic and real price action concepts.",
     additionalInfo:
-      "Our students learn to identify market moves before they become obvious to retail traders.",
+      "Built by a full-time trader, not a marketing company or generic institute.",
   },
   {
     category: "general",
-    trigger: "What trading approach do you teach?",
+    trigger: "What is the main trading strategy you teach?",
     content:
-      "We specialize in demand-supply trading methodology, focusing on institutional footprints and smart money concepts. This approach helps identify high-probability trading opportunities by understanding where big institutions are positioning themselves.",
+      "We specialize in institutional demand-supply trading. This means identifying where big players (smart money) are active, and entering trades based on risk-reward, liquidity zones, and market structure — not news or lagging indicators.",
     additionalInfo:
-      "This methodology works across all timeframes and market conditions.",
+      "Works across stocks, indices, forex, and crypto — on all timeframes.",
   },
   {
     category: "general",
-    trigger: "Do you provide live market analysis?",
+    trigger: "Do you provide live market analysis sessions?",
     content:
-      "Yes, we provide live market analysis during trading hours where we explain real-time market movements using our demand-supply concepts. Students can see the practical application of our teaching in live market conditions.",
+      "Yes. We conduct regular live sessions where we break down real-time price action using demand-supply and institutional concepts. This helps you see how theory applies in the live market.",
   },
   {
     category: "general",
-    trigger: "How accurate are your market predictions?",
+    trigger: "How accurate is the method you teach?",
     content:
-      "Through our demand-supply analysis and institutional footprint tracking, we maintain a high success rate in identifying key market turning points. While no method is 100% accurate, our approach significantly improves probability of successful trades.",
+      "While no trading method is 100% accurate, our approach focuses on improving your decision-making and trade planning. By understanding institutional footprints, most students see improvement in their win-rate and confidence over time.",
+    additionalInfo:
+      "Our focus is on consistent setups, risk control, and reading market context.",
+  },
+  {
+    category: "general",
+    trigger: "Are you SEBI registered?",
+    content:
+      "We are not SEBI-registered because we do not offer investment advice or portfolio management. We are strictly an educational platform. The trainer is NISM certified, and our content is built purely for self-learning and concept-building.",
   },
 
-  // Course Related Questions
+  // 🔸 Course Related Questions
   {
     category: "course",
-    trigger: "What courses do you offer?",
+    trigger: "What trading courses are available on this platform?",
     content:
-      "We offer Beginner Trading Course (2 months), Advanced Trading Mastery (3 months), and Premium Video Library with lifetime access. Each course is designed to build upon previous knowledge and includes live sessions, recorded materials, and ongoing support.",
+      "We offer structured trading education for different levels — from beginner to advanced. All programs include demand-supply concepts, price action, smart money logic, and live market examples. You'll also get access to a private trading community.",
     additionalInfo:
-      "All courses include lifetime community access and regular market updates.",
+      "Our goal is to make you an independent trader — not signal-dependent.",
   },
   {
     category: "course",
-    trigger: "How long does it take to become profitable?",
+    trigger: "How long does it take to become consistent in trading?",
     content:
-      "While individual results vary, most of our dedicated students start seeing consistent results within 3-6 months of completing our courses. Success depends on your commitment to learning, practice, and following our risk management guidelines.",
+      "Most serious learners start building consistency within 3 to 6 months, depending on their practice, learning speed, and risk management. We don’t promise results, but we do promise real guidance.",
+  },
+  {
+    category: "course",
+    trigger: "Do I get lifetime access to course materials?",
+    content:
+      "Yes. Once you’re enrolled, you get lifetime access to all your course content, market updates, and the learning community. You can revisit any topic at any time.",
+  },
+  {
+    category: "course",
+    trigger: "Is this suitable for complete beginners?",
+    content:
+      "Yes. Our foundation-level course is built specifically for beginners who want to understand how markets really work — from the ground up. No prior experience is needed.",
     additionalInfo:
-      "We provide ongoing mentorship to ensure you stay on track even after course completion.",
+      "If you're already experienced, you can directly join the advanced program after a quick assessment.",
   },
   {
     category: "course",
-    trigger: "Do you provide lifetime support?",
+    trigger: "Can I learn if I’m working a full-time job?",
     content:
-      "Yes, all our course students get lifetime access to our community, regular market updates, and ongoing support. We believe in building long-term relationships with our students and supporting their entire trading journey.",
+      "Absolutely. Sessions are scheduled in the evening or weekends, and recordings are always available. Our course structure is designed for working professionals to learn at their own pace.",
   },
   {
     category: "course",
-    trigger: "Can beginners join your advanced courses?",
+    trigger: "Do you cover options trading as well?",
     content:
-      "We recommend starting with our Beginner Trading Course to build a strong foundation. However, if you have prior trading experience, you can join our Advanced Trading Mastery course after a brief assessment call.",
-    additionalInfo:
-      "Our team will guide you to the most suitable course based on your current knowledge level.",
-  },
-  {
-    category: "course",
-    trigger: "Are your courses suitable for working professionals?",
-    content:
-      "Absolutely! Our courses are designed for working professionals with flexible timings. We provide recorded sessions, weekend live classes, and our Premium Video Library can be accessed anytime. You can learn at your own pace.",
+      "Yes. Our advanced course includes options buying, selling, spreads, and risk-managed strategies — all tied back to demand-supply and market structure. You’ll learn to trade options with logic, not just greeks.",
   },
 
-  // Technical Support
+  // ⚙️ Technical Support
   {
     category: "technical",
     trigger: "What platform do you use for online classes?",
     content:
-      "We use professional video conferencing platforms with screen sharing capabilities for live sessions. All sessions are recorded and made available in your student portal. We also provide technical support for any platform-related issues.",
+      "We use Zoom or Google Meet for live sessions. All sessions are recorded and uploaded to your student portal. You can access them anytime from any device.",
   },
   {
     category: "technical",
-    trigger: "Do I need special software for trading?",
+    trigger: "Do I need any paid tools to learn your strategies?",
     content:
-      "We recommend using popular trading platforms like Zerodha Kite, Upstox, or Angel Broking. We provide guidance on platform selection and basic setup. No expensive specialized software is required to implement our strategies.",
+      "No paid software is required. We teach using free tools like TradingView for charting and popular brokers like Zerodha or Upstox. Everything is designed to be accessible for Indian traders.",
     additionalInfo:
-      "We also teach you how to use free charting tools effectively.",
+      "We'll guide you step-by-step on how to use these platforms effectively.",
   },
   {
     category: "technical",
-    trigger: "What if I face technical issues during live sessions?",
+    trigger: "What if I face technical issues during class?",
     content:
-      "We have dedicated technical support available during all live sessions. You can also access recorded sessions if you miss any live class due to technical issues. Our support team responds quickly to resolve any problems.",
+      "Our support team is always available during live sessions. And in case of any issue, you’ll get the full class recording. You can also ask your questions in the community afterward.",
   },
 
-  // Payment & Refunds
-  {
-    category: "payment",
-    trigger: "What are your course fees and payment options?",
-    content:
-      "Our Beginner Course is ₹1,999/month, Advanced Course is ₹2,999/month, and Premium Video Library is ₹7,999 one-time. We accept all major payment methods including UPI, net banking, debit/credit cards, and EMI options.",
-    additionalInfo:
-      "We offer significant discounts on early bird bookings and bundle packages.",
-  },
-  {
-    category: "payment",
-    trigger: "Do you offer EMI options?",
-    content:
-      "Yes, we provide flexible EMI options for all our courses. You can pay in installments through credit cards or through our partner financing options. Contact our support team for detailed EMI plans.",
-  },
-  {
-    category: "payment",
-    trigger: "What is your refund policy?",
-    content:
-      "We offer a 7-day money-back guarantee if you're not satisfied with the course content. Refunds are processed within 5-7 business days after approval. Terms and conditions apply for refund eligibility.",
-    additionalInfo:
-      "We're confident in our course quality and want you to be completely satisfied.",
-  },
-  {
-    category: "payment",
-    trigger: "Are there any hidden charges?",
-    content:
-      "No, there are no hidden charges. The course fee mentioned is all-inclusive and covers live sessions, recorded materials, community access, and ongoing support. We believe in transparent pricing.",
-  },
-
-  // Additional General Questions
+  // 💬 1-on-1 Sessions
   {
     category: "general",
-    trigger: "How does demand and supply work in the stock market?",
+    trigger: "Are 1-to-1 mentorship sessions available?",
     content:
-      "The stock market operates on basic demand-supply principles where price moves based on buying and selling pressure. When institutional demand exceeds supply, prices rise, and vice versa. We teach you to identify these zones before price movements occur.",
-  },
-  {
-    category: "general",
-    trigger: "Can you predict market movements before news events?",
-    content:
-      "Through our institutional footprint analysis, we can often identify potential market movements before they become public through news. Smart money moves first, and we teach you to recognize these early signals.",
+      "Yes. One-on-one sessions are **completely free** for students enrolled in our full course. If you're not enrolled and want a personal session, it’s available with a separate booking fee.",
     additionalInfo:
-      "News usually follows price action, not the other way around.",
-  },
-  {
-    category: "course",
-    trigger: "Do you teach options trading?",
-    content:
-      "Yes, our Advanced Trading Mastery course includes comprehensive options trading strategies using our demand-supply methodology. We cover options buying, selling, and advanced strategies like spreads and hedging.",
-  },
-  {
-    category: "general",
-    trigger: "What is your success rate?",
-    content:
-      "Our students maintain a 95% satisfaction rate, and most dedicated students achieve consistent profitability within 6 months. We track student progress and provide additional support to those who need it.",
+      "We prioritize students inside the course, but external 1-on-1 sessions are also available on request.",
   },
 ];

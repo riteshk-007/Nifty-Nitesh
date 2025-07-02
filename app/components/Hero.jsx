@@ -62,7 +62,7 @@ const Hero = () => {
         >
           <HiStar className="text-accent w-4 h-4" />
           <span className="text-text-secondary text-sm font-medium">
-            India&apos;s Leading Trading Institute
+            Trading की भाषा, Traders से सीखो!
           </span>
           <HiStar className="text-accent w-4 h-4" />
         </motion.div>
@@ -105,62 +105,21 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="max-w-4xl mx-auto text-lg md:text-xl text-text-secondary leading-relaxed mb-12"
         >
-          Learn professional trading strategies, technical analysis, and risk
-          management from industry experts. Join thousands of successful traders
-          who transformed their financial future with our proven methods.
+          Learn institutional footprint trading, global market dynamics, and
+          demand-supply precision from top industry experts. Join a network of
+          traders mastering high-level strategies to navigate and dominate
+          financial markets.
         </motion.p>
 
-        {/* Stats Row */}
-        <motion.div
+        {/* Tag Line */}
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-8 mb-12"
+          className="text-2xl sm:text-3xl lg:text-4xl capitalize mb-10 font-bold bg-gradient-to-r from-white via-yellow-500 to-white text-transparent bg-clip-text"
         >
-          <motion.div
-            className="flex items-center space-x-3 group"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="p-3 rounded-full bg-accent/20 group-hover:bg-accent/30 transition-colors">
-              <FaChartLine className="text-accent w-5 h-5" />
-            </div>
-            <div className="text-left">
-              <div className="text-text-primary font-bold text-lg">100+</div>
-              <div className="text-text-secondary text-sm">
-                Students Trained
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="flex items-center space-x-3 group"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="p-3 rounded-full bg-accent/20 group-hover:bg-accent/30 transition-colors">
-              <FaTrophy className="text-accent w-5 h-5" />
-            </div>
-            <div className="text-left">
-              <div className="text-text-primary font-bold text-lg">95%</div>
-              <div className="text-text-secondary text-sm">Success Rate</div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="flex items-center space-x-3 group"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="p-3 rounded-full bg-accent/20 group-hover:bg-accent/30 transition-colors">
-              <FaUsers className="text-accent w-5 h-5" />
-            </div>
-            <div className="text-left">
-              <div className="text-text-primary font-bold text-lg">500+</div>
-              <div className="text-text-secondary text-sm">Active Traders</div>
-            </div>
-          </motion.div>
-        </motion.div>
+          Waqt dega, sikh lega… toh bhi market jeet lega!
+        </motion.h2>
 
         {/* CTA Buttons */}
         <motion.div

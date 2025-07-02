@@ -29,7 +29,6 @@ const FeaturesShowcase = () => {
     success: 0,
     support: 24,
   });
-
   const [isVisible, setIsVisible] = useState(false);
 
   // Counter animation
@@ -52,17 +51,17 @@ const FeaturesShowcase = () => {
 
   const startCountAnimation = () => {
     const targets = {
-      traders: 2500,
-      volume: 95,
-      success: 98,
+      traders: 1500,
+      volume: 92,
+      success: 96,
       support: 24,
     };
 
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;
-
     let currentStep = 0;
+
     const timer = setInterval(() => {
       currentStep++;
       const progress = Math.min(currentStep / steps, 1);
@@ -87,62 +86,62 @@ const FeaturesShowcase = () => {
   const mainFeatures = [
     {
       icon: BarChart3,
-      title: "Advanced Analytics",
+      title: "Market Analytics",
       description:
-        "AI-powered market analysis with real-time insights and predictive algorithms",
+        "Actionable market insights to help you read price action with confidence and precision",
       color: "text-emerald-400",
       bgColor: "from-emerald-500/10 to-green-500/10",
       borderColor: "border-emerald-500/30",
       benefits: [
-        "Real-time Data",
-        "AI Predictions",
-        "Custom Alerts",
-        "Market Trends",
+        "Real-Time Data Analysis",
+        "Demand-Supply Zone Mapping",
+        "Custom Trade Alerts",
+        "Market Trend Analysis",
       ],
     },
     {
       icon: Users,
-      title: "Expert Mentorship",
+      title: "Trader Mentorship",
       description:
-        "Personal guidance from professional traders with 10+ years experience",
+        "Personal guidance from a full-time trader with 6+ years of real market experience",
       color: "text-green-400",
       bgColor: "from-green-500/10 to-emerald-500/10",
       borderColor: "border-green-500/30",
       benefits: [
         "1-on-1 Sessions",
-        "Group Calls",
-        "Strategy Review",
-        "Performance Analysis",
+        "Weekly Group Calls",
+        "Strategy Breakdowns",
+        "Trade Performance Reviews",
       ],
     },
     {
       icon: Candlestick,
-      title: "Trading Platform",
+      title: "Trading Dashboard",
       description:
-        "Professional-grade platform with advanced charting and execution tools",
+        "Clean, professional-grade interface for trade planning and strategy execution",
       color: "text-emerald-500",
       bgColor: "from-emerald-600/10 to-green-600/10",
       borderColor: "border-emerald-600/30",
       benefits: [
-        "Advanced Charts",
-        "Fast Execution",
-        "Risk Management",
-        "Mobile Access",
+        "Advanced Charting Tools",
+        "Fast Execution Workflow",
+        "Risk-Reward Calculator",
+        "Desktop-First Design",
       ],
     },
     {
       icon: MessageCircle,
-      title: "Signal Channel",
+      title: "Signal Room",
       description:
-        "Premium trading signals with 95%+ accuracy and instant notifications",
+        "Premium trade setups shared with clear logic and structured risk management",
       color: "text-green-500",
       bgColor: "from-green-600/10 to-emerald-600/10",
       borderColor: "border-green-600/30",
       benefits: [
-        "High Accuracy",
-        "Instant Alerts",
-        "Entry/Exit Points",
-        "Risk Levels",
+        "Precise Entry/Exit Zones",
+        "Pre-defined Risk Levels",
+        "Instant Trade Updates",
+        "Logic-Based Alerts",
       ],
     },
   ];
@@ -150,26 +149,29 @@ const FeaturesShowcase = () => {
   const additionalFeatures = [
     {
       icon: TrendingUp,
-      title: "Market Analysis",
-      description: "Daily market insights and trading opportunities",
+      title: "Daily Market Analysis",
+      description:
+        "Key zones, liquidity shifts, and trading opportunities breakdown",
       color: "text-emerald-400",
     },
     {
-      icon: Headphones,
-      title: "24/7 Support",
-      description: "Round-the-clock assistance and guidance",
-      color: "text-green-400",
-    },
-    {
       icon: Target,
-      title: "Goal Tracking",
-      description: "Monitor your progress and achievements",
+      title: "Goal Tracking System",
+      description:
+        "Track progress, refine your edge, and build trading confidence",
       color: "text-emerald-500",
     },
     {
+      icon: Headphones,
+      title: "24/7 Community Support",
+      description: "Round-the-clock guidance in our private trader community",
+      color: "text-green-400",
+    },
+    {
       icon: Shield,
-      title: "Risk Management",
-      description: "Advanced tools to protect your capital",
+      title: "Risk Management Tools",
+      description:
+        "Learn capital protection, risk levels, and logical trade management",
       color: "text-green-500",
     },
   ];
@@ -192,14 +194,14 @@ const FeaturesShowcase = () => {
     {
       number: counters.success,
       suffix: "%",
-      label: "Satisfaction",
+      label: "Satisfaction Rate",
       icon: Star,
       color: "text-emerald-500",
     },
     {
       number: counters.support,
       suffix: "/7",
-      label: "Support",
+      label: "Community Support",
       icon: Shield,
       color: "text-green-500",
     },
@@ -251,7 +253,7 @@ const FeaturesShowcase = () => {
           >
             <Sparkles className="w-4 h-4 text-emerald-400" />
             <span className="text-emerald-400 font-semibold text-xs md:text-sm uppercase tracking-wider">
-              Platform Features
+              Complete Trading Platform
             </span>
           </motion.div>
 
@@ -264,19 +266,20 @@ const FeaturesShowcase = () => {
           >
             <span className="text-white">Everything You Need to </span>
             <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
-              Succeed
+              Master Trading
             </span>
           </motion.h2>
 
           <motion.p
-            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Comprehensive trading education platform with advanced tools, expert
-            mentorship, and proven strategies
+            Learn demand-supply trading with real strategies, structured
+            education, and proven execution techniques — all in one
+            comprehensive platform
           </motion.p>
         </motion.div>
 
@@ -310,6 +313,7 @@ const FeaturesShowcase = () => {
                   <h3 className="text-xl font-bold text-white mb-3">
                     {feature.title}
                   </h3>
+
                   <p className="text-gray-300 text-sm leading-relaxed mb-4">
                     {feature.description}
                   </p>
@@ -349,8 +353,9 @@ const FeaturesShowcase = () => {
                 <span className="text-emerald-400">Ecosystem</span>
               </h3>
               <p className="text-gray-300 leading-relaxed">
-                Our platform provides everything you need for successful
-                trading, from education to execution, all in one place.
+                Everything you need to grow as a trader — from learning
+                demand-supply concepts to executing trades with confidence and
+                precision.
               </p>
             </div>
 
@@ -400,7 +405,7 @@ const FeaturesShowcase = () => {
                 height={400}
                 src="/placeholder.svg?height=400&width=600"
                 className="w-full h-auto object-cover"
-                alt="Trading Platform Interface"
+                alt="Professional Trading Dashboard Interface"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -414,7 +419,7 @@ const FeaturesShowcase = () => {
                 viewport={{ once: true }}
               >
                 <Badge className="bg-emerald-500/90 text-white">
-                  Professional Platform
+                  Trader-Led Platform
                 </Badge>
               </motion.div>
             </motion.div>
@@ -431,9 +436,11 @@ const FeaturesShowcase = () => {
               <Card className="bg-gradient-to-br from-gray-900/90 to-black/90 border border-emerald-500/30 backdrop-blur-sm">
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-emerald-400 mb-1">
-                    ₹10L+
+                    6+ Years
                   </div>
-                  <div className="text-xs text-gray-300">Avg. Portfolio</div>
+                  <div className="text-xs text-gray-300">
+                    of Trading Experience
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -458,9 +465,9 @@ const FeaturesShowcase = () => {
                     </motion.div>
                     <div>
                       <div className="text-lg font-bold text-green-400">
-                        Fast
+                        Real
                       </div>
-                      <div className="text-xs text-gray-300">Execution</div>
+                      <div className="text-xs text-gray-300">Concepts</div>
                     </div>
                   </div>
                 </CardContent>
@@ -468,69 +475,6 @@ const FeaturesShowcase = () => {
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Trust Indicators */}
-        <motion.div
-          className="mb-12 md:mb-16"
-          id="trust-section"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <Card className="bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm">
-            <CardContent className="p-6 md:p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                  Trusted by <span className="text-emerald-400">Thousands</span>
-                </h3>
-                <p className="text-gray-400">
-                  Join our growing community of successful traders
-                </p>
-              </div>
-
-              <motion.div
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                {trustStats.map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    className="text-center group"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <motion.div
-                      className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-3 md:mb-4 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-2xl flex items-center justify-center border border-emerald-500/20"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <stat.icon
-                        className={`w-6 md:w-8 h-6 md:h-8 ${stat.color}`}
-                      />
-                    </motion.div>
-                    <motion.div
-                      className={`text-2xl md:text-3xl font-bold ${stat.color} mb-1 md:mb-2`}
-                      key={stat.number}
-                      initial={{ scale: 0.5, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {stat.number}
-                      {stat.suffix}
-                    </motion.div>
-                    <div className="text-gray-400 text-xs md:text-sm font-medium">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </CardContent>
-          </Card>
-        </motion.div>
 
         {/* Call to Action */}
         <motion.div
@@ -549,7 +493,7 @@ const FeaturesShowcase = () => {
                   transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
                 />
                 <span className="text-white font-medium text-sm md:text-base text-center">
-                  Ready to start your trading journey?
+                  Ready to learn real trading concepts that actually work?
                 </span>
                 <motion.div
                   className="w-3 h-3 bg-green-500 rounded-full"

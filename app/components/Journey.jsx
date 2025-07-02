@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import CourseStructure from "./CourseStructure";
 
 const Journey = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -41,16 +42,6 @@ const Journey = () => {
     },
     {
       step: "02",
-      title: "Master the Fundamentals",
-      description:
-        "Deep dive into technical analysis, market psychology, and risk management",
-      icon: GraduationCap,
-      color: "from-green-500 to-emerald-600",
-      features: ["Live Sessions", "Video Library", "Practice Tools"],
-      stats: "300+ Hours Content",
-    },
-    {
-      step: "03",
       title: "Live Trading Experience",
       description:
         "Join real-time trading sessions with expert guidance and community support",
@@ -60,7 +51,7 @@ const Journey = () => {
       stats: "100+ Live Sessions",
     },
     {
-      step: "04",
+      step: "03",
       title: "Achieve Mastery",
       description:
         "Transform into a confident, profitable trader with ongoing mentorship",
@@ -124,7 +115,7 @@ const Journey = () => {
 
         {/* Journey Steps */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -202,133 +193,7 @@ const Journey = () => {
         </motion.div>
 
         {/* Course Structure Timeline */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              📅 20 Days – Live{" "}
-              <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
-                Training Program
-              </span>
-            </h3>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-              Platform: Google Meet (Evening Time Preferred)
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            {[
-              {
-                days: "Day 1–3",
-                title: "Foundation of Market Psychology",
-                color: "from-red-500/20 to-orange-500/20",
-              },
-              {
-                days: "Day 4–10",
-                title: "Demand-Supply Mastery",
-                color: "from-blue-500/20 to-cyan-500/20",
-              },
-              {
-                days: "Day 11–15",
-                title: "Trade Setup Live Examples",
-                color: "from-purple-500/20 to-pink-500/20",
-              },
-              {
-                days: "Day 16–20",
-                title: "Real-Time Market Participation",
-                color: "from-emerald-500/20 to-green-500/20",
-              },
-            ].map((phase, index) => (
-              <motion.div
-                key={index}
-                className="relative mb-8 last:mb-0"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <Card
-                  className={`bg-gradient-to-br ${phase.color} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500`}
-                >
-                  <CardContent className="p-8">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-emerald-500/30 to-green-500/30 rounded-2xl flex items-center justify-center border border-emerald-500/30">
-                          <Calendar className="w-8 h-8 text-emerald-400" />
-                        </div>
-                        <div>
-                          <h4 className="text-2xl font-bold text-white mb-2">
-                            {phase.days}
-                          </h4>
-                          <p className="text-gray-300 text-lg">{phase.title}</p>
-                        </div>
-                      </div>
-                      <ArrowRight className="w-6 h-6 text-emerald-400" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          className="text-center bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-3xl p-12 border border-emerald-500/20 backdrop-blur-sm"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h4 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Start Your Journey?
-          </h4>
-          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-            Join thousands of successful traders who have transformed their
-            financial future with our comprehensive courses and expert
-            mentorship.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-6 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
-                asChild
-              >
-                <a
-                  href="https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  <span>Get Started Today</span>
-                </a>
-              </Button>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant="outline"
-                className="bg-transparent border-2 border-emerald-500 text-emerald-400 font-bold px-8 py-6 rounded-full hover:bg-emerald-500/10 transition-all duration-300"
-                asChild
-              >
-                <a
-                  href="/online-classes"
-                  className="flex items-center space-x-3"
-                >
-                  <GraduationCap className="w-5 h-5" />
-                  <span>View Courses</span>
-                </a>
-              </Button>
-            </motion.div>
-          </div>
-        </motion.div>
+        <CourseStructure showTitle={false} />
       </div>
     </div>
   );

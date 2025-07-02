@@ -45,9 +45,9 @@ const ModernStats = () => {
 
   const startCountAnimation = () => {
     const targets = {
-      students: 2500,
-      courses: 30,
-      experience: 8,
+      students: 100,
+      courses: 20,
+      experience: 6,
       success: 95,
     };
 
@@ -133,24 +133,6 @@ const ModernStats = () => {
       iconBg: "bg-emerald-500/20",
     },
     {
-      icon: Target,
-      title: "Premium Video Library",
-      description:
-        "300+ step-by-step video tutorials with practical examples and proven trading strategies",
-      color: "text-green-400",
-      bgColor: "from-green-500/10 to-emerald-500/10",
-      iconBg: "bg-green-500/20",
-    },
-    {
-      icon: CheckCircle,
-      title: "Complete Study Materials",
-      description:
-        "Comprehensive guides, charts, templates and trading resources for all skill levels",
-      color: "text-emerald-500",
-      bgColor: "from-emerald-600/10 to-green-600/10",
-      iconBg: "bg-emerald-600/20",
-    },
-    {
       icon: Shield,
       title: "Personal Mentorship",
       description:
@@ -208,8 +190,8 @@ const ModernStats = () => {
             </span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Join thousands of successful traders who have transformed their
-            financial future with our proven methods and expert guidance.
+            Join successful traders who have transformed their financial future
+            with our proven methods and expert guidance.
           </p>
         </motion.div>
 
@@ -279,8 +261,8 @@ const ModernStats = () => {
             </span>
           </h3>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Experience comprehensive trading education with hands-on learning
-            and continuous support from industry experts.
+            Trade smart with real strategies, real mentors, and real market
+            experience.
           </p>
         </motion.div>
 
@@ -323,42 +305,6 @@ const ModernStats = () => {
               </Card>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          className="text-center bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-3xl p-12 border border-emerald-500/20 backdrop-blur-sm"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h4 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Transform Your Trading?
-          </h4>
-          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-            Join our comprehensive trading programs and start your journey
-            towards financial independence with expert guidance and proven
-            strategies.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
-                asChild
-              >
-                <a
-                  href="https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3"
-                >
-                  <span>Start Learning Today</span>
-                </a>
-              </Button>
-            </motion.div>
-          </div>
         </motion.div>
       </div>
     </div>

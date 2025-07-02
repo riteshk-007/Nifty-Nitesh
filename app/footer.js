@@ -318,67 +318,6 @@ const Footer = () => {
           </motion.div>
         </motion.div>
 
-        {/* Stats Section */}
-        <motion.div
-          className="mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <Card className="bg-gradient-to-r from-emerald-500/10 to-green-500/10 border border-emerald-500/20 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                {[
-                  {
-                    number: "2500+",
-                    label: "Students",
-                    icon: Users,
-                    color: "text-emerald-400",
-                  },
-                  {
-                    number: "95%",
-                    label: "Success Rate",
-                    icon: Award,
-                    color: "text-green-400",
-                  },
-                  {
-                    number: "24/7",
-                    label: "Support",
-                    icon: Clock,
-                    color: "text-emerald-500",
-                  },
-                  {
-                    number: "100%",
-                    label: "Satisfaction",
-                    icon: Shield,
-                    color: "text-green-500",
-                  },
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    className="group"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  >
-                    <motion.div
-                      className="w-12 h-12 mx-auto mb-2 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-xl flex items-center justify-center"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
-                    </motion.div>
-                    <div className={`text-xl font-bold ${stat.color} mb-1`}>
-                      {stat.number}
-                    </div>
-                    <div className="text-gray-400 text-sm">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
         {/* Bottom Bar */}
         <motion.div
           className="border-t border-emerald-500/20 pt-8"

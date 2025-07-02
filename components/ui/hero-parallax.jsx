@@ -157,7 +157,7 @@ export const Header = () => {
       setCurrentStat((prev) => (prev + 1) % stats.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [stats.length]);
 
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-32 px-6 w-full">
