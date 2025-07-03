@@ -13,6 +13,7 @@ import {
   Users,
   Award,
   TrendingUp,
+  CheckCircle,
 } from "lucide-react";
 import { useRef, useState } from "react";
 
@@ -66,7 +67,7 @@ const CourseStructure = ({ showTitle = true, className = "" }) => {
         "How to Mark Precise Supply Zones",
         "Entry and Stop Loss Placement",
         "Risk-Reward Ratio Optimization",
-        "Capital Protection Strategies",
+        "Position Sizing Strategies",
         "Trade Management Rules",
       ],
       icon: Award,
@@ -94,6 +95,162 @@ const CourseStructure = ({ showTitle = true, className = "" }) => {
         "Sentiment Analysis Techniques",
       ],
       icon: Users,
+    },
+    {
+      class: "Class 07",
+      title: "Trading Psychology Mastery",
+      topics: [
+        "Emotional Control Strategies",
+        "Fear and Greed Management",
+        "Discipline Development",
+        "Psychological Biases in Trading",
+        "Mental Preparation Techniques",
+      ],
+      icon: CheckCircle,
+    },
+    {
+      class: "Class 08",
+      title: "Advanced Market Concepts",
+      topics: [
+        "Closing Concepts & Market Sessions",
+        "Significant Gap Analysis",
+        "Pre-Market & After-Hours Trading",
+        "Gap Fill Probability",
+        "Session-Based Strategies",
+      ],
+      icon: CheckCircle,
+    },
+    {
+      class: "Class 09",
+      title: "Origin & Distribution Analysis",
+      topics: [
+        "Origin of Buy/Sell Pressure",
+        "Distribution Phase Identification",
+        "Garbage Area Recognition",
+        "Accumulation vs Distribution",
+        "Smart Money Tracking",
+      ],
+      icon: TrendingUp,
+    },
+    {
+      class: "Class 10",
+      title: "Multi-Timeframe Analysis",
+      topics: [
+        "Trend Analysis Across Timeframes",
+        "Use of Multiple Time Frames",
+        "Top-Down Analysis Approach",
+        "Timeframe Correlation",
+        "Optimal Entry Timing",
+      ],
+      icon: Target,
+    },
+    {
+      class: "Class 11",
+      title: "Trade Scoring & Strategy",
+      topics: [
+        "Trade Score Calculation System",
+        "Mahabharat Analogy in Trading",
+        "Strategic Decision Making",
+        "Probability Assessment",
+        "Trade Selection Criteria",
+      ],
+      icon: Award,
+    },
+    {
+      class: "Class 12",
+      title: "Emotional Control & Trading Styles",
+      topics: [
+        "How to Deal with Trading Emotions",
+        "Entry Types & Methodologies",
+        "Authenticity in Trading Approach",
+        "Different Trading Styles",
+        "Personal Style Development",
+      ],
+      icon: Users,
+    },
+    {
+      class: "Class 13",
+      title: "Risk Management Strategies",
+      topics: [
+        "Risk per Trade Calculation",
+        "Aggressive & Conservative Trading Approaches",
+        "Portfolio Risk Management",
+        "Drawdown Management",
+        "Capital Preservation Techniques",
+      ],
+      icon: CheckCircle,
+    },
+    {
+      class: "Class 14",
+      title: "Advanced Technical Indicators",
+      topics: [
+        "Golden & Death Crossover Strategies",
+        "EMA 20 Support & Resistance",
+        "Advanced Trend Analysis",
+        "Indicator Confluence",
+        "Custom Indicator Development",
+      ],
+      icon: TrendingUp,
+    },
+    {
+      class: "Class 16",
+      title: "Confirmation Entry Techniques",
+      topics: [
+        "Multiple Confirmation Strategies",
+        "Entry Signal Validation",
+        "False Signal Avoidance",
+        "Confirmation Hierarchy",
+        "Real-Time Decision Making",
+      ],
+      icon: CheckCircle,
+    },
+    {
+      class: "Class 17",
+      title: "Sector Analysis Fundamentals",
+      topics: [
+        "Sector Rotation Understanding",
+        "Leading vs Lagging Sectors",
+        "Sector Strength Analysis",
+        "Economic Cycle Impact",
+        "Sector-Based Stock Selection",
+      ],
+      icon: Target,
+    },
+    {
+      class: "Class 18",
+      title: "Advanced Sector & Pattern Analysis",
+      topics: [
+        "Sector Analysis Advanced Techniques",
+        "Candlestick Pattern Mastery",
+        "Pattern Reliability Assessment",
+        "Sector Correlation Analysis",
+        "Pattern-Based Trading Strategies",
+      ],
+      icon: Sparkles,
+    },
+    {
+      class: "Class 19",
+      title: "Gap Theory & Market Traps",
+      topics: [
+        "Comprehensive Gap Theory",
+        "LOTL (Level of Trap Level) Analysis",
+        "Market Trap Identification",
+        "Gap Fill Strategies",
+        "Trap Avoidance Techniques",
+      ],
+      icon: Award,
+    },
+    {
+      class: "Class 20",
+      title: "Complete Strategy Integration",
+      topics: [
+        "Putting It All Together",
+        "Complete Revision of All Concepts",
+        "Strategy Merge & Optimization",
+        "Live Trading Simulation",
+        "Final Assessment & Feedback",
+      ],
+      icon: TrendingUp,
     },
   ];
 
@@ -257,7 +414,7 @@ const CourseStructure = ({ showTitle = true, className = "" }) => {
                           </motion.div>
 
                           <div>
-                            <Badge className="bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-emerald-400 border border-emerald-500/40 font-bold px-4 py-2 text-sm hover:from-emerald-400/30 hover:to-green-400/30 transition-all duration-300">
+                            <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 text-white border border-emerald-500/40 font-bold px-4 py-2 text-sm hover:from-emerald-400/30 hover:to-green-400/30 transition-all duration-300">
                               ✅ {classItem.class}
                             </Badge>
                           </div>
@@ -519,7 +676,7 @@ const CourseStructure = ({ showTitle = true, className = "" }) => {
                       whileHover={{ scale: 1.05, y: -2 }}
                     >
                       <Badge
-                        className={`bg-gradient-to-r ${item.color} px-6 py-3 text-sm font-medium border transition-all duration-300 hover:shadow-lg`}
+                        className={`bg-gradient-to-r ${item.color} px-6 py-3 text-sm font-medium border text-black transition-all duration-300 hover:shadow-lg`}
                       >
                         {item.text}
                       </Badge>

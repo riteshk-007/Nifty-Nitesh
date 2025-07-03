@@ -28,15 +28,29 @@ import CourseStructure from "./course-structure";
 
 const CoursePage = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     experience: "",
   });
+  const [enrollmentData, setEnrollmentData] = useState({
+    name: "",
+    phone: "",
+    experience: "",
+    occupation: "",
+  });
 
   const handleFormChange = (e) => {
     setFormData({
       ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleEnrollmentChange = (e) => {
+    setEnrollmentData({
+      ...enrollmentData,
       [e.target.name]: e.target.value,
     });
   };
@@ -56,6 +70,24 @@ Please confirm my slot for Saturday session.`;
     )}`;
     window.open(whatsappUrl, "_blank");
     setShowBookingModal(false);
+  };
+
+  const handleEnrollmentSubmit = (e) => {
+    e.preventDefault();
+    const message = `Hi! I want to enroll in the Complete Trading Course (₹9,999).
+
+Name: ${enrollmentData.name}
+Phone: ${enrollmentData.phone}
+Experience: ${enrollmentData.experience}
+Occupation: ${enrollmentData.occupation}
+
+Please share the enrollment details and payment information.`;
+
+    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+    setShowEnrollmentModal(false);
   };
 
   const keyBenefits = [
@@ -84,7 +116,7 @@ Please confirm my slot for Saturday session.`;
   const curriculum = [
     "Understanding Market Structure",
     "Demand-Supply Zones: How to Mark & Trade",
-    "Smart Money Concepts: Footprints & Order Blocks",
+    "Smart Money Concepts: Footprints ",
     "Multi-Timeframe Setup Building",
     "Risk Management & Capital Protection",
     "Trade Planning Process (Before – During – After)",
@@ -179,7 +211,10 @@ Please confirm my slot for Saturday session.`;
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-6 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300">
+                <Button
+                  className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-6 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+                  onClick={() => setShowEnrollmentModal(true)}
+                >
                   <ArrowRight className="w-5 h-5 mr-2" />
                   Enroll Now
                 </Button>
@@ -280,12 +315,6 @@ Please confirm my slot for Saturday session.`;
 
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
-                      <span className="text-gray-300">Duration</span>
-                      <span className="text-emerald-400 font-semibold">
-                        30 minutes
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
                       <span className="text-gray-300">Price</span>
                       <span className="text-emerald-400 font-semibold">
                         ₹250 only
@@ -353,7 +382,7 @@ Please confirm my slot for Saturday session.`;
                   { icon: CheckCircle, text: "Learn Multi-Timeframe Analysis" },
                   {
                     icon: CheckCircle,
-                    text: "Smart Money Concepts & Order Blocks",
+                    text: "Smart Money Concepts ",
                   },
                   { icon: CheckCircle, text: "Market Breakdown Videos" },
                   {
@@ -397,7 +426,10 @@ Please confirm my slot for Saturday session.`;
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300">
+                  <Button
+                    className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+                    onClick={() => setShowEnrollmentModal(true)}
+                  >
                     🚀 Enroll Now
                   </Button>
                 </motion.div>
@@ -692,7 +724,10 @@ Please confirm my slot for Saturday session.`;
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Button className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300">
+                    <Button
+                      className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-8 py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+                      onClick={() => setShowEnrollmentModal(true)}
+                    >
                       📘 Enroll in Course
                     </Button>
                   </motion.div>
@@ -830,6 +865,178 @@ Please confirm my slot for Saturday session.`;
                 Book via WhatsApp
               </Button>
             </form>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Course Enrollment Modal */}
+      {showEnrollmentModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-gradient-to-br from-gray-900 to-black border border-emerald-500/20 rounded-2xl p-6 max-w-2xl w-full relative"
+          >
+            <button
+              onClick={() => setShowEnrollmentModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <GraduationCap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">
+                Enroll in Complete Course
+              </h3>
+              <p className="text-gray-300">
+                Join hundreds of traders learning real market concepts
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* Left Column - Form */}
+              <div>
+                <form onSubmit={handleEnrollmentSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={enrollmentData.name}
+                      onChange={handleEnrollmentChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={enrollmentData.phone}
+                      onChange={handleEnrollmentChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                      placeholder="Enter your phone number"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Trading Experience
+                    </label>
+                    <select
+                      name="experience"
+                      value={enrollmentData.experience}
+                      onChange={handleEnrollmentChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                    >
+                      <option value="">Select your experience</option>
+                      <option value="beginner">Complete Beginner</option>
+                      <option value="basic">Basic Knowledge</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="experienced">Experienced</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Occupation
+                    </label>
+                    <select
+                      name="occupation"
+                      value={enrollmentData.occupation}
+                      onChange={handleEnrollmentChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                    >
+                      <option value="">Select your occupation</option>
+                      <option value="student">Student</option>
+                      <option value="professional">Working Professional</option>
+                      <option value="business">Business Owner</option>
+                      <option value="homemaker">Homemaker</option>
+                      <option value="retired">Retired</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 mt-6"
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Enroll via WhatsApp
+                  </Button>
+                </form>
+              </div>
+
+              {/* Right Column - Course Details */}
+              <div className="flex flex-col justify-center">
+                <div className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20 rounded-xl p-6">
+                  <div className="text-center mb-6">
+                    <div className="text-4xl font-bold text-emerald-400 mb-2">
+                      ₹9,999
+                    </div>
+                    <div className="text-gray-300 mb-4">
+                      One-time payment • Complete access
+                    </div>
+                    <div className="w-full h-px bg-emerald-500/20 mb-4"></div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <span className="text-white font-medium">
+                        Lifetime Access to Content
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <span className="text-white font-medium">
+                        Expert Mentorship & Community
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <span className="text-white font-medium">
+                        Real Market Analysis Videos
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <span className="text-white font-medium">
+                        FREE 1-on-1 Sessions
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <span className="text-white font-medium">
+                        Risk Management Training
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       )}
