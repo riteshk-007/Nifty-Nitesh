@@ -133,7 +133,7 @@ const SocialLinks = () => {
                 shadow-[0_8px_32px_rgba(0,0,0,0.3)] shadow-green-500/20 
                 rounded-full w-14 h-14 flex items-center justify-center p-2 
                 hover:scale-110 hover:shadow-green-500/40 hover:border-green-500
-                transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer
+                transition-all duration-500 ease-bounce cursor-pointer
                 transform-gpu will-change-transform
             ${isExpanded ? "rotate-45" : "rotate-0"}
           `}
