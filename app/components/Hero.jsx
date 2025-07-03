@@ -61,7 +61,7 @@ const Hero = () => {
           className="inline-flex items-center space-x-2 glass-effect rounded-full px-6 py-3 border border-accent/20 mb-8"
         >
           <HiStar className="text-accent w-4 h-4" />
-          <span className="text-text-secondary text-sm font-medium">
+          <span className="text-text-secondary text-sm font-semibold">
             Trading की भाषा, Traders से सीखो!
           </span>
           <HiStar className="text-accent w-4 h-4" />

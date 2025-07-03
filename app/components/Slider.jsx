@@ -20,6 +20,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { dashboard } from "@/assets";
 
 const FeaturesShowcase = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -403,7 +404,7 @@ const FeaturesShowcase = () => {
               <Image
                 width={600}
                 height={400}
-                src="/placeholder.svg?height=400&width=600"
+                src={dashboard}
                 className="w-full h-auto object-cover"
                 alt="Professional Trading Dashboard Interface"
                 loading="lazy"

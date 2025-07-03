@@ -33,24 +33,14 @@ const Footer = () => {
 
   const courseCategories = [
     {
-      name: "Foundation Trading",
-      href: "/online-classes",
-      description: "Perfect for beginners",
-    },
-    {
-      name: "Advanced Strategies",
-      href: "/online-classes",
-      description: "Professional techniques",
-    },
-    {
       name: "Premium Content",
       href: "/online-classes",
-      description: "Exclusive video library",
+      description: "Exclusive Content",
     },
     {
       name: "Personal Mentorship",
       href: "/contact",
-      description: "1-on-1 guidance",
+      description: "Personal Mentorship",
     },
   ];
 
@@ -346,14 +336,6 @@ const Footer = () => {
                 <Sparkles className="w-3 h-3 mr-1" />
                 Start Your Journey Today! 🚀
               </Badge>
-              <div className="flex items-center space-x-2 text-sm text-gray-400">
-                <motion.div
-                  className="w-2 h-2 bg-emerald-500 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-                />
-                <span>Live Support Available</span>
-              </div>
             </div>
           </div>
         </motion.div>

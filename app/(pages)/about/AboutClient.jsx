@@ -20,6 +20,7 @@ import {
   CheckCircle,
   Quote,
 } from "lucide-react";
+import { about } from "@/assets";
 
 const AboutClient = () => {
   const achievements = [
@@ -210,7 +211,7 @@ const AboutClient = () => {
               <CardContent className="p-8">
                 <div className="relative rounded-2xl overflow-hidden">
                   <Image
-                    src="/about.jpeg"
+                    src={about}
                     alt="Nifty Nitesh - Trader-Led Education Platform"
                     width={1200}
                     height={600}
@@ -449,10 +450,10 @@ const AboutClient = () => {
                     <div className="md:col-span-1">
                       <div className="relative">
                         <Image
-                          src="/about.jpeg"
+                          src={about}
                           alt="Nifty Nitesh - Founder & Trading Mentor"
-                          width={300}
-                          height={300}
+                          width={500}
+                          height={500}
                           className="w-full h-80 object-cover rounded-2xl border-4 border-emerald-500/20"
                         />
                         <motion.div

@@ -30,7 +30,7 @@ export default function Home() {
       <About />
 
       {/* FAQ Section */}
-      <div className="w-full bg-bg-secondary py-16">
+      <div className="w-full bg-black py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
@@ -55,7 +55,7 @@ export default function Home() {
       </div>
 
       {/* Student Reviews */}
-      <div className="w-full py-16">
+      <div className="w-full ">
         <FeaturesShowcase />
       </div>
     </div>
