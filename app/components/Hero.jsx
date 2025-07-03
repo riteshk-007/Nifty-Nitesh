@@ -1,12 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FaChartLine, FaTrophy, FaUsers, FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { HiStar } from "react-icons/hi2";
 
 const Hero = () => {
   return (
-    <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden py-16 md:py-5">
       {/* Animated Grid Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f0a] via-[#032d20] to-[#0a0f0a]" />
@@ -134,7 +134,7 @@ const Hero = () => {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-primary flex items-center space-x-3 px-8 py-4 text-lg font-semibold"
+            className="btn-primary flex items-center space-x-2 px-8 py-4 text-lg font-semibold text-white"
           >
             <FaWhatsapp className="w-5 h-5" />
             <span>Start Learning Today</span>

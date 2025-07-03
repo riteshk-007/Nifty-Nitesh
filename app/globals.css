@@ -35,7 +35,7 @@
     #1a1f1a 0%,
     #0a0f0a 70%
   );
-  --gradient-accent: linear-gradient(135deg, #00ff88, #39ff14);
+  --gradient-accent: linear-gradient(135deg, #00ff88, #059e5c);
   --gradient-dark: linear-gradient(145deg, #0a0f0a, #1a1f1a);
 
   /* Borders */

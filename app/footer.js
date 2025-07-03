@@ -19,6 +19,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
+import { logo } from "@/assets";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -133,7 +134,7 @@ const Footer = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <Image
-                  src="/light-logo.png"
+                  src={logo}
                   alt="Nifty Nitesh"
                   width={100}
                   height={100}
