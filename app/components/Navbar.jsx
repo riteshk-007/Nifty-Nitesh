@@ -227,7 +227,7 @@ const Navbar = () => {
                   </button>
 
                   <div
-                    className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 
+                    className={`absolute bottom-full left-1/2 -translate-x-1/2   w-56  overflow-hidden
                                bg-black/60 backdrop-blur-xl rounded-xl 
                                shadow-[0_-8px_32px_rgba(0,0,0,0.4)] 
                                border border-green-500/30 z-50 

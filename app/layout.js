@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
+import ReferralPopup from "./components/ReferralPopup";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
@@ -174,6 +175,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Navbar />
         <SocialLinks />
+        <ReferralPopup />
 
         {children}
         <Analytics />
