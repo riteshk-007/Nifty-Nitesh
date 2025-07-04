@@ -4,8 +4,6 @@ import FaqQuesAns from "./components/FaqQuesAns";
 import Hero from "./components/Hero";
 import Journey from "./components/Journey";
 import ModernStats from "./components/ModernStats";
-import { HeroParallaxDemo } from "./components/Parallax";
-import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import FeaturesShowcase from "./components/Slider";
 
@@ -14,11 +12,6 @@ export default function Home() {
     <div className="w-full flex flex-col bg-bg-primary min-h-screen">
       {/* Hero Section */}
       <Hero />
-
-      {/* Chart Analysis Parallax */}
-      <Suspense>
-        <HeroParallaxDemo />
-      </Suspense>
 
       {/* How It Works - Journey Section */}
       <Journey />
