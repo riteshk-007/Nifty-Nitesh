@@ -262,10 +262,10 @@ Please share the enrollment details and payment information.`;
 
               <div className="space-y-4 mb-8">
                 {[
-                  "1-on-1 session (30 mins) – ₹250 only",
+                  "1-on-1 session  – ₹250 only",
                   "Only for non-enrolled traders",
                   "Current students get it 100% FREE",
-                  "Available only on Saturdays (9 AM to 3 PM)",
+                  "Available only on Saturdays ",
                 ].map((item, index) => (
                   <motion.div
                     key={index}
@@ -323,7 +323,7 @@ Please share the enrollment details and payment information.`;
                     <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
                       <span className="text-gray-300">Schedule</span>
                       <span className="text-emerald-400 font-semibold">
-                        Saturdays 9AM-3PM
+                        Saturdays
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-4 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
@@ -849,7 +849,7 @@ Please share the enrollment details and payment information.`;
                 </div>
                 <div className="flex items-center gap-2 text-sm text-emerald-400">
                   <MapPin className="w-4 h-4" />
-                  <span>Available: Saturdays 9AM-3PM</span>
+                  <span>Available: Saturdays </span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-emerald-400">
                   <CheckCircle className="w-4 h-4" />

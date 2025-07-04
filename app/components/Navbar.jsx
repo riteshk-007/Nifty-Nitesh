@@ -6,7 +6,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { FaAngleDown, FaWhatsapp } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
 import Link from "next/link";
-import { logo } from "@/assets";
+import { newlogo } from "@/assets";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,10 +96,10 @@ const Navbar = () => {
   }, [isOpen]);
 
   const handleDropdownToggle = useCallback(() => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen((prev) => !prev);
     setIsOpen(false);
     setIsCompactExpanded(false);
-  }, [isDropdownOpen]);
+  }, []);
 
   const isCompact = isScrolled && !isCompactExpanded;
 
@@ -127,7 +127,7 @@ const Navbar = () => {
             <Image
               width={80}
               height={80}
-              src={logo}
+              src={newlogo}
               alt="Nifty Nitesh Logo"
               loading="lazy"
               className="filter brightness-0 invert transition-transform duration-500 ease-bounce
@@ -161,7 +161,7 @@ const Navbar = () => {
                   <Image
                     width={70}
                     height={70}
-                    src={logo}
+                    src={newlogo}
                     alt="Nifty Nitesh Logo"
                     loading="lazy"
                     className="filter brightness-0 invert transition-transform duration-500 ease-bounce
@@ -203,15 +203,17 @@ const Navbar = () => {
                 </Link>
 
                 {/* Courses Dropdown */}
-                <div className="relative">
+                <div
+                  className="relative"
+                  onMouseEnter={() => setIsDropdownOpen(true)}
+                  onMouseLeave={() => setIsDropdownOpen(false)}
+                >
                   <button
                     className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
                               flex items-center font-medium relative after:absolute after:bottom-0 
                               after:left-0 after:w-0 after:h-0.5 after:bg-green-400 
                               after:transition-all after:duration-500 after:ease-bounce hover:after:w-full
                               hover:scale-110 transform-gpu will-change-transform"
-                    onMouseEnter={() => setIsDropdownOpen(true)}
-                    onMouseLeave={() => setIsDropdownOpen(false)}
                     onClick={handleDropdownToggle}
                   >
                     Courses
@@ -225,17 +227,15 @@ const Navbar = () => {
                   </button>
 
                   <div
-                    className={`absolute bottom-full left-1/2  -translate-x-1/2 mb-3 w-56 
+                    className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 
                                bg-black/60 backdrop-blur-xl rounded-xl 
                                shadow-[0_-8px_32px_rgba(0,0,0,0.4)] 
                                border border-green-500/30 z-50 
-                               transition-all duration-500 ease-bounce transform-gpu will-change-transform ${
+                               transition-all duration-300 ease-out transform-gpu will-change-transform ${
                                  isDropdownOpen
-                                   ? "opacity-100 scale-100 translate-y-0"
-                                   : "opacity-0 scale-75 translate-y-4 pointer-events-none"
+                                   ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                                   : "opacity-0 scale-95 translate-y-2 pointer-events-none"
                                }`}
-                    onMouseEnter={() => setIsDropdownOpen(true)}
-                    onMouseLeave={() => setIsDropdownOpen(false)}
                   >
                     <div className="py-3">
                       <Link
