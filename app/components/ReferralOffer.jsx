@@ -131,8 +131,8 @@ const ReferralOffer = () => {
                   Invite Your Friend
                 </h4>
                 <p className="text-gray-300 text-sm">
-                  Share your unique referral link with a friend who's interested
-                  in learning trading
+                  Share your unique referral link with a friend who&apos;s
+                  interested in learning trading
                 </p>
               </div>
 
