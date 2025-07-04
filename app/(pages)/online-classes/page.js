@@ -25,6 +25,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import CourseStructure from "./course-structure";
+import ReferralOffer from "../../components/ReferralOffer";
 
 const CoursePage = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -236,6 +237,11 @@ Please share the enrollment details and payment information.`;
             </motion.div>
           </motion.div>
         </div>
+      </section>
+
+      {/* Referral Offer Section */}
+      <section className="py-20 relative z-10">
+        <ReferralOffer />
       </section>
 
       {/* 1-on-1 Session Section */}
