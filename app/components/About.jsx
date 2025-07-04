@@ -2,25 +2,16 @@
 
 import { useState, useEffect } from "react";
 import {
-  Users,
-  GraduationCap,
   TrendingUp,
-  Handshake,
   Star,
-  Sparkles,
   Award,
   Shield,
   Target,
   CheckCircle,
-  Download,
   Brain,
   Search,
-  DollarSign,
   BarChart3,
-  Eye,
-  BookOpen,
   MessageSquare,
-  TrendingDown,
 } from "lucide-react";
 
 const About = () => {
@@ -83,41 +74,6 @@ const About = () => {
 
     return () => clearInterval(timer);
   };
-
-  const stats = [
-    {
-      number: counters.students,
-      suffix: "+",
-      label: "Students Trained",
-      icon: Users,
-      color: "text-emerald-400",
-      bgColor: "from-emerald-500/20 to-green-500/20",
-    },
-    {
-      number: counters.success,
-      suffix: "%",
-      label: "Success Rate",
-      icon: TrendingUp,
-      color: "text-green-400",
-      bgColor: "from-green-500/20 to-emerald-500/20",
-    },
-    {
-      number: counters.experience,
-      suffix: "+",
-      label: "Years Experience",
-      icon: GraduationCap,
-      color: "text-emerald-500",
-      bgColor: "from-emerald-600/20 to-green-600/20",
-    },
-    {
-      number: counters.rating,
-      suffix: "",
-      label: "Average Rating",
-      icon: Star,
-      color: "text-green-500",
-      bgColor: "from-green-600/20 to-emerald-600/20",
-    },
-  ];
 
   const features = [
     {
@@ -346,37 +302,6 @@ const About = () => {
                         {concept.description}
                       </p>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        <div className="mb-16 sm:mb-20" id="about-stats">
-          <div className="bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm rounded-2xl p-6 sm:p-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="text-center group hover:scale-105 transition-transform duration-300"
-                >
-                  <div
-                    className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 bg-gradient-to-br ${stat.bgColor} rounded-2xl flex items-center justify-center border border-emerald-500/20 group-hover:rotate-360 transition-transform duration-600`}
-                  >
-                    <stat.icon
-                      className={`w-6 h-6 sm:w-8 sm:h-8 ${stat.color}`}
-                    />
-                  </div>
-                  <div
-                    className={`text-2xl sm:text-3xl font-bold ${stat.color} mb-1 sm:mb-2`}
-                  >
-                    {stat.number}
-                    {stat.suffix}
-                  </div>
-                  <div className="text-gray-400 text-xs sm:text-sm font-medium">
-                    {stat.label}
                   </div>
                 </div>
               ))}

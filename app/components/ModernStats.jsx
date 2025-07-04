@@ -2,19 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  Users,
-  GraduationCap,
-  TrendingUp,
-  Clock,
-  CheckCircle,
-  Target,
-  Shield,
-  Award,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { TrendingUp, Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 const ModernStats = () => {
   const [counters, setCounters] = useState({
