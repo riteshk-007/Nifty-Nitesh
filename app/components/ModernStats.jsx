@@ -79,49 +79,6 @@ const ModernStats = () => {
     return () => clearInterval(timer);
   };
 
-  const stats = [
-    {
-      icon: Users,
-      number: counters.students,
-      suffix: "+",
-      label: "Happy Students",
-      description: "Active traders learning with us",
-      color: "text-emerald-400",
-      bgColor: "from-emerald-500/20 to-green-500/20",
-      borderColor: "border-emerald-500/30",
-    },
-    {
-      icon: GraduationCap,
-      number: counters.courses,
-      suffix: "+",
-      label: "Courses Available",
-      description: "Comprehensive trading programs",
-      color: "text-green-400",
-      bgColor: "from-green-500/20 to-emerald-500/20",
-      borderColor: "border-green-500/30",
-    },
-    {
-      icon: Clock,
-      number: counters.experience,
-      suffix: " Years",
-      label: "Market Experience",
-      description: "Professional trading expertise",
-      color: "text-emerald-500",
-      bgColor: "from-emerald-600/20 to-green-600/20",
-      borderColor: "border-emerald-600/30",
-    },
-    {
-      icon: Award,
-      number: counters.success,
-      suffix: "%",
-      label: "Success Rate",
-      description: "Student satisfaction & results",
-      color: "text-green-500",
-      bgColor: "from-green-600/20 to-emerald-600/20",
-      borderColor: "border-green-600/30",
-    },
-  ];
-
   const features = [
     {
       icon: TrendingUp,
@@ -175,77 +132,6 @@ const ModernStats = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10" id="stats-section">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-            Our{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
-              Impact
-            </span>
-          </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Join successful traders who have transformed their financial future
-            with our proven methods and expert guidance.
-          </p>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ y: -10, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              <Card
-                className={`bg-gradient-to-br ${stat.bgColor} border ${stat.borderColor} backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500 text-center`}
-              >
-                <CardContent className="p-8">
-                  <motion.div
-                    className="w-16 h-16 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/20"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <stat.icon className={`w-8 h-8 ${stat.color}`} />
-                  </motion.div>
-
-                  <motion.div
-                    className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}
-                    animate={isVisible ? { scale: [1, 1.1, 1] } : {}}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.1,
-                    }}
-                  >
-                    {stat.number}
-                    {stat.suffix}
-                  </motion.div>
-
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {stat.label}
-                  </h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {stat.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-
         {/* Features Section */}
         <motion.div
           className="text-center mb-16"
