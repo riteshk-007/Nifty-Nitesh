@@ -20,6 +20,8 @@ import {
   X,
   Clock,
   MapPin,
+  CreditCard,
+  DollarSign,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +32,7 @@ import ReferralOffer from "../../components/ReferralOffer";
 const CoursePage = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState("one-time");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -41,6 +44,40 @@ const CoursePage = () => {
     experience: "",
     occupation: "",
   });
+
+  const paymentPlans = [
+    {
+      id: "one-time",
+      name: "One-Time Payment",
+      amount: 9999,
+      installments: 1,
+      description: "Pay once, get lifetime access",
+      savings: "Best Value",
+      popular: true,
+    },
+    {
+      id: "two-parts",
+      name: "Two-Part Payment",
+      amount: 9999,
+      installments: 2,
+      installmentAmount: 4999,
+      description: "Pay ₹4,999 now, ₹4,999 after 10 days",
+      savings: "Flexible",
+    },
+    {
+      id: "three-parts",
+      name: "Three-Part Payment",
+      amount: 9999,
+      installments: 3,
+      installmentAmount: 3333,
+      description: "Pay ₹3,333 now, ₹3,333 after 7 days, ₹3,333 after 14 days",
+      savings: "Most Flexible",
+    },
+  ];
+
+  const selectedPlan = paymentPlans.find(
+    (plan) => plan.id === selectedPaymentPlan
+  );
 
   const handleFormChange = (e) => {
     setFormData({
@@ -75,12 +112,23 @@ Please confirm my slot for Saturday session.`;
 
   const handleEnrollmentSubmit = (e) => {
     e.preventDefault();
-    const message = `Hi! I want to enroll in the Complete Trading Course (₹9,999).
+    const selectedPlan = paymentPlans.find(
+      (plan) => plan.id === selectedPaymentPlan
+    );
+
+    const message = `Hi! I want to enroll in the Complete Trading Course.
 
 Name: ${enrollmentData.name}
 Phone: ${enrollmentData.phone}
 Experience: ${enrollmentData.experience}
 Occupation: ${enrollmentData.occupation}
+Payment Plan: ${selectedPlan.name}
+Total Amount: ₹${selectedPlan.amount.toLocaleString()}
+${
+  selectedPlan.installments > 1
+    ? `Installment Amount: ₹${selectedPlan.installmentAmount.toLocaleString()}`
+    : ""
+}
 
 Please share the enrollment details and payment information.`;
 
@@ -447,6 +495,7 @@ Please share the enrollment details and payment information.`;
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
+              className="w-full"
             >
               <Card className="bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm">
                 <CardContent className="p-8">
@@ -460,9 +509,70 @@ Please share the enrollment details and payment information.`;
                     <div className="text-4xl font-bold text-emerald-400 mb-2">
                       ₹9,999
                     </div>
-                    <p className="text-gray-300">
-                      One-time payment • Complete access
+                    <p className="text-gray-300 mb-6">
+                      Choose your payment plan • 20-day intensive course
                     </p>
+                  </div>
+
+                  {/* Payment Plans */}
+                  <div className="space-y-4 mb-8">
+                    {paymentPlans.map((plan) => (
+                      <motion.div
+                        key={plan.id}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`relative cursor-pointer rounded-lg border-2 transition-all duration-300 ${
+                          selectedPaymentPlan === plan.id
+                            ? "border-emerald-500 bg-emerald-500/10"
+                            : "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40"
+                        }`}
+                        onClick={() => setSelectedPaymentPlan(plan.id)}
+                      >
+                        <div className="p-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="radio"
+                                name="paymentPlan"
+                                value={plan.id}
+                                checked={selectedPaymentPlan === plan.id}
+                                onChange={() => setSelectedPaymentPlan(plan.id)}
+                                className="w-4 h-4 text-emerald-500 bg-gray-800 border-emerald-500 focus:ring-emerald-500"
+                              />
+                              <span className="text-white font-semibold">
+                                {plan.name}
+                              </span>
+                            </div>
+                            {plan.popular && (
+                              <Badge className="bg-emerald-500 text-white text-xs">
+                                Popular
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-gray-300 text-sm">
+                                {plan.description}
+                              </p>
+                              {plan.installments > 1 && (
+                                <p className="text-emerald-400 text-sm font-medium mt-1">
+                                  ₹{plan.installmentAmount.toLocaleString()} per
+                                  installment
+                                </p>
+                              )}
+                            </div>
+                            <div className="text-right">
+                              <div className="text-lg font-bold text-emerald-400">
+                                ₹{plan.amount.toLocaleString()}
+                              </div>
+                              <div className="text-xs text-gray-400">
+                                {plan.savings}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
 
                   <div className="space-y-4">
@@ -773,7 +883,7 @@ Please share the enrollment details and payment information.`;
 
       {/* Booking Modal */}
       {showBookingModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[1000] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -877,12 +987,12 @@ Please share the enrollment details and payment information.`;
 
       {/* Course Enrollment Modal */}
       {showEnrollmentModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[1000] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-gradient-to-br from-gray-900 to-black border border-emerald-500/20 rounded-2xl p-6 max-w-2xl w-full relative"
+            className="bg-gradient-to-br from-gray-900 to-black border border-emerald-500/20 rounded-2xl p-4 sm:p-6 w-full max-w-6xl max-h-[95vh] overflow-y-auto relative"
           >
             <button
               onClick={() => setShowEnrollmentModal(false)}
@@ -895,17 +1005,17 @@ Please share the enrollment details and payment information.`;
               <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <GraduationCap className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                 Enroll in Complete Course
               </h3>
-              <p className="text-gray-300">
+              <p className="text-gray-300 text-sm sm:text-base">
                 Join hundreds of traders learning real market concepts
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
               {/* Left Column - Form */}
-              <div>
+              <div className="order-2 xl:order-1">
                 <form onSubmit={handleEnrollmentSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -975,6 +1085,75 @@ Please share the enrollment details and payment information.`;
                     </select>
                   </div>
 
+                  {/* Payment Plan Selection */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-3">
+                      Choose Payment Plan *
+                    </label>
+                    <div className="space-y-3">
+                      {paymentPlans.map((plan) => (
+                        <motion.label
+                          key={plan.id}
+                          htmlFor={`modal-${plan.id}`}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`relative cursor-pointer rounded-lg border-2 transition-all duration-300 block ${
+                            selectedPaymentPlan === plan.id
+                              ? "border-emerald-500 bg-emerald-500/10"
+                              : "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40"
+                          }`}
+                        >
+                          <div className="p-3">
+                            <div className="flex items-center justify-between mb-1">
+                              <div className="flex items-center gap-3">
+                                <input
+                                  type="radio"
+                                  id={`modal-${plan.id}`}
+                                  name="modalPaymentPlan"
+                                  value={plan.id}
+                                  checked={selectedPaymentPlan === plan.id}
+                                  onChange={(e) =>
+                                    setSelectedPaymentPlan(e.target.value)
+                                  }
+                                  className="w-4 h-4 text-emerald-500 bg-gray-800 border-emerald-500 focus:ring-emerald-500 focus:ring-2"
+                                />
+                                <span className="text-white font-semibold text-sm">
+                                  {plan.name}
+                                </span>
+                              </div>
+                              {plan.popular && (
+                                <Badge className="bg-emerald-500 text-white text-xs">
+                                  Popular
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <div className="ml-7">
+                                <p className="text-gray-300 text-xs">
+                                  {plan.description}
+                                </p>
+                                {plan.installments > 1 && (
+                                  <p className="text-emerald-400 text-xs font-medium mt-1">
+                                    ₹{plan.installmentAmount.toLocaleString()}{" "}
+                                    per installment
+                                  </p>
+                                )}
+                              </div>
+                              <div className="text-right">
+                                <div className="text-sm font-bold text-emerald-400">
+                                  ₹{plan.amount.toLocaleString()}
+                                </div>
+                                <div className="text-xs text-gray-400">
+                                  {plan.savings}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.label>
+                      ))}
+                    </div>
+                  </div>
+
                   <Button
                     type="submit"
                     className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 mt-6"
@@ -986,58 +1165,92 @@ Please share the enrollment details and payment information.`;
               </div>
 
               {/* Right Column - Course Details */}
-              <div className="flex flex-col justify-center">
-                <div className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20 rounded-xl p-6">
+              <div className="order-1 xl:order-2">
+                <div className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20 rounded-xl p-4 sm:p-6 sticky top-4">
                   <div className="text-center mb-6">
-                    <div className="text-4xl font-bold text-emerald-400 mb-2">
-                      ₹9,999
+                    <div className="text-3xl sm:text-4xl font-bold text-emerald-400 mb-2">
+                      ₹{selectedPlan?.amount.toLocaleString() || "9,999"}
                     </div>
-                    <div className="text-gray-300 mb-4">
-                      One-time payment • Complete access
+                    <div className="text-gray-300 mb-2 text-sm sm:text-base">
+                      {selectedPlan?.name || "One-time payment"} • Complete
+                      access
                     </div>
+                    {selectedPaymentPlan !== "one-time" && (
+                      <div className="text-emerald-400 text-sm font-medium mb-2">
+                        ₹{selectedPlan?.installmentAmount.toLocaleString()} per
+                        installment
+                      </div>
+                    )}
                     <div className="w-full h-px bg-emerald-500/20 mb-4"></div>
                   </div>
 
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium">
+                      <span className="text-white font-medium text-sm sm:text-base">
                         Lifetime Access to Content
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium">
+                      <span className="text-white font-medium text-sm sm:text-base">
                         Expert Mentorship & Community
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium">
+                      <span className="text-white font-medium text-sm sm:text-base">
                         Real Market Analysis Videos
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium">
+                      <span className="text-white font-medium text-sm sm:text-base">
                         FREE 1-on-1 Sessions
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium">
+                      <span className="text-white font-medium text-sm sm:text-base">
                         Risk Management Training
                       </span>
+                    </div>
+
+                    {/* Payment Plan Summary */}
+                    <div className="mt-6 p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CreditCard className="w-5 h-5 text-emerald-400" />
+                        <span className="text-white font-semibold text-sm sm:text-base">
+                          Selected Plan
+                        </span>
+                      </div>
+                      <div className="text-sm text-gray-300">
+                        <div className="font-medium text-emerald-400">
+                          {selectedPlan?.name}
+                        </div>
+                        <div className="text-xs mt-1">
+                          {selectedPlan?.description}
+                        </div>
+                        {selectedPaymentPlan !== "one-time" && (
+                          <div className="text-xs text-emerald-400 mt-1">
+                            Next payment: ₹
+                            {selectedPlan?.installmentAmount.toLocaleString()}{" "}
+                            in{" "}
+                            {selectedPaymentPlan === "two-parts" ? "10" : "7"}{" "}
+                            days
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

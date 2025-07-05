@@ -4,6 +4,7 @@ import FaqQuesAns from "./components/FaqQuesAns";
 import Hero from "./components/Hero";
 import Journey from "./components/Journey";
 import ModernStats from "./components/ModernStats";
+import ServiceCards from "./components/ServiceCards";
 import { Button } from "@/components/ui/button";
 import FeaturesShowcase from "./components/Slider";
 
@@ -18,6 +19,9 @@ export default function Home() {
 
       {/* Modern Stats Section */}
       <ModernStats />
+
+      {/* Service Cards Section */}
+      <ServiceCards />
 
       {/* About Section */}
       <About />

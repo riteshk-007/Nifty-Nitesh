@@ -108,7 +108,7 @@ const Journey = () => {
             </span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Follow our proven 4-step process to transform from a beginner to a
+            Follow our proven 3-step process to transform from a beginner to a
             confident, profitable trader with expert guidance at every stage.
           </p>
         </motion.div>

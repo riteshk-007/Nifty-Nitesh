@@ -118,7 +118,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-2xl sm:text-3xl lg:text-4xl capitalize mb-10 font-bold bg-gradient-to-r from-white via-yellow-500 to-white text-transparent bg-clip-text"
         >
-          Waqt dega, sikh lega… toh bhi market jeet lega!
+          Waqt dega, sikh lega… toh market bhi jeet lega!
         </motion.h2>
 
         {/* CTA Buttons */}

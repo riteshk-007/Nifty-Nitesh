@@ -15,19 +15,12 @@ const ReferralPopup = () => {
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    // Check if popup has been shown before in this session
-    const hasShownPopup = sessionStorage.getItem("referralPopupShown");
+    // Show popup after 2 seconds every time page loads
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2000);
 
-    if (!hasShownPopup) {
-      // Show popup after 2 seconds
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-        // Mark as shown in session storage
-        sessionStorage.setItem("referralPopupShown", "true");
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
@@ -42,8 +35,8 @@ const ReferralPopup = () => {
     // WhatsApp enrollment message
     const message = `Hi! I want to enroll with a friend and get the referral discount.
 
-I get 25% discount and my friend gets 10% discount.
-Total savings: 35%
+I get 15% discount and my friend gets 10% discount.
+Total savings: 25%
 
 Please share the enrollment details and referral process.`;
 
@@ -106,13 +99,13 @@ Please share the enrollment details and referral process.`;
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
                     Bring a Friend,
                     <span className="block text-green-400 animate-pulse">
-                      Get 35% Total Off!
+                      Get 25% Total Off!
                     </span>
                   </h2>
                   <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
                     You get{" "}
                     <span className="text-green-400 font-semibold">
-                      25% discount
+                      15% discount
                     </span>{" "}
                     + Your friend gets{" "}
                     <span className="text-green-400 font-semibold">
@@ -120,7 +113,7 @@ Please share the enrollment details and referral process.`;
                     </span>
                     <br />
                     <span className="text-base sm:text-lg font-bold text-green-400">
-                      = Total 35% savings!
+                      = Total 25% savings!
                     </span>
                   </p>
                 </div>
@@ -131,7 +124,7 @@ Please share the enrollment details and referral process.`;
                     <FaCheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
                     <span className="text-white text-xs sm:text-sm">
                       <span className="text-green-400 font-semibold">
-                        You get 25% off
+                        You get 15% off
                       </span>{" "}
                       (referrer)
                     </span>
@@ -185,14 +178,14 @@ Please share the enrollment details and referral process.`;
                       <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2">
                         <RiPercentLine className="w-5 h-5 sm:w-6 sm:h-6" />
                         <span className="text-3xl sm:text-5xl font-bold">
-                          35
+                          25
                         </span>
                       </div>
                       <div className="text-sm sm:text-lg font-semibold">
                         TOTAL OFF
                       </div>
                       <div className="text-xs opacity-80 mt-2">
-                        25% + 10% = 35%
+                        15% + 10% = 25%
                       </div>
                     </div>
                   </div>

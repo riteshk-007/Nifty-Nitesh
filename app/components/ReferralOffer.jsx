@@ -36,12 +36,12 @@ const ReferralOffer = () => {
                 <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
                   Bring a Friend,
                   <span className="block text-green-400">
-                    Get 35% Total Off!
+                    Get 25% Total Off!
                   </span>
                 </h2>
                 <p className="text-gray-300 text-lg leading-relaxed">
-                  You get 25% discount + Your friend gets 10% discount = Total
-                  35% savings! Perfect win-win for both of you!
+                  You get 15% discount + Your friend gets 10% discount = Total
+                  25% savings! Perfect win-win for both of you!
                 </p>
               </div>
 
@@ -51,7 +51,7 @@ const ReferralOffer = () => {
                   <FaCheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
                   <span className="text-white">
                     <span className="text-green-400 font-semibold">
-                      You get 25% discount
+                      You get 15% discount
                     </span>{" "}
                     (referrer)
                   </span>
@@ -108,11 +108,11 @@ const ReferralOffer = () => {
                   <div className="text-center text-white">
                     <div className="flex items-center justify-center space-x-2 mb-2">
                       <RiPercentLine className="w-8 h-8" />
-                      <span className="text-6xl font-bold">35</span>
+                      <span className="text-6xl font-bold">25</span>
                     </div>
                     <div className="text-xl font-semibold">TOTAL OFF</div>
                     <div className="text-sm opacity-80 mt-2">
-                      25% + 10% = 35%
+                      15% + 10% = 25%
                     </div>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ const ReferralOffer = () => {
                   Both Enroll
                 </h4>
                 <p className="text-gray-300 text-sm">
-                  When your friend enrolls using your link, you get 25% and your
+                  When your friend enrolls using your link, you get 15% and your
                   friend gets 10% discount
                 </p>
               </div>
@@ -185,7 +185,7 @@ const ReferralOffer = () => {
                 Terms & Conditions
               </h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>• Referrer gets 25% discount on course fee</li>
+                <li>• Referrer gets 15% discount on course fee</li>
                 <li>• New friend gets 10% discount on course fee</li>
                 <li>• Both must enroll within 7 days of each other</li>
                 <li>• Offer valid for new enrollments only</li>
