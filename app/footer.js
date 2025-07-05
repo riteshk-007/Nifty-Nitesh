@@ -19,7 +19,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
-import { logo } from "@/assets";
+import { newlogo } from "@/assets";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -106,7 +106,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black border-t border-emerald-500/20 relative overflow-hidden">
+    <footer className="bg-black border-t border-emerald-500/20 relative overflow-hidden py-10 md:py-0">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/3 rounded-full blur-3xl" />
@@ -134,11 +134,11 @@ const Footer = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <Image
-                  src={logo}
+                  src={newlogo}
                   alt="Nifty Nitesh"
                   width={100}
                   height={100}
-                  className="w-10 h-10"
+                  className="w-24 h-24 filter brightness-0 invert"
                 />
 
                 <span className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">

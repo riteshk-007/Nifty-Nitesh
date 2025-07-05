@@ -7,6 +7,7 @@ import ModernStats from "./components/ModernStats";
 import ServiceCards from "./components/ServiceCards";
 import { Button } from "@/components/ui/button";
 import FeaturesShowcase from "./components/Slider";
+import RadialGallery from "./components/radial-gallery";
 
 export default function Home() {
   return (
@@ -14,14 +15,21 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
+      <RadialGallery />
+
       {/* How It Works - Journey Section */}
-      <Journey />
+      {/* <Journey /> */}
 
       {/* Modern Stats Section */}
       <ModernStats />
 
       {/* Service Cards Section */}
       <ServiceCards />
+
+      {/* Student Reviews */}
+      <div className="w-full ">
+        <FeaturesShowcase />
+      </div>
 
       {/* About Section */}
       <About />
@@ -49,11 +57,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Student Reviews */}
-      <div className="w-full ">
-        <FeaturesShowcase />
       </div>
     </div>
   );
