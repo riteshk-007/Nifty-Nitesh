@@ -15,7 +15,10 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      <RadialGallery />
+      <main className="hidden md:block">
+        {" "}
+        <RadialGallery />
+      </main>
 
       {/* How It Works - Journey Section */}
       {/* <Journey /> */}
