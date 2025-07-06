@@ -5,47 +5,17 @@ import QRCode from "qrcode";
 
 // Email configuration
 const emailConfig = {
-  fromEmail: process.env.FROM_EMAIL || "codeshorts007@gmail.com",
-  smtpHost: process.env.SMTP_HOST || "smtp-relay.brevo.com",
-  smtpUser: process.env.SMTP_USER || "7a3825001@smtp-brevo.com",
-  smtpPassword:
-    process.env.SMTP_PASSWORD ||
-    "xsmtpsib-ef7c1018f5caba7281e2365451def2ae9b14d875e50af1253d84ab0cc4cf99e1-CvE1NVPShFYmn4pg",
+  fromEmail: process.env.FROM_EMAIL,
+  smtpHost: process.env.SMTP_HOST,
+  smtpUser: process.env.SMTP_USER,
+  smtpPassword: process.env.SMTP_PASSWORD,
 };
 
 // Google Sheets configuration
 const auth = new google.auth.GoogleAuth({
   credentials: {
-    client_email:
-      "nifty-nitesh-trading-google-sh@gentle-mapper-457805-a2.iam.gserviceaccount.com",
-    private_key: `-----BEGIN PRIVATE KEY-----
-MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7LM4YbeKpcQYG
-hb17Psbmu/OvY/5HRKkR42vBsXVwThUVj0befsJvOW+hcZ0PLmAn6zzlZYQZ01sg
-KyXcIbCdLnA7knrXdRkBJmy2kpQx+1B5/lcjq1lveZ7k/8H2v4FER5+n+h8kB8rf
-+vZwIJiF83/pAJi+lI1GgjnVWzyxPvEFVaB66BddYrbEwZ3NVVt5tbsLrESE77Fe
-AnRmH/ICEdeQNtXhA2eA4NealvS18k95FTolrvKgkzteUb6A+c3/1RZSS76rsLtG
-ktURDR9eI8E7pGLODMRfLImHSt0qdZwx84fRYaVdW35d06+uMBAfbPZ+LhATwD4+
-xI5L10C1AgMBAAECggEAKuyBPfJzNKrd+CBy/eC9YdwP6/SpM0RQZnEKPOLanPzX
-EnjnRm543eNk0Xf5zemzdOwaLLw9UWPaJbQnbEZQl5c29z5mC+OHbq9WZn8SW6z3
-vWZBqwUoTytrsDXj0BeGSDeJqk6ulgdwc7F8kuWyvKNE/dTccnYkONtz8lUIQ9gX
-ogyAyGRH8jBS9CLB48hSMwqy3BdOVy0KjMpNGRb1rUycL7SbwWx9Va4Zqx2pOZiO
-t4rh5fp4yHuXxZWATgJPLkPHsiIdpfZq9v7OExj+GuMKDmWYc4DaOedCAoEA00Pm
-d/JkJ+u/r87ErXA3MwfcfVOQVvulTn80sJqw5OyDwQKBgQDy4BAX7V5j5N0Y2iR3
-nXnmFuHPJ+FcQ3CqpUokd3N8V1d70DLN5ODm1cFDdc4eFpJlgFB11Zt4HFqJgab1
-6hlLA5A5hAH1XHiWGa6hGsntPVHRTH4gsmXsCF7lubwjVyNh4OiR2EGZqb5fO2K4
-AnJFOxAKXeBSDQW3p+oLDUCDwQKBgQDFSi9fGpC1db/Y+NzuNLDwaIGGF80qVDNw
-02fIw+W+K22GZpSya8sbq4MQrQMwbVNYsRX96wTSM4K0fZpgwwRqOd3r6WVavnWb
-ftWyoxu4uoTac6rH9Id8oYD2A8QpqIVUE/jFiIBqNfRZpSqUIbbKnK9wJtPmvgit
-IXTwHs9p9QKBgB+Ywr86JEN+rLzk9EWTeR5T78CRgaINLAUnR8QCvkV432q+JT3f
-/tpJCMGL++qyKQ2HafBKf9VaavTkpyHq+KtnpUW2RML06sMsSCmxYH+6sIA4IViD
-nPreA+qDBVTbq0C6j8cZiT9Cc//Tq/4gY1laW7XdjKdgBlRkRfB2IuSBAoGAdkSV
-h0aOjykqO7BcCLQvib6sPq1QAVr+h1lD8vd0Zv7zpkkiRJ8X39t+M2Xz7njrKNTn
-oRLdDgFxDi/pdq4RnHhaD80XREG+kNuE0ZSzzpaJg8cpDrsI6W6Lt27kjjCG1LMw
-Q4IjsQftFjxL/QcE5ArvpKSyDLXIz7ipuDRQFG0CgYEA3/lyxmVzSX2+mDkG94h4
-MAIj7MKGzFfDX2y+Smm1J2DGNv53tT8zBcAjVi66UYPQO3gecvO08dCoY86gWGXj
-Fb2ZdUkfvIFIKasJOHK4k0Q4Q2HQw4SWe6V/8aKtlWb9/omID4QTzSMa75KRWf7w
-bR6cnPDMV+/x43awpa4d16U=
------END PRIVATE KEY-----`.replace(/\\n/g, "\n"),
+    client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY,
   },
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
@@ -132,7 +102,11 @@ export async function POST(request) {
     }
 
     // Generate QR Code for payment
-    const upiString = `upi://pay?pa=niftynitesh@yesg&pn=Nifty%20Nitesh&am=${selectedPlan.installmentAmount}&cu=INR&tn=Trading%20Course%20Payment`;
+    const upiString = `upi://pay?pa=${
+      process.env.NEXT_PUBLIC_UPI_ID
+    }&pn=${encodeURIComponent(process.env.NEXT_PUBLIC_UPI_NAME)}&am=${
+      selectedPlan.installmentAmount
+    }&cu=INR&tn=Trading%20Course%20Payment`;
     const qrCodeDataURL = await QRCode.toDataURL(upiString, {
       width: 300,
       margin: 2,
@@ -143,7 +117,7 @@ export async function POST(request) {
     });
 
     // Append data to Google Sheets
-    const spreadsheetId = "1-UwaFATSvzvBqmMB49SWCJ77QfISCjpvQ_WXcFKtuFw";
+    const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
     const range = "Sheet1!A:L"; // Adjusted range for all columns
 
     const values = [
@@ -180,7 +154,7 @@ export async function POST(request) {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000000; padding: 20px;">
           <div style="background-color: #111111; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); border: 1px solid #333333;">
             <div style="text-align: center; margin-bottom: 30px;">
-              <img src="https://nifty-nitesh.vercel.app/public/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
+              <img src="https://niftynitesh.com/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
               <h1 style="color: #10b981; margin: 0; font-size: 28px;">Welcome to Nifty Nitesh Trading Course!</h1>
               <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 16px;">Your enrollment has been received successfully</p>
             </div>
@@ -234,9 +208,15 @@ export async function POST(request) {
               <h2 style="color: #fbbf24; margin-top: 0; font-size: 18px;">📞 Need Help?</h2>
               <p style="color: #fed7aa; margin: 10px 0;">If you have any questions or need assistance, please contact us:</p>
               <ul style="color: #fed7aa; margin: 10px 0; padding-left: 20px;">
-                <li style="margin: 8px 0;">📧 Email: niftynitesh000@gmail.com</li>
-                <li style="margin: 8px 0;">📱 WhatsApp: +91 8882304322</li>
-                <li style="margin: 8px 0;">🌐 Website: nifty-nitesh.vercel.app</li>
+                <li style="margin: 8px 0;">📧 Email: ${
+                  process.env.NEXT_PUBLIC_CONTACT_EMAIL
+                }</li>
+                <li style="margin: 8px 0;">📱 WhatsApp: ${
+                  process.env.NEXT_PUBLIC_CONTACT_WHATSAPP
+                }</li>
+                <li style="margin: 8px 0;">🌐 Website: ${
+                  process.env.NEXT_PUBLIC_WEBSITE_URL
+                }</li>
               </ul>
             </div>
             
@@ -260,7 +240,7 @@ export async function POST(request) {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000000; padding: 20px;">
           <div style="background-color: #111111; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); border: 1px solid #333333;">
             <div style="text-align: center; margin-bottom: 30px;">
-              <img src="https://nifty-nitesh.vercel.app/public/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
+              <img src="https://niftynitesh.com/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
               <h1 style="color: #10b981; margin: 0; font-size: 28px;">🎓 New Course Enrollment!</h1>
               <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 16px;">A new student has enrolled in your trading course</p>
             </div>

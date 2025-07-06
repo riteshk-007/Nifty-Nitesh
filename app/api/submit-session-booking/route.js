@@ -118,7 +118,7 @@ export async function POST(request) {
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000000; padding: 20px;">
             <div style="background-color: #111111; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); border: 1px solid #333333;">
               <div style="text-align: center; margin-bottom: 30px;">
-                <img src="https://nifty-nitesh.vercel.app/public/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
+                <img src="https://niftynitesh.com/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
                 <h1 style="color: #10b981; margin: 0; font-size: 28px;">📅 Session Booking Confirmed!</h1>
                 <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 16px;">Your 1-on-1 trading session has been booked successfully</p>
               </div>
@@ -180,7 +180,7 @@ export async function POST(request) {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000000; padding: 20px;">
           <div style="background-color: #111111; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); border: 1px solid #333333;">
             <div style="text-align: center; margin-bottom: 30px;">
-              <img src="https://nifty-nitesh.vercel.app/public/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
+              <img src="https://niftynitesh.com/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
               <h1 style="color: #10b981; margin: 0; font-size: 28px;">📅 New Session Booking!</h1>
               <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 16px;">A new student has booked a 1-on-1 trading session</p>
             </div>

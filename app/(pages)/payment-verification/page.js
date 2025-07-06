@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import imageCompression from "browser-image-compression";
@@ -16,11 +16,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/riteshk/image/upload";
 const CLOUDINARY_UPLOAD_PRESET = "nifty_unsigned"; // Original preset name
 
-const PaymentVerificationPage = () => {
+const PaymentVerificationContent = () => {
   const searchParams = useSearchParams();
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -251,9 +252,11 @@ const PaymentVerificationPage = () => {
                 {displayQRCode ? (
                   <div className="text-center">
                     <div className="bg-white p-4 rounded-lg inline-block mb-4">
-                      <img
+                      <Image
                         src={displayQRCode}
                         alt="Payment QR Code"
+                        width={256}
+                        height={256}
                         className="w-64 h-64 object-contain"
                       />
                     </div>
@@ -370,9 +373,11 @@ const PaymentVerificationPage = () => {
                         </div>
                       ) : cloudinaryUrl ? (
                         <div>
-                          <img
+                          <Image
                             src={cloudinaryUrl}
                             alt="Payment Screenshot Preview"
+                            width={600}
+                            height={300}
                             className="max-w-full h-auto max-h-64 mx-auto rounded-lg mb-4"
                           />
                           <p className="text-emerald-400 text-sm mb-4">
@@ -465,7 +470,9 @@ const PaymentVerificationPage = () => {
                         <li>• Make payment using the QR code</li>
                         <li>• Take a screenshot of the payment confirmation</li>
                         <li>• Upload the screenshot here for verification</li>
-                        <li>• You'll receive course access within 24 hours</li>
+                        <li>
+                          • You&apos;ll receive course access within 24 hours
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -524,6 +531,25 @@ const PaymentVerificationPage = () => {
         </motion.div>
       </div>
     </div>
+  );
+};
+
+const PaymentVerificationPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-white text-lg">
+              Loading payment verification...
+            </p>
+          </div>
+        </div>
+      }
+    >
+      <PaymentVerificationContent />
+    </Suspense>
   );
 };
 

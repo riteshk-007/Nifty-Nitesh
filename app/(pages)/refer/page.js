@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ReferralForm from "@/app/components/ReferralForm";
 
 export const metadata = {
@@ -9,5 +10,9 @@ export const metadata = {
 };
 
 export default function ReferPage() {
-  return <ReferralForm />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReferralForm />
+    </Suspense>
+  );
 }

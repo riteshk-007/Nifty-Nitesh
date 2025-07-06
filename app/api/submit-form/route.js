@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 // Email configuration
 const emailConfig = {
-  fromEmail: process.env.FROM_EMAIL || "bohraproperty360@gmail.com",
-  smtpHost: process.env.SMTP_HOST || "smtp-relay.brevo.com",
-  smtpUser: process.env.SMTP_USER || "8ff54e001@smtp-brevo.com",
-  smtpPassword: process.env.SMTP_PASSWORD || "k4TVsrKBZWwH3Aa6",
+  fromEmail: process.env.FROM_EMAIL,
+  smtpHost: process.env.SMTP_HOST,
+  smtpUser: process.env.SMTP_USER,
+  smtpPassword: process.env.SMTP_PASSWORD,
 };
 
 // Google Sheets configuration
@@ -22,7 +22,7 @@ const auth = new google.auth.GoogleAuth({
 const sheets = google.sheets({ version: "v4", auth });
 
 // Email transporter
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   host: emailConfig.smtpHost,
   port: 587,
   secure: false,

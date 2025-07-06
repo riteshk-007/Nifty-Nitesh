@@ -26,6 +26,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import imageCompression from "browser-image-compression";
+import Image from "next/image";
 
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/riteshk/image/upload";
 const CLOUDINARY_UPLOAD_PRESET = "nifty_unsigned";
@@ -573,12 +574,12 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
                   <div>
                     <h3 className="text-xl font-bold text-white mb-4 flex items-center">
                       <Users className="w-5 h-5 mr-2 text-emerald-400" />
-                      Friend's Details
+                      Friend&apos;s Details
                     </h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Friend's Name *
+                          Friend&apos;s Name *
                         </label>
                         <input
                           type="text"
@@ -592,7 +593,7 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Friend's Email *
+                          Friend&apos;s Email *
                         </label>
                         <input
                           type="email"
@@ -606,7 +607,7 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Friend's Phone
+                          Friend&apos;s Phone
                         </label>
                         <input
                           type="tel"
@@ -701,9 +702,11 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
                 {qrCodeData && (
                   <div className="text-center">
                     <div className="bg-white p-4 rounded-lg inline-block mb-4">
-                      <img
+                      <Image
                         src={qrCodeData}
                         alt="Payment QR Code"
+                        width={256}
+                        height={256}
                         className="w-64 h-64 object-contain"
                       />
                     </div>
@@ -751,14 +754,14 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
                     Next Step
                   </h2>
                   <p className="text-gray-300 mb-6">
-                    After making the payment, you'll upload the screenshot for
-                    verification
+                    After making the payment, you&apos;ll upload the screenshot
+                    for verification
                   </p>
                   <Button
                     onClick={() => setStep(3)}
                     className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full"
                   >
-                    I've Made the Payment
+                    I&apos;ve Made the Payment
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </div>
@@ -805,9 +808,11 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
                     </div>
                   ) : cloudinaryUrl ? (
                     <div>
-                      <img
+                      <Image
                         src={cloudinaryUrl}
                         alt="Payment Screenshot Preview"
+                        width={600}
+                        height={300}
                         className="max-w-full h-auto max-h-64 mx-auto rounded-lg mb-4"
                       />
                       <p className="text-emerald-400 text-sm mb-4">

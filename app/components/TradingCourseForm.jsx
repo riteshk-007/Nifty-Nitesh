@@ -23,9 +23,11 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import imageCompression from "browser-image-compression";
+import Image from "next/image";
 
-const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/riteshk/image/upload";
-const CLOUDINARY_UPLOAD_PRESET = "nifty_unsigned"; // Original preset name
+const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
+const CLOUDINARY_UPLOAD_PRESET =
+  process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
 const TradingCourseForm = () => {
   const searchParams = useSearchParams();
@@ -185,10 +187,10 @@ const TradingCourseForm = () => {
         // Fallback to client-side upload
         const formData = new FormData();
         formData.append("file", compressedFile);
-        formData.append("upload_preset", "nifty_unsigned");
+        formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
         console.log("Uploading to:", CLOUDINARY_URL);
-        console.log("Upload preset:", "nifty_unsigned");
+        console.log("Upload preset:", CLOUDINARY_UPLOAD_PRESET);
 
         const res = await fetch(CLOUDINARY_URL, {
           method: "POST",
@@ -568,10 +570,12 @@ const TradingCourseForm = () => {
                     Scan QR Code
                   </h3>
                   {qrCodeData && (
-                    <div className="bg-white p-4 rounded-lg inline-block">
-                      <img
+                    <div className="bg-white p-4 rounded-lg inline-block mb-4">
+                      <Image
                         src={qrCodeData}
                         alt="Payment QR Code"
+                        width={256}
+                        height={256}
                         className="w-64 h-64 object-contain"
                       />
                     </div>
@@ -587,7 +591,7 @@ const TradingCourseForm = () => {
                   onClick={() => setStep(3)}
                   className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-3 px-8 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
                 >
-                  I've Made Payment
+                  I&apos;ve Made the Payment
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </div>
@@ -619,10 +623,12 @@ const TradingCourseForm = () => {
                   </div>
                 ) : cloudinaryUrl ? (
                   <div>
-                    <img
+                    <Image
                       src={cloudinaryUrl}
                       alt="Payment Screenshot Preview"
-                      className="max-w-full h-auto max-h-96 mx-auto rounded-lg mb-4"
+                      width={600}
+                      height={300}
+                      className="max-w-full h-auto max-h-64 mx-auto rounded-lg mb-4"
                     />
                     <p className="text-emerald-400 mt-4">
                       Image uploaded successfully
@@ -717,12 +723,12 @@ const TradingCourseForm = () => {
 
               <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-6 mb-8">
                 <h3 className="font-semibold text-emerald-400 mb-3">
-                  What's Next?
+                  What&apos;s Next?
                 </h3>
                 <ul className="text-gray-300 space-y-2">
                   <li>• Our team will verify your payment within 24 hours</li>
-                  <li>• You'll receive course access details via email</li>
-                  <li>• Check your WhatsApp for important updates</li>
+                  <li>• You&apos;ll receive course access details via email</li>
+                  <li>• You&apos;ll get access to exclusive content</li>
                   <li>• Join our exclusive student community</li>
                 </ul>
               </div>

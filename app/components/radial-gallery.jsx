@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { TrendingUp, BarChart3, Target, Zap } from "lucide-react";
+import Image from "next/image";
 
 const chartData = [
   {
@@ -290,10 +291,12 @@ const RadialGallery = () => {
                     className="w-full max-w-2xl h-[500px] rounded-3xl overflow-hidden z-10 relative group"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-3xl"></div>
-                    <img
+                    <Image
                       src={activeItem.img}
                       alt={activeItem.title}
-                      className="w-full h-full object-cover rounded-3xl"
+                      width={300}
+                      height={300}
+                      style={{ objectFit: "cover" }}
                     />
 
                     {/* Close Button */}
