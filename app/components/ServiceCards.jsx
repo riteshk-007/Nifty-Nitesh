@@ -211,7 +211,7 @@ const ServiceCards = () => {
   );
 
   return (
-    <section className="w-full bg-black py-20 relative overflow-hidden">
+    <section className="w-full  py-20 relative overflow-hidden bg-gradient-to-b from-green-800/30 via-black to-black">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />

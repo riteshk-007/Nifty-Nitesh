@@ -202,82 +202,6 @@ const Navbar = () => {
                   About
                 </Link>
                 <Link
-                  href="/enrollment"
-                  className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
-                            font-medium relative after:absolute after:bottom-0 after:left-0 
-                            after:w-0 after:h-0.5 after:bg-green-400 after:transition-all 
-                            after:duration-500 after:ease-bounce hover:after:w-full
-                            hover:scale-110 transform-gpu will-change-transform"
-                  onClick={handleLinkClick}
-                >
-                  Enroll Now
-                </Link>
-                <Link
-                  href="/refer"
-                  className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
-                            font-medium relative after:absolute after:bottom-0 after:left-0 
-                            after:w-0 after:h-0.5 after:bg-green-400 after:transition-all 
-                            after:duration-500 after:ease-bounce hover:after:w-full
-                            hover:scale-110 transform-gpu will-change-transform"
-                  onClick={handleLinkClick}
-                >
-                  Refer Friend
-                </Link>
-
-                {/* Courses Dropdown */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => setIsDropdownOpen(true)}
-                  onMouseLeave={() => setIsDropdownOpen(false)}
-                >
-                  <button
-                    className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
-                              flex items-center font-medium relative after:absolute after:bottom-0 
-                              after:left-0 after:w-0 after:h-0.5 after:bg-green-400 
-                              after:transition-all after:duration-500 after:ease-bounce hover:after:w-full
-                              hover:scale-110 transform-gpu will-change-transform"
-                    onClick={handleDropdownToggle}
-                  >
-                    Courses
-                    <FaAngleDown
-                      className={`ml-2 w-4 h-4 transition-transform duration-500 ease-bounce transform-gpu will-change-transform ${
-                        isDropdownOpen
-                          ? "rotate-180 scale-110"
-                          : "rotate-0 scale-100"
-                      }`}
-                    />
-                  </button>
-
-                  <div
-                    className={`absolute bottom-full left-1/2 -translate-x-1/2   w-56  overflow-hidden
-                               bg-black/60 backdrop-blur-xl rounded-xl 
-                               shadow-[0_-8px_32px_rgba(0,0,0,0.4)] 
-                               border border-green-500/30 z-50 
-                               transition-all duration-300 ease-out transform-gpu will-change-transform ${
-                                 isDropdownOpen
-                                   ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-                                   : "opacity-0 scale-95 translate-y-2 pointer-events-none"
-                               }`}
-                  >
-                    <div className="py-3">
-                      {/* Remove any <Link href="/online-classes">...</Link> or similar menu items */}
-                    </div>
-
-                    <div className="border-t border-green-500/30 py-2">
-                      <Link
-                        href="/faq"
-                        className="block px-6 py-3 text-gray-300 hover:text-green-400 
-                                  hover:bg-green-500/20 transition-all duration-300 ease-bounce
-                                  text-sm hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
-                        onClick={handleLinkClick}
-                      >
-                        FAQ →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                <Link
                   href="/contact"
                   className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
                             font-medium relative after:absolute after:bottom-0 after:left-0 
@@ -287,6 +211,18 @@ const Navbar = () => {
                   onClick={handleLinkClick}
                 >
                   Contact
+                </Link>
+
+                <Link
+                  href="/faq"
+                  className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
+                            font-medium relative after:absolute after:bottom-0 after:left-0 
+                            after:w-0 after:h-0.5 after:bg-green-400 after:transition-all 
+                            after:duration-500 after:ease-bounce hover:after:w-full
+                            hover:scale-110 transform-gpu will-change-transform"
+                  onClick={handleLinkClick}
+                >
+                  FAQs
                 </Link>
               </div>
 
