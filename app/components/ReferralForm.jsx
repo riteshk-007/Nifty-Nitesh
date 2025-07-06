@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import {
   Users,
@@ -11,27 +10,18 @@ import {
   MessageSquare,
   Send,
   CheckCircle,
-  X,
-  Gift,
-  Heart,
-  Star,
   Loader2,
-  CreditCard,
-  Upload,
-  QrCode,
-  Camera,
-  ArrowRight,
-  TrendingUp,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import imageCompression from "browser-image-compression";
-import Image from "next/image";
+import { toast } from "sonner";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { PlayCircle } from "lucide-react";
+import { video } from "@/assets";
 
-const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/riteshk/image/upload";
-const CLOUDINARY_UPLOAD_PRESET = "nifty_unsigned";
+const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
 
-const ReferralForm = ({ isModal = false, onClose = null }) => {
+export default function ReferralForm({ isModal = false, onClose }) {
   const searchParams = useSearchParams();
   const [step, setStep] = useState(1); // 1: Form, 2: Payment, 3: Screenshot, 4: Success
   const [loading, setLoading] = useState(false);
@@ -81,6 +71,25 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
     }
   }, [searchParams]);
 
+  // Add friend details validation
+  const validateFriendDetails = () => {
+    const errors = {};
+    if (!formData.friendName?.trim()) {
+      errors.friendName = "Friend's name is required";
+    }
+    if (!formData.friendEmail?.trim()) {
+      errors.friendEmail = "Friend's email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.friendEmail)) {
+      errors.friendEmail = "Please enter a valid email";
+    }
+    if (!formData.friendPhone?.trim()) {
+      errors.friendPhone = "Friend's phone is required";
+    } else if (!/^\d{10}$/.test(formData.friendPhone)) {
+      errors.friendPhone = "Please enter a valid 10-digit phone number";
+    }
+    return errors;
+  };
+
   const paymentPlans = [
     {
       id: "one-time",
@@ -121,74 +130,55 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // If interested in course, proceed to payment
-    if (formData.interestedIn === "course") {
-      setLoading(true);
+    // Validate friend details
+    const friendErrors = validateFriendDetails();
+    if (Object.keys(friendErrors).length > 0) {
+      Object.entries(friendErrors).forEach(([field, error]) => {
+        toast.error(error);
+      });
+      setLoading(false);
+      return;
+    }
 
-      try {
-        const response = await fetch("/api/submit-enrollment", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.referrerName,
-            email: formData.referrerEmail,
-            phone: formData.referrerPhone,
-            whatsapp: formData.referrerPhone,
-            occupation: "Referred by " + formData.friendName,
-            experience: "Beginner",
-            paymentPlan: formData.paymentPlan,
-            timestamp: new Date().toISOString(),
-          }),
+    try {
+      const response = await fetch("/api/submit-referral", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success("Referral submitted successfully!", {
+          description: "We'll contact your friend soon.",
         });
-
-        const result = await response.json();
-
-        if (result.success) {
-          setQrCodeData(result.qrCode);
-          setSubmissionId(result.submissionId);
-          setPaymentAmount(result.paymentAmount);
-          setStep(2);
+        setStep(4);
+      } else {
+        if (result.details) {
+          Object.entries(result.details).forEach(([field, error]) => {
+            toast.error(`${field}: ${error}`);
+          });
         } else {
-          alert("Error submitting form: " + result.error);
+          toast.error("Error submitting referral", {
+            description: result.error || "Please try again",
+          });
         }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Error submitting form. Please try again.");
-      } finally {
-        setLoading(false);
       }
-    } else {
-      // For session booking, use existing referral API
-      setLoading(true);
-
-      try {
-        const response = await fetch("/api/submit-referral", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formData,
-            timestamp: new Date().toISOString(),
-          }),
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-          setStep(4); // Success step
-        } else {
-          alert("Error submitting referral: " + result.error);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Error submitting referral. Please try again.");
-      } finally {
-        setLoading(false);
-      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Error submitting referral", {
+        description: "Please try again later",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -310,647 +300,322 @@ const ReferralForm = ({ isModal = false, onClose = null }) => {
     (plan) => plan.id === formData.paymentPlan
   );
 
-  // Step 1: Form
-  if (step === 1) {
-    return (
-      <div
-        className={
-          isModal
-            ? ""
-            : "min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-emerald-900 p-4"
-        }
-      >
-        <div className={isModal ? "" : "max-w-4xl mx-auto"}>
-          {/* Header */}
-          {!isModal && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-8"
-            >
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Refer a <span className="text-emerald-400">Friend</span>
-              </h1>
-              <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-                Share the gift of trading knowledge with your friends and help
-                them start their trading journey
-              </p>
-            </motion.div>
-          )}
+  return (
+    <>
+      {/* Form Header with Video Button */}
+      <div className="relative mb-8">
+        {/* Background Gradient Effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-2xl"></div>
 
-          <Card
-            className={`${
-              isModal ? "" : "bg-gray-800/50"
-            } border-gray-700 backdrop-blur-sm`}
-          >
-            <CardContent className="p-8">
-              {isModal && (
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Gift className="w-8 h-8 text-white" />
+        <div className="relative p-6 border border-emerald-500/20 rounded-2xl bg-black/40 backdrop-blur-sm">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Left Side - Title and Icon */}
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center shrink-0">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  Refer a Friend
+                </h3>
+                <p className="text-gray-300 text-sm md:text-base">
+                  Help your friends discover trading and earn rewards
+                </p>
+              </div>
+            </div>
+
+            {/* Right Side - Video Button */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="group z-[100000] flex items-center gap-3 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 rounded-full transition-all duration-300  hover:animate-none">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <PlayCircle className="w-6 h-6 text-white" />
                   </div>
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Refer a Friend
-                  </h2>
-                  <p className="text-gray-300">
-                    Help your friends discover the world of trading
-                  </p>
-                </div>
-              )}
-
-              <form onSubmit={handleFormSubmit} className="space-y-6">
-                {/* Interest Selection */}
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-                    <TrendingUp className="w-5 h-5 mr-2 text-emerald-400" />
-                    What are you interested in?
-                  </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div
-                      className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                        formData.interestedIn === "session"
-                          ? "border-emerald-500 bg-emerald-500/10"
-                          : "border-gray-600 bg-gray-700/30"
-                      }`}
-                      onClick={() =>
-                        setFormData({ ...formData, interestedIn: "session" })
-                      }
-                    >
-                      <input
-                        type="radio"
-                        name="interestedIn"
-                        value="session"
-                        checked={formData.interestedIn === "session"}
-                        onChange={handleFormChange}
-                        className="hidden"
-                      />
-                      <div className="text-center">
-                        <Users className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                        <h4 className="text-white font-semibold">
-                          1-on-1 Session
-                        </h4>
-                        <p className="text-gray-300 text-sm">
-                          ₹250 (FREE for students)
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                        formData.interestedIn === "course"
-                          ? "border-emerald-500 bg-emerald-500/10"
-                          : "border-gray-600 bg-gray-700/30"
-                      }`}
-                      onClick={() =>
-                        setFormData({ ...formData, interestedIn: "course" })
-                      }
-                    >
-                      <input
-                        type="radio"
-                        name="interestedIn"
-                        value="course"
-                        checked={formData.interestedIn === "course"}
-                        onChange={handleFormChange}
-                        className="hidden"
-                      />
-                      <div className="text-center">
-                        <Star className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                        <h4 className="text-white font-semibold">
-                          Complete Course
-                        </h4>
-                        <p className="text-gray-300 text-sm">
-                          ₹9,999 (Multiple payment options)
-                        </p>
-                      </div>
-                    </div>
+                  <div className="text-left">
+                    <div className="text-white font-semibold">Watch Demo</div>
+                    <div className="text-white/80 text-sm">2 min video</div>
                   </div>
-                </div>
-
-                {/* Payment Plan Selection (only for course) */}
-                {formData.interestedIn === "course" && (
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-                      <CreditCard className="w-5 h-5 mr-2 text-emerald-400" />
-                      Choose Payment Plan
-                    </h3>
-                    <div className="grid gap-4">
-                      {paymentPlans.map((plan) => (
-                        <div
-                          key={plan.id}
-                          className={`relative p-6 border-2 rounded-lg cursor-pointer transition-all ${
-                            formData.paymentPlan === plan.id
-                              ? "border-emerald-500 bg-emerald-500/10"
-                              : "border-gray-600 bg-gray-700/30"
-                          } ${
-                            plan.popular ? "ring-2 ring-emerald-500/30" : ""
-                          }`}
-                          onClick={() =>
-                            setFormData({ ...formData, paymentPlan: plan.id })
-                          }
-                        >
-                          <input
-                            type="radio"
-                            name="paymentPlan"
-                            value={plan.id}
-                            checked={formData.paymentPlan === plan.id}
-                            onChange={handleFormChange}
-                            className="hidden"
-                          />
-                          {plan.popular && (
-                            <div className="absolute -top-3 left-6 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                              {plan.badge}
-                            </div>
-                          )}
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h4 className="text-white font-semibold text-lg">
-                                {plan.name}
-                              </h4>
-                              <p className="text-gray-300 text-sm mt-1">
-                                {plan.description}
-                              </p>
-                              <div className="mt-3">
-                                <span className="text-emerald-400 font-bold text-2xl">
-                                  ₹
-                                  {plan.installmentAmount
-                                    ? plan.installmentAmount.toLocaleString()
-                                    : plan.amount.toLocaleString()}
-                                </span>
-                                {plan.installmentAmount && (
-                                  <span className="text-gray-400 text-sm ml-2">
-                                    / installment
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              {plan.badge && !plan.popular && (
-                                <span className="inline-block bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-sm">
-                                  {plan.badge}
-                                </span>
-                              )}
-                              <div className="text-gray-400 text-sm mt-2">
-                                Total: ₹{plan.amount.toLocaleString()}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Your Details Section */}
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-                    <User className="w-5 h-5 mr-2 text-emerald-400" />
-                    Your Details
-                  </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Your Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="referrerName"
-                        value={formData.referrerName}
-                        onChange={handleFormChange}
-                        className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                        placeholder="Enter your name"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Your Email *
-                      </label>
-                      <input
-                        type="email"
-                        name="referrerEmail"
-                        value={formData.referrerEmail}
-                        onChange={handleFormChange}
-                        className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                        placeholder="Enter your email"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Your Phone *
-                      </label>
-                      <input
-                        type="tel"
-                        name="referrerPhone"
-                        value={formData.referrerPhone}
-                        onChange={handleFormChange}
-                        className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                        placeholder="Enter your phone number"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Relationship
-                      </label>
-                      <select
-                        name="relationshipType"
-                        value={formData.relationshipType}
-                        onChange={handleFormChange}
-                        className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
-                      >
-                        <option value="">Select relationship</option>
-                        <option value="friend">Friend</option>
-                        <option value="family">Family Member</option>
-                        <option value="colleague">Colleague</option>
-                        <option value="neighbor">Neighbor</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Friend Details Section (only for session) */}
-                {formData.interestedIn === "session" && (
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-                      <Users className="w-5 h-5 mr-2 text-emerald-400" />
-                      Friend&apos;s Details
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Friend&apos;s Name *
-                        </label>
-                        <input
-                          type="text"
-                          name="friendName"
-                          value={formData.friendName}
-                          onChange={handleFormChange}
-                          className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                          placeholder="Enter friend's name"
-                          required={formData.interestedIn === "session"}
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Friend&apos;s Email *
-                        </label>
-                        <input
-                          type="email"
-                          name="friendEmail"
-                          value={formData.friendEmail}
-                          onChange={handleFormChange}
-                          className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                          placeholder="Enter friend's email"
-                          required={formData.interestedIn === "session"}
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Friend&apos;s Phone
-                        </label>
-                        <input
-                          type="tel"
-                          name="friendPhone"
-                          value={formData.friendPhone}
-                          onChange={handleFormChange}
-                          className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                          placeholder="Enter friend's phone"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Message Section */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Personal Message (Optional)
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleFormChange}
-                    rows={4}
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                    placeholder="Add a personal message for your friend..."
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      {formData.interestedIn === "course"
-                        ? "Proceed to Payment"
-                        : "Send Referral"}
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </>
-                  )}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
-
-  // Step 2: Payment (only for course)
-  if (step === 2) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
-            <h1 className="text-3xl md:text-4xl font-bold text-white">
-              Payment for Trading Course
-            </h1>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              Complete your enrollment by making the payment
-            </p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* QR Code Section */}
-            <Card className="bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <QrCode className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Scan QR Code to Pay
-                  </h2>
-                  <p className="text-gray-300">
-                    Use any UPI app to scan and pay ₹{paymentAmount}
-                  </p>
-                </div>
-
-                {qrCodeData && (
-                  <div className="text-center">
-                    <div className="bg-white p-4 rounded-lg inline-block mb-4">
-                      <Image
-                        src={qrCodeData}
-                        alt="Payment QR Code"
-                        width={256}
-                        height={256}
-                        className="w-64 h-64 object-contain"
-                      />
-                    </div>
-                    <div className="text-sm text-gray-400">
-                      <p>UPI ID: niftynitesh@yesg</p>
-                      <p>Amount: ₹{paymentAmount}</p>
-                    </div>
-                  </div>
-                )}
-
-                <div className="mt-8 p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
-                  <h3 className="text-white font-semibold mb-2">
-                    Payment Details
-                  </h3>
-                  <div className="space-y-2 text-sm text-gray-300">
-                    <div className="flex justify-between">
-                      <span>Name:</span>
-                      <span className="text-white">
-                        {formData.referrerName}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Amount:</span>
-                      <span className="text-emerald-400 font-semibold">
-                        ₹{paymentAmount}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Plan:</span>
-                      <span className="text-white">{selectedPlan?.name}</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Next Step Button */}
-            <Card className="bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Upload className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Next Step
-                  </h2>
-                  <p className="text-gray-300 mb-6">
-                    After making the payment, you&apos;ll upload the screenshot
-                    for verification
-                  </p>
-                  <Button
-                    onClick={() => setStep(3)}
-                    className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full"
+                </button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl bg-black/95 border-emerald-500/20">
+                <div className="relative aspect-video">
+                  <video
+                    className="w-full h-full rounded-lg"
+                    controls
+                    autoPlay
+                    src={video}
                   >
-                    I&apos;ve Made the Payment
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
-              </CardContent>
-            </Card>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
-    );
-  }
 
-  // Step 3: Screenshot Upload
-  if (step === 3) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-12 px-4">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
-            <h1 className="text-3xl md:text-4xl font-bold text-white">
-              Upload Payment Screenshot
-            </h1>
-            <p className="text-gray-300 text-lg">
-              Upload your payment screenshot for verification
-            </p>
-          </motion.div>
-
-          <Card className="bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm">
-            <CardContent className="p-8">
-              <div className="space-y-6">
-                {/* File Upload Area */}
-                <div className="border-2 border-dashed border-emerald-500/30 rounded-lg p-8 text-center hover:border-emerald-500/50 transition-colors">
-                  {compressing ? (
-                    <div>
-                      <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                      <p className="text-emerald-400">Compressing image...</p>
-                    </div>
-                  ) : cloudinaryUploading ? (
-                    <div>
-                      <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                      <p className="text-emerald-400">Uploading image...</p>
-                    </div>
-                  ) : cloudinaryUrl ? (
-                    <div>
-                      <Image
-                        src={cloudinaryUrl}
-                        alt="Payment Screenshot Preview"
-                        width={600}
-                        height={300}
-                        className="max-w-full h-auto max-h-64 mx-auto rounded-lg mb-4"
-                      />
-                      <p className="text-emerald-400 text-sm mb-4">
-                        Image uploaded successfully
-                      </p>
-                      <Button
-                        onClick={() => {
-                          setPaymentScreenshot(null);
-                          setCloudinaryUrl("");
-                          const fileInput =
-                            document.getElementById("screenshot-upload");
-                          if (fileInput) fileInput.value = "";
-                        }}
-                        variant="outline"
-                        className="border-red-500/30 text-red-400 hover:bg-red-500/10"
-                      >
-                        Remove File
-                      </Button>
-                    </div>
-                  ) : (
-                    <>
-                      <input
-                        type="file"
-                        id="screenshot-upload"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                      />
-                      <label
-                        htmlFor="screenshot-upload"
-                        className="cursor-pointer block"
-                      >
-                        <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
-                          <Camera className="w-8 h-8 text-emerald-400" />
-                        </div>
-                        <h3 className="text-white font-semibold mb-2">
-                          Choose Screenshot
-                        </h3>
-                        <p className="text-gray-400 text-sm mb-4">
-                          Click to select payment screenshot (JPG, PNG)
-                        </p>
-                        <Button
-                          variant="outline"
-                          className="border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10"
-                        >
-                          <Upload className="w-4 h-4 mr-2" />
-                          Browse Files
-                        </Button>
-                      </label>
-                    </>
-                  )}
+      {/* Video Preview Card */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <div className="relative mb-8 cursor-pointer group">
+            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-600">
+              <div className="w-full h-48 flex items-center justify-center relative">
+                {/* Animated Background Effect */}
+                <div className="absolute inset-0">
+                  <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,170,0.1),transparent_70%)] "></div>
+                  <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-blob"></div>
+                  <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
                 </div>
 
-                {/* Error Message */}
-                {uploadError && (
-                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
-                    <div className="flex items-center gap-2 text-red-400">
-                      <X className="w-5 h-5" />
-                      <span className="text-sm">{uploadError}</span>
-                    </div>
+                {/* Content */}
+                <div className="relative z-10 text-center px-4">
+                  <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                    <Users className="w-10 h-10 text-white" />
                   </div>
-                )}
-
-                {/* Submit Button */}
-                <Button
-                  onClick={handleScreenshotSubmit}
-                  disabled={!cloudinaryUrl || loading}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 disabled:opacity-50"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Verifying Payment...
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle className="w-5 h-5 mr-2" />
-                      Submit for Verification
-                    </>
-                  )}
-                </Button>
+                  <div className="text-white font-medium">
+                    Learn how to refer friends and earn rewards
+                  </div>
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
 
-  // Step 4: Success
-  if (step === 4) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-emerald-900 p-4 flex items-center justify-center">
-        <Card className="bg-gray-800/50 border-gray-700 backdrop-blur-sm max-w-2xl w-full">
-          <CardContent className="p-8">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-center py-8"
+              {/* Play Button Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-emerald-500/20">
+                  <PlayCircle className="w-8 h-8 text-white" />
+                </div>
+              </div>
+
+              {/* Bottom Text Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                <div className="text-white font-semibold flex items-center gap-2">
+                  <PlayCircle className="w-5 h-5" />
+                  Watch How It Works
+                </div>
+                <div className="text-white/80 text-sm">
+                  2 minute video guide
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogTrigger>
+        <DialogContent className="max-w-4xl bg-black/95 border-emerald-500/20">
+          <div className="relative aspect-video">
+            <video
+              className="w-full h-full rounded-lg"
+              controls
+              autoPlay
+              src={video}
             >
-              <CheckCircle className="w-20 h-20 text-emerald-400 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-4">
-                {formData.interestedIn === "course"
-                  ? "Payment Submitted Successfully!"
-                  : "Referral Sent Successfully!"}
-              </h3>
-              <p className="text-gray-300 mb-6">
-                {formData.interestedIn === "course"
-                  ? "Your payment has been submitted for verification. You'll receive course access within 24 hours."
-                  : "Thank you for referring your friend. We'll reach out to them soon and keep you updated on their progress."}
-              </p>
-              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
-                <p className="text-emerald-400 font-semibold">
-                  🎁{" "}
-                  {formData.interestedIn === "course"
-                    ? "Welcome to the Course!"
-                    : "Referral Rewards Coming Soon!"}
-                </p>
-                <p className="text-gray-300 text-sm mt-2">
-                  {formData.interestedIn === "course"
-                    ? "Check your email for further instructions and course materials."
-                    : "Stay tuned for exciting rewards when your friends join our trading courses"}
-                </p>
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {step === 1 && (
+        <form onSubmit={handleFormSubmit} className="space-y-6">
+          {/* Your Details Section */}
+          <div className="bg-gray-900/50 border border-emerald-500/20 rounded-lg p-4 md:p-6">
+            <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
+              <User className="w-5 h-5 text-emerald-400" />
+              Your Details
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Your Name *
+                </label>
+                <input
+                  type="text"
+                  name="referrerName"
+                  value={formData.referrerName}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Enter your name"
+                  required
+                />
               </div>
-              <Button
-                onClick={() => (window.location.href = "/")}
-                className="mt-6 bg-emerald-500 hover:bg-emerald-600 text-white"
-              >
-                Return to Homepage
-              </Button>
-            </motion.div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
-  return null;
-};
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Your Email *
+                </label>
+                <input
+                  type="email"
+                  name="referrerEmail"
+                  value={formData.referrerEmail}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
 
-export default ReferralForm;
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Your Phone *
+                </label>
+                <input
+                  type="tel"
+                  name="referrerPhone"
+                  value={formData.referrerPhone}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Enter your phone number"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Friend's Details Section */}
+          <div className="bg-gray-900/50 border border-emerald-500/20 rounded-lg p-4 md:p-6">
+            <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
+              <Users className="w-5 h-5 text-emerald-400" />
+              Friend&apos;s Details
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Friend&apos;s Name *
+                </label>
+                <input
+                  type="text"
+                  name="friendName"
+                  value={formData.friendName}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Enter your friend's name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Friend&apos;s Email *
+                </label>
+                <input
+                  type="email"
+                  name="friendEmail"
+                  value={formData.friendEmail}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Enter your friend's email"
+                  required
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Friend&apos;s Phone *
+                </label>
+                <input
+                  type="tel"
+                  name="friendPhone"
+                  value={formData.friendPhone}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Enter your friend's phone number"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Referral Details Section */}
+          <div className="bg-gray-900/50 border border-emerald-500/20 rounded-lg p-4 md:p-6">
+            <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-emerald-400" />
+              Referral Details
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  What are they interested in? *
+                </label>
+                <select
+                  name="interestedIn"
+                  value={formData.interestedIn}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  required
+                >
+                  <option value="course">Complete Trading Course</option>
+                  <option value="session">1-on-1 Trading Session</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  How do you know them?
+                </label>
+                <select
+                  name="relationshipType"
+                  value={formData.relationshipType}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                >
+                  <option value="">Select relationship</option>
+                  <option value="friend">Friend</option>
+                  <option value="family">Family Member</option>
+                  <option value="colleague">Colleague</option>
+                  <option value="classmate">Classmate</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Personal Message (Optional)
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Add a personal message for your friend..."
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+          >
+            {loading ? (
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+            ) : (
+              <Send className="w-5 h-5 mr-2" />
+            )}
+            {loading ? "Submitting..." : "Submit Referral"}
+          </Button>
+        </form>
+      )}
+
+      {step === 4 && (
+        <div className="text-center">
+          <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-white" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-4">
+            Referral Submitted Successfully!
+          </h3>
+          <p className="text-gray-300 mb-6">
+            We&apos;ll contact your friend soon and notify you when they join.
+          </p>
+          {isModal && (
+            <Button
+              onClick={onClose}
+              className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 px-8 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+            >
+              Close
+            </Button>
+          )}
+        </div>
+      )}
+    </>
+  );
+}

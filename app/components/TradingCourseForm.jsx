@@ -44,6 +44,7 @@ const TradingCourseForm = () => {
     experience: "",
     paymentPlan: "one-time",
   });
+  const [errors, setErrors] = useState({});
   const [paymentScreenshot, setPaymentScreenshot] = useState(null);
   const [submissionId, setSubmissionId] = useState(null);
   const [cloudinaryUrl, setCloudinaryUrl] = useState("");
@@ -57,6 +58,8 @@ const TradingCourseForm = () => {
     const urlSubmissionId = searchParams.get("submissionId");
     const urlQrCode = searchParams.get("qrCode");
     const urlAmount = searchParams.get("amount");
+    const urlName = searchParams.get("name");
+    const urlPaymentPlan = searchParams.get("paymentPlan");
 
     if (urlStep && urlSubmissionId && urlQrCode) {
       setStep(parseInt(urlStep));
@@ -64,6 +67,27 @@ const TradingCourseForm = () => {
       setQrCodeData(decodeURIComponent(urlQrCode));
       if (urlAmount) {
         setPaymentAmount(parseInt(urlAmount));
+      }
+
+      // Set form data from URL parameters
+      setFormData((prevData) => ({
+        ...prevData,
+        name: urlName || "",
+        paymentPlan: urlPaymentPlan || "one-time",
+      }));
+
+      // Find the payment plan based on amount
+      if (urlAmount) {
+        const amount = parseInt(urlAmount);
+        const plan = paymentPlans.find(
+          (p) => p.amount === amount || p.installmentAmount === amount
+        );
+        if (plan) {
+          setFormData((prevData) => ({
+            ...prevData,
+            paymentPlan: plan.id,
+          }));
+        }
       }
     }
   }, [searchParams]);
@@ -99,15 +123,76 @@ const TradingCourseForm = () => {
     },
   ];
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 3) {
+      newErrors.name = "Name must be at least 3 characters long";
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Phone validation
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      newErrors.phone = "Please enter a valid 10-digit Indian phone number";
+    }
+
+    // WhatsApp validation (only if provided)
+    if (formData.whatsapp.trim() && !/^[6-9]\d{9}$/.test(formData.whatsapp)) {
+      newErrors.whatsapp = "Please enter a valid 10-digit Indian phone number";
+    }
+
+    // Occupation validation
+    if (!formData.occupation) {
+      newErrors.occupation = "Please select your occupation";
+    }
+
+    // Experience validation
+    if (!formData.experience) {
+      newErrors.experience = "Please select your experience level";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleFormChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      // If WhatsApp is empty and phone is being changed, use phone number for WhatsApp
+      whatsapp: name === "phone" && !prev.whatsapp ? value : prev.whatsapp,
+    }));
+
+    // Clear error for the field being changed
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -118,6 +203,8 @@ const TradingCourseForm = () => {
         },
         body: JSON.stringify({
           ...formData,
+          // If WhatsApp is empty, use phone number
+          whatsapp: formData.whatsapp || formData.phone,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -129,11 +216,16 @@ const TradingCourseForm = () => {
         setSubmissionId(result.submissionId);
         setStep(2);
       } else {
-        alert("Error submitting form: " + result.error);
+        if (result.details) {
+          // Set field-specific errors from API
+          setErrors(result.details);
+        } else {
+          setErrors({ submit: result.error || "Error submitting form" });
+        }
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error submitting form. Please try again.");
+      setErrors({ submit: "Error submitting form. Please try again." });
     } finally {
       setLoading(false);
     }
@@ -221,19 +313,55 @@ const TradingCourseForm = () => {
       alert("Please select and upload a screenshot first");
       return;
     }
+
+    // Validate required fields
+    if (!submissionId) {
+      alert("Missing submission ID. Please try again or contact support.");
+      return;
+    }
+
+    if (!selectedPlan?.amount) {
+      alert("Missing payment amount. Please select a payment plan.");
+      return;
+    }
+
+    if (!formData.name) {
+      alert("Missing name. Please fill in your name.");
+      return;
+    }
+
+    if (!formData.paymentPlan) {
+      alert("Missing payment plan. Please select a payment plan.");
+      return;
+    }
+
     setLoading(true);
     try {
       const uploadFormData = new FormData();
       uploadFormData.append("screenshotUrl", cloudinaryUrl);
       uploadFormData.append("submissionId", submissionId);
-      uploadFormData.append("amount", selectedPlan?.amount || "");
-      uploadFormData.append("name", formData.name || "");
-      uploadFormData.append("paymentPlan", formData.paymentPlan || "");
+      uploadFormData.append("amount", selectedPlan.amount.toString());
+      uploadFormData.append("name", formData.name);
+      uploadFormData.append("paymentPlan", formData.paymentPlan);
+
+      // Debug logs
+      console.log("Submitting screenshot with data:", {
+        screenshotUrl: cloudinaryUrl,
+        submissionId,
+        amount: selectedPlan.amount,
+        name: formData.name,
+        paymentPlan: formData.paymentPlan,
+      });
+
       const response = await fetch("/api/upload-screenshot", {
         method: "POST",
         body: uploadFormData,
       });
       const result = await response.json();
+
+      // Debug log for API response
+      console.log("API Response:", result);
+
       if (result.success) {
         setStep(4);
         setPaymentScreenshot(null);
@@ -246,6 +374,7 @@ const TradingCourseForm = () => {
         );
       }
     } catch (error) {
+      console.error("Error uploading screenshot:", error);
       alert("Error uploading screenshot. Please try again.");
     } finally {
       setLoading(false);
@@ -311,7 +440,8 @@ const TradingCourseForm = () => {
               </h2>
 
               <form onSubmit={handleFormSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+                {/* Form Fields */}
+                <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       <User className="w-4 h-4 inline mr-2" />
@@ -322,30 +452,40 @@ const TradingCourseForm = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        errors.name ? "border-red-500" : "border-gray-600"
+                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       placeholder="Enter your full name"
                       required
                     />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                    )}
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       <Mail className="w-4 h-4 inline mr-2" />
-                      Email Address *
+                      Email *
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        errors.email ? "border-red-500" : "border-gray-600"
+                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       placeholder="Enter your email address"
                       required
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       <Phone className="w-4 h-4 inline mr-2" />
@@ -356,10 +496,17 @@ const TradingCourseForm = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        errors.phone ? "border-red-500" : "border-gray-600"
+                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       placeholder="Enter your phone number"
                       required
                     />
+                    {errors.phone && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.phone}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -372,27 +519,42 @@ const TradingCourseForm = () => {
                       name="whatsapp"
                       value={formData.whatsapp}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                      placeholder="Enter WhatsApp number (optional)"
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        errors.whatsapp ? "border-red-500" : "border-gray-600"
+                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
+                      placeholder="Enter your WhatsApp number (optional)"
                     />
+                    <p className="text-gray-400 text-xs mt-1">
+                      Leave empty to use phone number
+                    </p>
                   </div>
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       <Briefcase className="w-4 h-4 inline mr-2" />
                       Occupation *
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="occupation"
                       value={formData.occupation}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                      placeholder="Enter your occupation"
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        errors.occupation ? "border-red-500" : "border-gray-600"
+                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       required
-                    />
+                    >
+                      <option value="">Select your occupation</option>
+                      <option value="student">Student</option>
+                      <option value="employed">Employed</option>
+                      <option value="business">Business Owner</option>
+                      <option value="trader">Full-time Trader</option>
+                      <option value="other">Other</option>
+                    </select>
+                    {errors.occupation && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.occupation}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -404,19 +566,33 @@ const TradingCourseForm = () => {
                       name="experience"
                       value={formData.experience}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        errors.experience ? "border-red-500" : "border-gray-600"
+                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       required
                     >
-                      <option value="">Select your experience</option>
-                      <option value="Complete Beginner">
-                        Complete Beginner
+                      <option value="">Select your experience level</option>
+                      <option value="beginner">Beginner (0-1 year)</option>
+                      <option value="intermediate">
+                        Intermediate (1-3 years)
                       </option>
-                      <option value="Basic Knowledge">Basic Knowledge</option>
-                      <option value="Intermediate">Intermediate</option>
-                      <option value="Experienced">Experienced</option>
+                      <option value="experienced">
+                        Experienced (3+ years)
+                      </option>
                     </select>
+                    {errors.experience && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.experience}
+                      </p>
+                    )}
                   </div>
                 </div>
+
+                {errors.submit && (
+                  <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                    <p className="text-red-500 text-sm">{errors.submit}</p>
+                  </div>
+                )}
 
                 {/* Payment Plans */}
                 <div>
@@ -490,10 +666,11 @@ const TradingCourseForm = () => {
                   </div>
                 </div>
 
+                {/* Submit Button */}
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 mt-6"
                 >
                   {loading ? (
                     <>
@@ -502,7 +679,7 @@ const TradingCourseForm = () => {
                     </>
                   ) : (
                     <>
-                      Continue to Payment
+                      Proceed to Payment
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </>
                   )}

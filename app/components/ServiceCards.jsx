@@ -25,6 +25,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ReferralForm from "./ReferralForm";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 
 const ServiceCards = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -112,18 +114,35 @@ const ServiceCards = () => {
       const result = await response.json();
 
       if (result.success) {
-        setShowSuccess(true);
+        toast.success(
+          "Session booked successfully! We'll contact you shortly.",
+          {
+            description: "Check your email for confirmation details.",
+          }
+        );
         setFormData({ name: "", phone: "", experience: "", email: "" });
         setTimeout(() => {
           setShowBookingModal(false);
-          setShowSuccess(false);
-        }, 3000);
+        }, 2000);
       } else {
-        alert("Error submitting booking: " + result.error);
+        if (result.details) {
+          // Show field-specific validation errors
+          Object.entries(result.details).forEach(([field, error]) => {
+            toast.error(`${error}`, {
+              description: `Please check the ${field} field`,
+            });
+          });
+        } else {
+          toast.error("Error submitting booking", {
+            description: result.error || "Please try again",
+          });
+        }
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error submitting booking. Please try again.");
+      toast.error("Error submitting booking", {
+        description: "Please try again later",
+      });
     } finally {
       setLoading(false);
     }
@@ -154,18 +173,34 @@ const ServiceCards = () => {
       const result = await response.json();
 
       if (result.success) {
+        toast.success("Enrollment submitted successfully!", {
+          description: "Redirecting to payment...",
+        });
         // Redirect to dedicated enrollment page with payment flow
         window.location.href = `/enrollment?step=2&submissionId=${
           result.submissionId
         }&qrCode=${encodeURIComponent(result.qrCode)}&amount=${
           result.paymentAmount
-        }`;
+        }&name=${encodeURIComponent(
+          enrollmentData.name
+        )}&paymentPlan=${encodeURIComponent(selectedPaymentPlan)}`;
       } else {
-        alert("Error submitting enrollment: " + result.error);
+        if (result.details) {
+          // Show field-specific errors
+          Object.entries(result.details).forEach(([field, error]) => {
+            toast.error(`${field}: ${error}`);
+          });
+        } else {
+          toast.error("Error submitting enrollment", {
+            description: result.error || "Please try again",
+          });
+        }
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error submitting enrollment. Please try again.");
+      toast.error("Error submitting enrollment", {
+        description: "Please try again later",
+      });
     } finally {
       setLoading(false);
     }
@@ -585,6 +620,21 @@ const ServiceCards = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   Phone Number *
                 </label>
                 <input
@@ -629,10 +679,15 @@ const ServiceCards = () => {
 
               <Button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
               >
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Book via WhatsApp
+                {loading ? (
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                ) : (
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                )}
+                {loading ? "Processing..." : "Enroll Now"}
               </Button>
             </form>
           </motion.div>
@@ -688,6 +743,21 @@ const ServiceCards = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={enrollmentData.email}
+                      onChange={handleEnrollmentChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                      placeholder="Enter your email address"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
                       Phone Number *
                     </label>
                     <input
@@ -721,13 +791,14 @@ const ServiceCards = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Occupation
+                      Occupation *
                     </label>
                     <select
                       name="occupation"
                       value={enrollmentData.occupation}
                       onChange={handleEnrollmentChange}
                       className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                      required
                     >
                       <option value="">Select your occupation</option>
                       <option value="student">Student</option>
@@ -810,10 +881,15 @@ const ServiceCards = () => {
 
                   <Button
                     type="submit"
+                    disabled={loading}
                     className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 mt-6"
                   >
-                    <MessageCircle className="w-5 h-5 mr-2" />
-                    Enroll via WhatsApp
+                    {loading ? (
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    ) : (
+                      <MessageCircle className="w-5 h-5 mr-2" />
+                    )}
+                    Enroll Now
                   </Button>
                 </form>
               </div>
@@ -937,6 +1013,7 @@ const ServiceCards = () => {
           </motion.div>
         </div>
       )}
+      <Toaster richColors position="top-center" />
     </section>
   );
 };

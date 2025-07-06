@@ -51,16 +51,39 @@ export async function POST(request) {
     } = formData;
 
     // Validate required fields
-    if (
-      !name ||
-      !email ||
-      !phone ||
-      !occupation ||
-      !experience ||
-      !paymentPlan
-    ) {
+    const errors = {};
+
+    if (!name?.trim()) {
+      errors.name = "Name is required";
+    }
+
+    if (!email?.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = "Please enter a valid email";
+    }
+
+    if (!phone?.trim()) {
+      errors.phone = "Phone is required";
+    } else if (!/^\d{10}$/.test(phone)) {
+      errors.phone = "Please enter a valid 10-digit phone number";
+    }
+
+    if (!occupation?.trim()) {
+      errors.occupation = "Occupation is required";
+    }
+
+    if (!experience) {
+      errors.experience = "Experience level is required";
+    }
+
+    if (!paymentPlan) {
+      errors.paymentPlan = "Payment plan is required";
+    }
+
+    if (Object.keys(errors).length > 0) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Missing or invalid fields", details: errors },
         { status: 400 }
       );
     }
