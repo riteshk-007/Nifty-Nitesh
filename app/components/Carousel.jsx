@@ -99,24 +99,13 @@ const CarouselScroll = ({ images }) => {
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                    <Link href="/online-classes">
-                      <Button
-                        variant="cta"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                      >
-                        Start Learning Today
-                      </Button>
-                    </Link>
-                    <Link href="/faq">
-                      <Button
-                        variant="secondary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                      >
-                        Learn More
-                      </Button>
-                    </Link>
+                    <Button
+                      variant="cta"
+                      size="lg"
+                      className="w-full sm:w-auto"
+                    >
+                      Start Learning Today
+                    </Button>
                   </div>
 
                   {/* Trust Indicators */}

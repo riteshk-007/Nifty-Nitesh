@@ -135,7 +135,6 @@ export const metadata = {
     },
     offers: {
       "@type": "Online Classes",
-      url: "https://niftynitesh.com/online-classes",
       availability: "https://schema.org/InStock",
     },
     course: [

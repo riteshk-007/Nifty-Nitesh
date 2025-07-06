@@ -201,6 +201,28 @@ const Navbar = () => {
                 >
                   About
                 </Link>
+                <Link
+                  href="/enrollment"
+                  className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
+                            font-medium relative after:absolute after:bottom-0 after:left-0 
+                            after:w-0 after:h-0.5 after:bg-green-400 after:transition-all 
+                            after:duration-500 after:ease-bounce hover:after:w-full
+                            hover:scale-110 transform-gpu will-change-transform"
+                  onClick={handleLinkClick}
+                >
+                  Enroll Now
+                </Link>
+                <Link
+                  href="/refer"
+                  className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
+                            font-medium relative after:absolute after:bottom-0 after:left-0 
+                            after:w-0 after:h-0.5 after:bg-green-400 after:transition-all 
+                            after:duration-500 after:ease-bounce hover:after:w-full
+                            hover:scale-110 transform-gpu will-change-transform"
+                  onClick={handleLinkClick}
+                >
+                  Refer Friend
+                </Link>
 
                 {/* Courses Dropdown */}
                 <div
@@ -238,15 +260,7 @@ const Navbar = () => {
                                }`}
                   >
                     <div className="py-3">
-                      <Link
-                        href="/online-classes"
-                        className="block px-6 py-3 text-white hover:text-green-400 
-                                  hover:bg-green-500/20 transition-all duration-300 ease-bounce
-                                  font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
-                        onClick={handleLinkClick}
-                      >
-                        Online Courses
-                      </Link>
+                      {/* Remove any <Link href="/online-classes">...</Link> or similar menu items */}
                     </div>
 
                     <div className="border-t border-green-500/30 py-2">
@@ -365,18 +379,27 @@ const Navbar = () => {
                   >
                     About
                   </Link>
+                  <Link
+                    href="/enrollment"
+                    onClick={handleLinkClick}
+                    className="block text-white hover:text-green-400 transition-all duration-500 ease-bounce
+                              py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
+                  >
+                    Enroll Now
+                  </Link>
+                  <Link
+                    href="/refer"
+                    onClick={handleLinkClick}
+                    className="block text-white hover:text-green-400 transition-all duration-500 ease-bounce
+                              py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
+                  >
+                    Refer Friend
+                  </Link>
                   <div className="space-y-3">
                     <div className="text-gray-300 text-sm font-semibold uppercase tracking-wider">
                       Courses
                     </div>
-                    <Link
-                      href="/online-classes"
-                      onClick={handleLinkClick}
-                      className="block pl-4 text-white hover:text-green-400 transition-all 
-                                duration-500 ease-bounce py-1 hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
-                    >
-                      Online Courses
-                    </Link>
+                    {/* Remove any <Link href="/online-classes">...</Link> or similar menu items */}
                     <Link
                       href="/faq"
                       onClick={handleLinkClick}
@@ -468,18 +491,19 @@ const Navbar = () => {
                   >
                     About
                   </Link>
+                  <Link
+                    href="/enrollment"
+                    className="block text-white hover:text-green-400 transition-all duration-300 ease-bounce
+                              py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
+                    onClick={handleLinkClick}
+                  >
+                    Enroll Now
+                  </Link>
                   <div className="space-y-3">
                     <div className="text-gray-300 text-sm font-semibold uppercase tracking-wider">
                       Courses
                     </div>
-                    <Link
-                      href="/online-classes"
-                      className="block pl-4 text-white hover:text-green-400 transition-all 
-                                duration-300 ease-bounce py-1 hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
-                      onClick={handleLinkClick}
-                    >
-                      Online Courses
-                    </Link>
+                    {/* Remove any <Link href="/online-classes">...</Link> or similar menu items */}
                     <Link
                       href="/faq"
                       className="block pl-4 text-gray-300 hover:text-green-400 transition-all 

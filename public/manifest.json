@@ -1,0 +1,30 @@
+{
+  "name": "Nifty Nitesh Trading Course",
+  "short_name": "Nifty Nitesh",
+  "description": "Best Share Market & Stock Trading Classes in Delhi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f0a",
+  "theme_color": "#00ff88",
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "finance", "trading"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "orientation": "portrait-primary"
+}

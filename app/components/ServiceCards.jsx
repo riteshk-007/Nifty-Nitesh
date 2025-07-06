@@ -15,27 +15,39 @@ import {
   CreditCard,
   ChevronDown,
   ChevronUp,
+  Gift,
+  Heart,
+  Star,
+  Send,
+  Loader2,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import ReferralForm from "./ReferralForm";
 
 const ServiceCards = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+  const [showReferralModal, setShowReferralModal] = useState(false);
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState("one-time");
   const [showPaymentPlans, setShowPaymentPlans] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     experience: "",
+    email: "",
   });
   const [enrollmentData, setEnrollmentData] = useState({
     name: "",
     phone: "",
     experience: "",
     occupation: "",
+    email: "",
+    whatsapp: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const paymentPlans = [
     {
@@ -81,50 +93,82 @@ const ServiceCards = () => {
     });
   };
 
-  const handleBookingSubmit = (e) => {
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    const message = `Hi! I want to book a 1-on-1 trading session.
+    setLoading(true);
 
-Name: ${formData.name}
-Phone: ${formData.phone}
-Experience: ${formData.experience}
+    try {
+      const response = await fetch("/api/submit-session-booking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString(),
+        }),
+      });
 
-Please confirm my slot for Saturday session.`;
+      const result = await response.json();
 
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(whatsappUrl, "_blank");
-    setShowBookingModal(false);
+      if (result.success) {
+        setShowSuccess(true);
+        setFormData({ name: "", phone: "", experience: "", email: "" });
+        setTimeout(() => {
+          setShowBookingModal(false);
+          setShowSuccess(false);
+        }, 3000);
+      } else {
+        alert("Error submitting booking: " + result.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error submitting booking. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleEnrollmentSubmit = (e) => {
+  const handleEnrollmentSubmit = async (e) => {
     e.preventDefault();
-    const selectedPlan = paymentPlans.find(
-      (plan) => plan.id === selectedPaymentPlan
-    );
-    const message = `Hi! I want to enroll in the Complete Trading Course.
+    setLoading(true);
 
-Name: ${enrollmentData.name}
-Phone: ${enrollmentData.phone}
-Experience: ${enrollmentData.experience}
-Occupation: ${enrollmentData.occupation}
+    try {
+      const response = await fetch("/api/submit-enrollment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: enrollmentData.name,
+          email: enrollmentData.email,
+          phone: enrollmentData.phone,
+          whatsapp: enrollmentData.whatsapp,
+          occupation: enrollmentData.occupation,
+          experience: enrollmentData.experience,
+          paymentPlan: selectedPaymentPlan,
+          timestamp: new Date().toISOString(),
+        }),
+      });
 
-Payment Plan: ${selectedPlan.name}
-Total Amount: ₹${selectedPlan.amount.toLocaleString()}${
-      selectedPlan.installments > 1
-        ? `
-Installment Amount: ₹${selectedPlan.installmentAmount.toLocaleString()}`
-        : ""
+      const result = await response.json();
+
+      if (result.success) {
+        // Redirect to dedicated enrollment page with payment flow
+        window.location.href = `/enrollment?step=2&submissionId=${
+          result.submissionId
+        }&qrCode=${encodeURIComponent(result.qrCode)}&amount=${
+          result.paymentAmount
+        }`;
+      } else {
+        alert("Error submitting enrollment: " + result.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error submitting enrollment. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-Please share the enrollment details and payment information.`;
-
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(whatsappUrl, "_blank");
-    setShowEnrollmentModal(false);
   };
 
   const selectedPlan = paymentPlans.find(
@@ -158,7 +202,7 @@ Please share the enrollment details and payment information.`;
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Session Booking Card */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -415,6 +459,79 @@ Please share the enrollment details and payment information.`;
                 >
                   <GraduationCap className="w-5 h-5 mr-2" />
                   Enroll Now
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Referral Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -10 }}
+            className="group"
+          >
+            <Card className="glass-effect bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500 h-full">
+              <CardContent className="p-8">
+                <div className="text-center mb-8">
+                  <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Users className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    Refer a Friend
+                  </h3>
+                  <div className="text-3xl font-bold text-emerald-400 mb-2">
+                    🎁 FREE
+                  </div>
+                  <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 text-white mb-4">
+                    Share & Earn
+                  </Badge>
+                  <p className="text-gray-300 text-sm mb-6">
+                    Help friends discover trading • Get rewards when they join
+                  </p>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center space-x-3 p-3 bg-emerald-500/10 rounded-lg">
+                    <Users className="w-5 h-5 text-emerald-400" />
+                    <span className="text-gray-300">Share with Friends</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-green-500/10 rounded-lg">
+                    <MessageCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-gray-300">Easy Referral Process</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-emerald-500/10 rounded-lg">
+                    <GraduationCap className="w-5 h-5 text-emerald-400" />
+                    <span className="text-gray-300">Help Others Learn</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-green-500/10 rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-gray-300">Earn Rewards</span>
+                  </div>
+                </div>
+
+                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-emerald-400 font-semibold mb-2">
+                      🎉 Referral Benefits
+                    </div>
+                    <ul className="text-sm text-gray-300 space-y-1">
+                      <li>• Help friends learn trading</li>
+                      <li>• Build a trading community</li>
+                      <li>• Earn rewards (coming soon)</li>
+                      <li>• Share success stories</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={() => setShowReferralModal(true)}
+                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+                >
+                  <Users className="w-5 h-5 mr-2" />
+                  Refer Friends
                 </Button>
               </CardContent>
             </Card>
@@ -793,6 +910,30 @@ Please share the enrollment details and payment information.`;
                 </div>
               </div>
             </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Referral Modal */}
+      {showReferralModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[1000] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-gradient-to-br from-gray-900 to-black border border-emerald-500/20 rounded-2xl p-4 sm:p-6 w-full max-w-4xl max-h-[95vh] overflow-y-auto relative"
+          >
+            <button
+              onClick={() => setShowReferralModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <ReferralForm
+              isModal={true}
+              onClose={() => setShowReferralModal(false)}
+            />
           </motion.div>
         </div>
       )}

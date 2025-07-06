@@ -13,7 +13,11 @@ export default function sitemap() {
       lastModified: new Date(),
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}online-classes`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}enrollment`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}refer`,
       lastModified: new Date(),
     },
     {
