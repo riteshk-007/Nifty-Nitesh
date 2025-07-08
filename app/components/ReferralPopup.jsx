@@ -9,8 +9,10 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { RiPercentLine } from "react-icons/ri";
+import { useRouter } from "next/navigation";
 
 const ReferralPopup = () => {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -32,18 +34,7 @@ const ReferralPopup = () => {
   };
 
   const handleEnrollClick = () => {
-    // WhatsApp enrollment message
-    const message = `Hi! I want to enroll with a friend and get the referral discount.
-
-I get 15% discount and my friend gets 10% discount.
-Total savings: 25%
-
-Please share the enrollment details and referral process.`;
-
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(whatsappUrl, "_blank");
+    router.push("/refer");
     handleClose();
   };
 

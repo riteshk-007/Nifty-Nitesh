@@ -4,54 +4,85 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Users,
-  Mail,
-  Phone,
   User,
   MessageSquare,
   Send,
   CheckCircle,
   Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import imageCompression from "browser-image-compression";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { PlayCircle } from "lucide-react";
 import { video } from "@/assets";
 
-const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
+// Form validation schema
+const formSchema = z.object({
+  // Referrer Details
+  referrerName: z.string().min(2, "Name must be at least 2 characters"),
+  referrerEmail: z.string().email("Please enter a valid email address"),
+  referrerPhone: z
+    .string()
+    .regex(/^\d{10}$/, "Please enter a valid 10-digit phone number"),
+
+  // Friend Details
+  friendName: z.string().min(2, "Name must be at least 2 characters"),
+  friendEmail: z.string().email("Please enter a valid email address"),
+  friendPhone: z
+    .string()
+    .regex(/^\d{10}$/, "Please enter a valid 10-digit phone number"),
+
+  // Referral Details
+  interestedIn: z.string().min(1, "Please select an interest"),
+  relationshipType: z.string().optional(),
+  message: z.string().optional(),
+
+  // Payment Details
+  paymentPlan: z.string().default("one-time"),
+});
 
 export default function ReferralForm({ isModal = false, onClose }) {
   const searchParams = useSearchParams();
-  const [step, setStep] = useState(1); // 1: Form, 2: Payment, 3: Screenshot, 4: Success
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [qrCodeData, setQrCodeData] = useState(null);
   const [paymentAmount, setPaymentAmount] = useState(9999);
   const [submissionId, setSubmissionId] = useState(null);
-  const [cloudinaryUrl, setCloudinaryUrl] = useState("");
-  const [compressing, setCompressing] = useState(false);
-  const [cloudinaryUploading, setCloudinaryUploading] = useState(false);
-  const [uploadError, setUploadError] = useState("");
-  const [paymentScreenshot, setPaymentScreenshot] = useState(null);
 
-  const [formData, setFormData] = useState({
-    // Referrer Details
-    referrerName: "",
-    referrerEmail: "",
-    referrerPhone: "",
-
-    // Friend Details
-    friendName: "",
-    friendEmail: "",
-    friendPhone: "",
-
-    // Referral Details
-    interestedIn: "course", // session or course
-    message: "",
-    relationshipType: "",
-
-    // Payment Details
-    paymentPlan: "one-time",
+  // Initialize React Hook Form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      interestedIn: "course",
+      relationshipType: "",
+      message: "",
+    },
   });
 
   // Handle URL parameters for direct enrollment flow
@@ -71,77 +102,8 @@ export default function ReferralForm({ isModal = false, onClose }) {
     }
   }, [searchParams]);
 
-  // Add friend details validation
-  const validateFriendDetails = () => {
-    const errors = {};
-    if (!formData.friendName?.trim()) {
-      errors.friendName = "Friend's name is required";
-    }
-    if (!formData.friendEmail?.trim()) {
-      errors.friendEmail = "Friend's email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.friendEmail)) {
-      errors.friendEmail = "Please enter a valid email";
-    }
-    if (!formData.friendPhone?.trim()) {
-      errors.friendPhone = "Friend's phone is required";
-    } else if (!/^\d{10}$/.test(formData.friendPhone)) {
-      errors.friendPhone = "Please enter a valid 10-digit phone number";
-    }
-    return errors;
-  };
-
-  const paymentPlans = [
-    {
-      id: "one-time",
-      name: "One-Time Payment",
-      amount: 9999,
-      installments: 1,
-      description: "Pay once, get lifetime access",
-      badge: "Popular",
-      savings: "Best Value",
-      popular: true,
-    },
-    {
-      id: "two-parts",
-      name: "Two-Part Payment",
-      amount: 9999,
-      installments: 2,
-      installmentAmount: 4999,
-      description: "Pay ₹4,999 now, ₹4,999 after 10 days",
-      badge: "Flexible",
-    },
-    {
-      id: "three-parts",
-      name: "Three-Part Payment",
-      amount: 9999,
-      installments: 3,
-      installmentAmount: 3333,
-      description: "Pay ₹3,333 now, ₹3,333 after 7 days, ₹3,333 after 14 days",
-      badge: "Most Flexible",
-    },
-  ];
-
-  const handleFormChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setLoading(true);
-
-    // Validate friend details
-    const friendErrors = validateFriendDetails();
-    if (Object.keys(friendErrors).length > 0) {
-      Object.entries(friendErrors).forEach(([field, error]) => {
-        toast.error(error);
-      });
-      setLoading(false);
-      return;
-    }
-
     try {
       const response = await fetch("/api/submit-referral", {
         method: "POST",
@@ -149,7 +111,7 @@ export default function ReferralForm({ isModal = false, onClose }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
+          ...data,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -182,440 +144,378 @@ export default function ReferralForm({ isModal = false, onClose }) {
     }
   };
 
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setUploadError("");
-    setCloudinaryUrl("");
-    setPaymentScreenshot(null);
-    setCompressing(true);
-
-    try {
-      // Compress the image
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
-        useWebWorker: true,
-        fileType: "image/jpeg",
-      };
-      const compressedFile = await imageCompression(file, options);
-      setPaymentScreenshot(compressedFile);
-      setCompressing(false);
-
-      // Upload to Cloudinary (try server-side first, then fallback to client-side)
-      setCloudinaryUploading(true);
-
-      try {
-        // Try server-side upload first
-        const serverFormData = new FormData();
-        serverFormData.append("file", compressedFile);
-
-        const serverRes = await fetch("/api/upload-to-cloudinary", {
-          method: "POST",
-          body: serverFormData,
-        });
-
-        const serverData = await serverRes.json();
-        console.log("Server-side upload response:", serverData);
-
-        if (serverData.success && serverData.secure_url) {
-          setCloudinaryUrl(serverData.secure_url);
-        } else {
-          throw new Error("Server-side upload failed");
-        }
-      } catch (serverError) {
-        console.log(
-          "Server-side upload failed, trying client-side:",
-          serverError
-        );
-
-        // Fallback to client-side upload
-        const formData = new FormData();
-        formData.append("file", compressedFile);
-        formData.append("upload_preset", "nifty_unsigned");
-
-        console.log("Uploading to:", CLOUDINARY_URL);
-        console.log("Upload preset:", "nifty_unsigned");
-
-        const res = await fetch(CLOUDINARY_URL, {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        console.log("Cloudinary Response:", data);
-        if (data.secure_url) {
-          setCloudinaryUrl(data.secure_url);
-        } else {
-          console.error("Cloudinary Error:", data);
-          setUploadError(
-            "Failed to upload image to Cloudinary: " +
-              (data.error?.message || "Unknown error")
-          );
-        }
-      }
-    } catch (err) {
-      setUploadError("Image compression or upload failed");
-    } finally {
-      setCompressing(false);
-      setCloudinaryUploading(false);
-    }
-  };
-
-  const handleScreenshotSubmit = async () => {
-    if (!cloudinaryUrl) {
-      alert("Please select and upload a screenshot first");
-      return;
-    }
-    setLoading(true);
-
-    try {
-      const uploadFormData = new FormData();
-      uploadFormData.append("screenshotUrl", cloudinaryUrl);
-      uploadFormData.append("submissionId", submissionId);
-      uploadFormData.append("amount", selectedPlan?.amount || "");
-      uploadFormData.append("name", formData.referrerName || "");
-      uploadFormData.append("paymentPlan", formData.paymentPlan || "");
-
-      const response = await fetch("/api/upload-screenshot", {
-        method: "POST",
-        body: uploadFormData,
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setStep(4); // Success step
-      } else {
-        alert("Error uploading screenshot: " + result.error);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error uploading screenshot. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const selectedPlan = paymentPlans.find(
-    (plan) => plan.id === formData.paymentPlan
+  // Function to show error message
+  const ErrorMessage = ({ message }) => (
+    <span className="text-red-500 text-sm flex items-center gap-1 mt-1">
+      <AlertCircle className="w-4 h-4" />
+      {message}
+    </span>
   );
 
   return (
-    <>
-      {/* Form Header with Video Button */}
-      <div className="relative mb-8">
-        {/* Background Gradient Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-2xl"></div>
+    <div className="max-w-4xl mx-auto">
+      {/* Simplified Header */}
+      <div className="mb-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          Refer a Friend & Earn Rewards
+        </h2>
+        <p className="text-lg text-gray-300">
+          Help your friends start their trading journey with us
+        </p>
+      </div>
 
-        <div className="relative p-6 border border-emerald-500/20 rounded-2xl bg-black/40 backdrop-blur-sm">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Left Side - Title and Icon */}
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center shrink-0">
-                <Users className="w-8 h-8 text-white" />
+      {/* Discount Information Card */}
+      <Card className="mb-8 bg-black/50 border border-emerald-500/20">
+        <CardContent className="p-8">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Bring a Friend, Get 25% Total Off!
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <div className="bg-emerald-800/50 rounded-lg p-4">
+                <div className="text-4xl font-bold text-emerald-400 mb-2">
+                  15%
+                </div>
+                <p className="text-white">
+                  You get 15% off
+                  <br />
+                  (as referrer)
+                </p>
               </div>
-              <div className="text-left">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                  Refer a Friend
-                </h3>
-                <p className="text-gray-300 text-sm md:text-base">
-                  Help your friends discover trading and earn rewards
+              <div className="bg-emerald-800/50 rounded-lg p-4">
+                <div className="text-4xl font-bold text-emerald-400 mb-2">
+                  10%
+                </div>
+                <p className="text-white">
+                  Friend gets 10% off
+                  <br />
+                  (new student)
+                </p>
+              </div>
+              <div className="bg-emerald-800/50 rounded-lg p-4">
+                <div className="text-4xl font-bold text-emerald-400 mb-2">
+                  25%
+                </div>
+                <p className="text-white">
+                  Total savings
+                  <br />
+                  when combined
                 </p>
               </div>
             </div>
-
-            {/* Right Side - Video Button */}
-            <Dialog>
-              <DialogTrigger asChild>
-                <button className="group z-[100000] flex items-center gap-3 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 rounded-full transition-all duration-300  hover:animate-none">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <PlayCircle className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-white font-semibold">Watch Demo</div>
-                    <div className="text-white/80 text-sm">2 min video</div>
-                  </div>
-                </button>
-              </DialogTrigger>
-              <DialogContent className="max-w-4xl bg-black/95 border-emerald-500/20">
-                <div className="relative aspect-video">
-                  <video
-                    className="w-full h-full rounded-lg"
-                    controls
-                    autoPlay
-                    src={video}
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </DialogContent>
-            </Dialog>
+            <p className="text-lg text-emerald-100">
+              Study together, stay motivated, and get lifetime access to all
+              materials!
+            </p>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
-      {/* Video Preview Card */}
-      <Dialog>
-        <DialogTrigger asChild>
-          <div className="relative mb-8 cursor-pointer group">
-            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-600">
-              <div className="w-full h-48 flex items-center justify-center relative">
-                {/* Animated Background Effect */}
-                <div className="absolute inset-0">
-                  <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,170,0.1),transparent_70%)] "></div>
-                  <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-blob"></div>
-                  <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+      {/* Video Section - Using Card */}
+      <Card className="mb-8 bg-gradient-to-r from-emerald-900 to-emerald-700 border-emerald-500/20">
+        <Dialog>
+          <DialogTrigger asChild>
+            <button className="w-full">
+              <div className="aspect-video p-8 flex flex-col items-center justify-center">
+                {/* Play Button */}
+                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm">
+                  <PlayCircle className="w-12 h-12 text-white" />
                 </div>
-
-                {/* Content */}
-                <div className="relative z-10 text-center px-4">
-                  <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
-                    <Users className="w-10 h-10 text-white" />
-                  </div>
-                  <div className="text-white font-medium">
-                    Learn how to refer friends and earn rewards
-                  </div>
-                </div>
-              </div>
-
-              {/* Play Button Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-emerald-500/20">
-                  <PlayCircle className="w-8 h-8 text-white" />
-                </div>
-              </div>
-
-              {/* Bottom Text Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-                <div className="text-white font-semibold flex items-center gap-2">
-                  <PlayCircle className="w-5 h-5" />
+                <CardTitle className="text-xl font-semibold text-white mb-2">
                   Watch How It Works
-                </div>
-                <div className="text-white/80 text-sm">
-                  2 minute video guide
-                </div>
+                </CardTitle>
+                <CardDescription className="text-gray-300">
+                  2-minute guide to referral program
+                </CardDescription>
               </div>
+            </button>
+          </DialogTrigger>
+          <DialogContent className="max-w-4xl bg-black/95 border-emerald-500/20">
+            <div className="aspect-video rounded-lg overflow-hidden">
+              <video
+                className="w-full h-full"
+                controls
+                src={video}
+                poster="/course/img1.png"
+              >
+                Your browser does not support the video tag.
+              </video>
             </div>
-          </div>
-        </DialogTrigger>
-        <DialogContent className="max-w-4xl bg-black/95 border-emerald-500/20">
-          <div className="relative aspect-video">
-            <video
-              className="w-full h-full rounded-lg"
-              controls
-              autoPlay
-              src={video}
-            >
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      </Card>
 
       {step === 1 && (
-        <form onSubmit={handleFormSubmit} className="space-y-6">
-          {/* Your Details Section */}
-          <div className="bg-gray-900/50 border border-emerald-500/20 rounded-lg p-4 md:p-6">
-            <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
-              <User className="w-5 h-5 text-emerald-400" />
-              Your Details
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          {/* Your Details */}
+          <Card className="bg-gray-900/50 backdrop-blur-sm border-emerald-500/20">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-white flex items-center gap-3">
+                <User className="w-6 h-6 text-emerald-400" />
+                Your Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="referrerName"
+                  className="text-sm font-medium text-gray-300"
+                >
                   Your Name *
-                </label>
-                <input
-                  type="text"
-                  name="referrerName"
-                  value={formData.referrerName}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                  placeholder="Enter your name"
-                  required
+                </Label>
+                <Input
+                  id="referrerName"
+                  {...register("referrerName")}
+                  className={`bg-black/30 border-emerald-500/20 text-white placeholder-gray-500 focus-visible:ring-emerald-500/30 ${
+                    errors.referrerName ? "border-red-500" : ""
+                  }`}
+                  placeholder="Enter your full name"
                 />
+                {errors.referrerName && (
+                  <ErrorMessage message={errors.referrerName.message} />
+                )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="referrerEmail"
+                  className="text-sm font-medium text-gray-300"
+                >
                   Your Email *
-                </label>
-                <input
+                </Label>
+                <Input
+                  id="referrerEmail"
                   type="email"
-                  name="referrerEmail"
-                  value={formData.referrerEmail}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                  placeholder="Enter your email"
-                  required
+                  {...register("referrerEmail")}
+                  className={`bg-black/30 border-emerald-500/20 text-white placeholder-gray-500 focus-visible:ring-emerald-500/30 ${
+                    errors.referrerEmail ? "border-red-500" : ""
+                  }`}
+                  placeholder="Enter your email address"
                 />
+                {errors.referrerEmail && (
+                  <ErrorMessage message={errors.referrerEmail.message} />
+                )}
               </div>
 
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="referrerPhone"
+                  className="text-sm font-medium text-gray-300"
+                >
                   Your Phone *
-                </label>
-                <input
-                  type="tel"
-                  name="referrerPhone"
-                  value={formData.referrerPhone}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                  placeholder="Enter your phone number"
-                  required
+                </Label>
+                <Input
+                  id="referrerPhone"
+                  {...register("referrerPhone")}
+                  className={`bg-black/30 border-emerald-500/20 text-white placeholder-gray-500 focus-visible:ring-emerald-500/30 ${
+                    errors.referrerPhone ? "border-red-500" : ""
+                  }`}
+                  placeholder="Enter your 10-digit phone number"
                 />
+                {errors.referrerPhone && (
+                  <ErrorMessage message={errors.referrerPhone.message} />
+                )}
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          {/* Friend's Details Section */}
-          <div className="bg-gray-900/50 border border-emerald-500/20 rounded-lg p-4 md:p-6">
-            <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
-              <Users className="w-5 h-5 text-emerald-400" />
-              Friend&apos;s Details
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+          {/* Friend's Details */}
+          <Card className="bg-gray-900/50 backdrop-blur-sm border-emerald-500/20">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-white flex items-center gap-3">
+                <Users className="w-6 h-6 text-emerald-400" />
+                Friend&apos;s Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="friendName"
+                  className="text-sm font-medium text-gray-300"
+                >
                   Friend&apos;s Name *
-                </label>
-                <input
-                  type="text"
-                  name="friendName"
-                  value={formData.friendName}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                </Label>
+                <Input
+                  id="friendName"
+                  {...register("friendName")}
+                  className={`bg-black/30 border-emerald-500/20 text-white placeholder-gray-500 focus-visible:ring-emerald-500/30 ${
+                    errors.friendName ? "border-red-500" : ""
+                  }`}
                   placeholder="Enter your friend's name"
-                  required
                 />
+                {errors.friendName && (
+                  <ErrorMessage message={errors.friendName.message} />
+                )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="friendEmail"
+                  className="text-sm font-medium text-gray-300"
+                >
                   Friend&apos;s Email *
-                </label>
-                <input
+                </Label>
+                <Input
+                  id="friendEmail"
                   type="email"
-                  name="friendEmail"
-                  value={formData.friendEmail}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  {...register("friendEmail")}
+                  className={`bg-black/30 border-emerald-500/20 text-white placeholder-gray-500 focus-visible:ring-emerald-500/30 ${
+                    errors.friendEmail ? "border-red-500" : ""
+                  }`}
                   placeholder="Enter your friend's email"
-                  required
                 />
+                {errors.friendEmail && (
+                  <ErrorMessage message={errors.friendEmail.message} />
+                )}
               </div>
 
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="friendPhone"
+                  className="text-sm font-medium text-gray-300"
+                >
                   Friend&apos;s Phone *
-                </label>
-                <input
-                  type="tel"
-                  name="friendPhone"
-                  value={formData.friendPhone}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                  placeholder="Enter your friend's phone number"
-                  required
+                </Label>
+                <Input
+                  id="friendPhone"
+                  {...register("friendPhone")}
+                  className={`bg-black/30 border-emerald-500/20 text-white placeholder-gray-500 focus-visible:ring-emerald-500/30 ${
+                    errors.friendPhone ? "border-red-500" : ""
+                  }`}
+                  placeholder="Enter friend's 10-digit phone number"
                 />
+                {errors.friendPhone && (
+                  <ErrorMessage message={errors.friendPhone.message} />
+                )}
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          {/* Referral Details Section */}
-          <div className="bg-gray-900/50 border border-emerald-500/20 rounded-lg p-4 md:p-6">
-            <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-emerald-400" />
-              Referral Details
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+          {/* Additional Details */}
+          <Card className="bg-gray-900/50 backdrop-blur-sm border-emerald-500/20">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-white flex items-center gap-3">
+                <MessageSquare className="w-6 h-6 text-emerald-400" />
+                Additional Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="interestedIn"
+                  className="text-sm font-medium text-gray-300"
+                >
                   What are they interested in? *
-                </label>
-                <select
-                  name="interestedIn"
-                  value={formData.interestedIn}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
-                  required
+                </Label>
+                <Select
+                  onValueChange={(value) => setValue("interestedIn", value)}
+                  defaultValue={watch("interestedIn")}
                 >
-                  <option value="course">Complete Trading Course</option>
-                  <option value="session">1-on-1 Trading Session</option>
-                </select>
+                  <SelectTrigger
+                    className={`bg-black/30 border-emerald-500/20 text-white focus:ring-emerald-500/30 ${
+                      errors.interestedIn ? "border-red-500" : ""
+                    }`}
+                  >
+                    <SelectValue placeholder="Select interest" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-900 border-emerald-500/20 text-white">
+                    <SelectItem value="course">
+                      Complete Trading Course
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.interestedIn && (
+                  <ErrorMessage message={errors.interestedIn.message} />
+                )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="relationshipType"
+                  className="text-sm font-medium text-gray-300"
+                >
                   How do you know them?
-                </label>
-                <select
-                  name="relationshipType"
-                  value={formData.relationshipType}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                </Label>
+                <Select
+                  onValueChange={(value) => setValue("relationshipType", value)}
+                  defaultValue={watch("relationshipType")}
                 >
-                  <option value="">Select relationship</option>
-                  <option value="friend">Friend</option>
-                  <option value="family">Family Member</option>
-                  <option value="colleague">Colleague</option>
-                  <option value="classmate">Classmate</option>
-                  <option value="other">Other</option>
-                </select>
+                  <SelectTrigger className="bg-black/30 border-emerald-500/20 text-white focus:ring-emerald-500/30">
+                    <SelectValue placeholder="Select relationship" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-900 border-emerald-500/20 text-white">
+                    <SelectItem value="friend">Friend</SelectItem>
+                    <SelectItem value="family">Family Member</SelectItem>
+                    <SelectItem value="colleague">Colleague</SelectItem>
+                    <SelectItem value="classmate">Classmate</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid w-full items-center gap-2">
+                <Label
+                  htmlFor="message"
+                  className="text-sm font-medium text-gray-300"
+                >
                   Personal Message (Optional)
-                </label>
+                </Label>
                 <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-emerald-500/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                  id="message"
+                  {...register("message")}
+                  className="w-full px-4 py-3 bg-black/30 border border-emerald-500/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-all"
                   placeholder="Add a personal message for your friend..."
                   rows="3"
-                ></textarea>
+                />
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
+          {/* Submit Button */}
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+            className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white text-lg font-semibold py-4 rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 disabled:opacity-50"
           >
             {loading ? (
-              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+              <>
+                <Loader2 className="w-6 h-6 mr-2 animate-spin" />
+                Submitting...
+              </>
             ) : (
-              <Send className="w-5 h-5 mr-2" />
+              <>
+                <Send className="w-6 h-6 mr-2" />
+                Submit Referral
+              </>
             )}
-            {loading ? "Submitting..." : "Submit Referral"}
           </Button>
         </form>
       )}
 
+      {/* Success State - Using Card */}
       {step === 4 && (
-        <div className="text-center">
-          <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-10 h-10 text-white" />
-          </div>
-          <h3 className="text-2xl font-bold text-white mb-4">
-            Referral Submitted Successfully!
-          </h3>
-          <p className="text-gray-300 mb-6">
-            We&apos;ll contact your friend soon and notify you when they join.
-          </p>
-          {isModal && (
-            <Button
-              onClick={onClose}
-              className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 px-8 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
-            >
-              Close
-            </Button>
-          )}
-        </div>
+        <Card className="bg-gray-900/50 backdrop-blur-sm border-emerald-500/20">
+          <CardContent className="text-center py-12">
+            <div className="w-24 h-24 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+              <CheckCircle className="w-12 h-12 text-white" />
+            </div>
+            <CardTitle className="text-3xl font-bold text-white mb-4">
+              Referral Submitted Successfully!
+            </CardTitle>
+            <CardDescription className="text-xl text-gray-300 mb-8">
+              We&apos;ll contact your friend soon and notify you when they join.
+            </CardDescription>
+            {isModal && (
+              <Button
+                onClick={onClose}
+                className="bg-gradient-to-r from-emerald-500 to-green-500 text-white text-lg font-semibold py-4 px-8 rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+              >
+                Close
+              </Button>
+            )}
+          </CardContent>
+        </Card>
       )}
-    </>
+    </div>
   );
 }

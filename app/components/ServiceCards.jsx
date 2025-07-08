@@ -24,14 +24,13 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import ReferralForm from "./ReferralForm";
 import { toast } from "sonner";
 import { Toaster } from "sonner";
+import { useRouter } from "next/navigation";
 
 const ServiceCards = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
-  const [showReferralModal, setShowReferralModal] = useState(false);
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState("one-time");
   const [showPaymentPlans, setShowPaymentPlans] = useState(false);
   const [formData, setFormData] = useState({
@@ -49,8 +48,7 @@ const ServiceCards = () => {
     whatsapp: "",
   });
   const [loading, setLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-
+  const router = useRouter();
   const paymentPlans = [
     {
       id: "one-time",
@@ -518,10 +516,10 @@ const ServiceCards = () => {
                     Refer a Friend
                   </h3>
                   <div className="text-3xl font-bold text-emerald-400 mb-2">
-                    🎁 FREE
+                    🎁 Limited Time Offer
                   </div>
                   <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 text-white mb-4">
-                    Share & Earn
+                    Share & Save 25%
                   </Badge>
                   <p className="text-gray-300 text-sm mb-6">
                     Help friends discover trading • Get rewards when they join
@@ -530,39 +528,43 @@ const ServiceCards = () => {
 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center space-x-3 p-3 bg-emerald-500/10 rounded-lg">
-                    <Users className="w-5 h-5 text-emerald-400" />
-                    <span className="text-gray-300">Share with Friends</span>
+                    <Gift className="w-5 h-5 text-emerald-400" />
+                    <span className="text-gray-300">You get 15% discount</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-green-500/10 rounded-lg">
-                    <MessageCircle className="w-5 h-5 text-green-400" />
-                    <span className="text-gray-300">Easy Referral Process</span>
+                    <Heart className="w-5 h-5 text-green-400" />
+                    <span className="text-gray-300">Friend gets 10% off</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-emerald-500/10 rounded-lg">
-                    <GraduationCap className="w-5 h-5 text-emerald-400" />
-                    <span className="text-gray-300">Help Others Learn</span>
+                    <Star className="w-5 h-5 text-emerald-400" />
+                    <span className="text-gray-300">
+                      Study together & stay motivated
+                    </span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-green-500/10 rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
-                    <span className="text-gray-300">Earn Rewards</span>
+                    <Send className="w-5 h-5 text-green-400" />
+                    <span className="text-gray-300">
+                      Lifetime access for both
+                    </span>
                   </div>
                 </div>
 
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4 mb-6">
                   <div className="text-center">
                     <div className="text-emerald-400 font-semibold mb-2">
-                      🎉 Referral Benefits
+                      🎉 Total 25% Savings!
                     </div>
                     <ul className="text-sm text-gray-300 space-y-1">
-                      <li>• Help friends learn trading</li>
+                      <li>• You save 15% as referrer</li>
+                      <li>• Friend saves 10% as new student</li>
+                      <li>• Learn together & grow</li>
                       <li>• Build a trading community</li>
-                      <li>• Earn rewards (coming soon)</li>
-                      <li>• Share success stories</li>
                     </ul>
                   </div>
                 </div>
 
                 <Button
-                  onClick={() => setShowReferralModal(true)}
+                  onClick={() => router.push("/refer")}
                   className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
                 >
                   <Users className="w-5 h-5 mr-2" />
@@ -990,29 +992,6 @@ const ServiceCards = () => {
         </div>
       )}
 
-      {/* Referral Modal */}
-      {showReferralModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[1000] flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-gradient-to-br from-gray-900 to-black border border-emerald-500/20 rounded-2xl p-4 sm:p-6 w-full max-w-4xl max-h-[95vh] overflow-y-auto relative"
-          >
-            <button
-              onClick={() => setShowReferralModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            <ReferralForm
-              isModal={true}
-              onClose={() => setShowReferralModal(false)}
-            />
-          </motion.div>
-        </div>
-      )}
       <Toaster richColors position="top-center" />
     </section>
   );

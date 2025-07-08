@@ -234,9 +234,7 @@ export async function POST(request) {
                 <li style="margin: 8px 0;">📧 Email: ${
                   process.env.NEXT_PUBLIC_CONTACT_EMAIL
                 }</li>
-                <li style="margin: 8px 0;">📱 WhatsApp: ${
-                  process.env.NEXT_PUBLIC_CONTACT_WHATSAPP
-                }</li>
+                
                 <li style="margin: 8px 0;">🌐 Website: ${
                   process.env.NEXT_PUBLIC_WEBSITE_URL
                 }</li>
