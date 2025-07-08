@@ -240,14 +240,13 @@ const RadialGallery = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full overflow-hidden bg-black/95 backdrop-blur-sm"
+              className="fixed inset-0 w-full h-full z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center"
             >
               {/* Modal Close Button */}
               <button
                 onClick={handleClose}
                 className="absolute top-6 right-6 z-50 w-14 h-14 bg-black/60 hover:bg-red-500/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:border-red-400/50 transition-all duration-300 group/close"
                 title="Close (ESC)"
-                style={{ pointerEvents: "auto" }}
               >
                 <svg
                   className="w-7 h-7 text-white group-hover/close:text-white transition-colors duration-300"
@@ -262,25 +261,18 @@ const RadialGallery = () => {
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-
-                {/* Tooltip */}
-                <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover/close:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                  Close (ESC)
-                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45"></div>
-                </div>
               </button>
 
               {/* Background Click to Close */}
               <div
                 className="absolute inset-0 z-10"
                 onClick={handleClose}
-                style={{ pointerEvents: "auto" }}
               ></div>
 
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={activeItem.id}
-                  className="w-full h-full max-h-min flex flex-col lg:flex-row items-center justify-center gap-8 p-6 relative z-20"
+                  className="w-full h-full max-w-7xl mx-auto flex flex-col xl:flex-row items-center justify-center gap-4 md:gap-8 p-4 md:p-6 relative z-20"
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   layout
                   onClick={(e) => e.stopPropagation()}
@@ -288,85 +280,68 @@ const RadialGallery = () => {
                   {/* Main Chart */}
                   <motion.div
                     layoutId={`card-${activeItem.id}`}
-                    className="w-full max-w-2xl h-[500px] rounded-3xl overflow-hidden z-10 relative group"
+                    className="w-full max-w-5xl h-[500px] md:h-[600px] rounded-3xl overflow-hidden relative group bg-gray-900/50 border border-gray-700/50"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-3xl"></div>
-                    <Image
-                      src={activeItem.img}
-                      alt={activeItem.title}
-                      width={300}
-                      height={300}
-                      style={{ objectFit: "cover" }}
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-green-500/10 rounded-3xl"></div>
 
-                    {/* Close Button */}
-                    <motion.button
-                      onClick={handleClose}
-                      className="absolute top-4 right-4 w-12 h-12 bg-black/60 hover:bg-black/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:border-emerald-400/50 transition-all duration-300 group/close"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <svg
-                        className="w-6 h-6 text-white group-hover/close:text-emerald-400 transition-colors duration-300"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </motion.button>
+                    {/* Fixed Image Container */}
+                    <div className="w-full h-full flex items-center justify-center p-2 md:p-4">
+                      <Image
+                        src={activeItem.img}
+                        alt={activeItem.title}
+                        width={900}
+                        height={700}
+                        className="w-full h-full object-contain rounded-2xl"
+                        priority
+                      />
+                    </div>
                   </motion.div>
 
                   {/* Chart Info */}
                   <motion.div
-                    className="flex flex-col gap-6 justify-center items-start max-w-md"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.15 }}
+                    className="flex flex-col gap-4 md:gap-6 justify-center items-start w-full max-w-md xl:min-w-[350px]"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-3 md:space-y-4 w-full">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-xl flex items-center justify-center border border-emerald-500/30">
-                          <activeItem.icon className="w-6 h-6 text-emerald-400" />
+                        <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-emerald-500/20 to-green-500/20 rounded-xl flex items-center justify-center border border-emerald-500/30">
+                          <activeItem.icon className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
                         </div>
                         <div>
-                          <div className="text-emerald-400 text-sm font-semibold uppercase tracking-wider">
+                          <div className="text-emerald-400 text-xs md:text-sm font-semibold uppercase tracking-wider">
                             {activeItem.category}
                           </div>
-                          <div className="text-white text-2xl font-bold">
+                          <div className="text-white text-lg md:text-2xl font-bold">
                             {activeItem.title}
                           </div>
                         </div>
                       </div>
 
-                      <p className="text-gray-300 text-lg leading-relaxed">
+                      <p className="text-gray-300 text-sm md:text-lg leading-relaxed">
                         {activeItem.description}
                       </p>
 
-                      <div className="bg-gradient-to-r from-emerald-500/10 to-green-500/10 border border-emerald-500/20 rounded-xl p-4">
-                        <h4 className="text-emerald-400 font-semibold mb-2">
-                          Technical Analysis
+                      <div className="bg-gradient-to-r from-emerald-500/10 to-green-500/10 border border-emerald-500/20 rounded-xl p-3 md:p-4">
+                        <h4 className="text-emerald-400 font-semibold mb-3 text-sm md:text-base">
+                          Analysis Features
                         </h4>
-                        <ul className="text-gray-300 text-sm space-y-1">
-                          <li>• Support & Resistance Levels</li>
-                          <li>• Trend Analysis & Patterns</li>
-                          <li>• Volume & Price Action</li>
-                          <li>• Risk Management Zones</li>
-                        </ul>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-gray-300 text-xs md:text-sm">
+                          <div>• Demand Supply Zones</div>
+                          <div>• Trend Analysis</div>
+                          <div>• Risk Management</div>
+                          <div>• Sector Support</div>
+                        </div>
                       </div>
                     </div>
 
                     {/* Other Charts */}
                     <div className="w-full">
-                      <h4 className="text-white font-semibold mb-4">
+                      <h4 className="text-white font-semibold mb-3 md:mb-4 text-sm md:text-base">
                         Other Charts
                       </h4>
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-2 md:gap-3">
                         {chartData
                           .filter((item) => item.id !== activeItem.id)
                           .slice(0, 4)
@@ -422,13 +397,15 @@ const ChartCard = ({ item, onClick, isSmall = false, index = 0 }) => {
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
       {/* Chart Image */}
-      <motion.img
-        src={item.img}
-        alt={item.title}
-        className="w-full h-full object-cover rounded-2xl"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.3 }}
-      />
+      <div className="w-full h-full flex items-center justify-center p-1 md:p-2">
+        <Image
+          width={300}
+          height={300}
+          src={item.img}
+          alt={item.title}
+          className="w-full h-full object-contain rounded-lg"
+        />
+      </div>
 
       {/* Overlay Content */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -15,7 +15,7 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      <main className="hidden md:block">
+      <main className="">
         {" "}
         <RadialGallery />
       </main>
