@@ -283,11 +283,11 @@ export const metadata = {
       "hi-IN": "https://niftynitesh.com/hi",
     },
   },
-  // other: {
-  //   "google-site-verification": "your-google-verification-code", // Add your Google verification code
-  //   "msvalidate.01": "your-bing-verification-code", // Add your Bing verification code
-  //   "yandex-verification": "your-yandex-verification-code", // Add your Yandex verification code
-  // },
+  other: {
+    "google-site-verification": "zB7XcsivFWdDucQhN3bPwdXoSbNSUUCpbmnh9vQbW-0",
+    // "msvalidate.01": "your-bing-verification-code", // Add your Bing verification code
+    // "yandex-verification": "your-yandex-verification-code", // Add your Yandex verification code
+  },
   schema: {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
@@ -680,15 +680,18 @@ export default function RootLayout({ children }) {
         <Analytics />
         <Footer />
 
-        {/* Additional tracking scripts can be added here */}
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-B658YHF4FR"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Google Analytics or other tracking code
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'GA_MEASUREMENT_ID');
+              gtag('config', 'G-B658YHF4FR');
             `,
           }}
         />
