@@ -158,7 +158,7 @@ const paymentPlans = {
     name: "One-Time Payment",
     amount: 9999,
     installmentAmount: 9999,
-    description: "Pay once, get lifetime access",
+    description: "Pay ₹9,999 once and get lifetime access — no recurring fees.",
   },
   // Add more plans...
 };

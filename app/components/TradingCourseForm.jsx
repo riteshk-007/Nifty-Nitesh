@@ -98,7 +98,8 @@ const TradingCourseForm = () => {
       name: "One-Time Payment",
       amount: 9999,
       installments: 1,
-      description: "Pay once, get lifetime access",
+      description:
+        "Pay ₹9,999 once and get lifetime access — no recurring fees.",
       badge: "Popular",
       savings: "Best Value",
       popular: true,
@@ -109,7 +110,8 @@ const TradingCourseForm = () => {
       amount: 9999,
       installments: 2,
       installmentAmount: 4999,
-      description: "Pay ₹4,999 now, ₹4,999 after 10 days",
+      description:
+        "Split into 2 payments: ₹4,999 now and ₹4,999 next month. Simple and flexible.",
       badge: "Flexible",
     },
     {
@@ -118,7 +120,8 @@ const TradingCourseForm = () => {
       amount: 9999,
       installments: 3,
       installmentAmount: 3333,
-      description: "Pay ₹3,333 now, ₹3,333 after 7 days, ₹3,333 after 14 days",
+      description:
+        "Pay in 3 monthly installments of ₹3,333. Start today, no extra charges.",
       badge: "Most Flexible",
     },
   ];
