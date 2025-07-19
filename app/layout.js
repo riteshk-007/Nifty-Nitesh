@@ -551,12 +551,11 @@ export const metadata = {
       },
     ],
     sameAs: [
-      "https://www.facebook.com/niftynitesh",
-      "https://www.twitter.com/niftynitesh",
-      "https://www.instagram.com/niftynitesh",
-      "https://www.linkedin.com/company/niftynitesh",
-      "https://www.youtube.com/channel/niftynitesh",
-      "https://t.me/niftynitesh",
+      "https://x.com/Nifty_Nitesh",
+      "https://www.instagram.com/nifty_nitesh/?igsh=ZzhlbmIwdnc5czBl#",
+      "https://www.youtube.com/@Nifty-Nitesh",
+      "https://www.whatsapp.com/channel/0029VaS551C17En02ZJgld1V",
+      "https://www.facebook.com/share/1LgGQ57pby/?mibextid=qi2Omg",
     ],
     aggregateRating: {
       "@type": "AggregateRating",
@@ -741,11 +740,11 @@ export default function RootLayout({ children }) {
         <meta property="fb:pages" content="niftynitesh" />
         <meta
           property="article:author"
-          content="https://www.facebook.com/niftynitesh"
+          content="https://www.facebook.com/share/1LgGQ57pby/?mibextid=qi2Omg"
         />
         <meta
           property="article:publisher"
-          content="https://www.facebook.com/niftynitesh"
+          content="https://www.facebook.com/share/1LgGQ57pby/?mibextid=qi2Omg"
         />
         <meta
           property="business:contact_data:street_address"
@@ -826,9 +825,9 @@ export default function RootLayout({ children }) {
                 closes: "21:00",
               },
               sameAs: [
-                "https://www.facebook.com/niftynitesh",
-                "https://www.twitter.com/niftynitesh",
-                "https://www.instagram.com/niftynitesh",
+                "https://www.facebook.com/share/1LgGQ57pby/?mibextid=qi2Omg",
+                "https://x.com/Nifty_Nitesh",
+                "https://www.instagram.com/nifty_nitesh/?igsh=ZzhlbmIwdnc5czBl#",
               ],
             }),
           }}
