@@ -892,7 +892,7 @@ export default function RootLayout({ children }) {
         <Analytics />
         <Footer />
 
-        {/* Google tag (gtag.js) */}
+        {/* Google Analytics tag (gtag.js) */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-B658YHF4FR"
@@ -904,6 +904,22 @@ export default function RootLayout({ children }) {
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-B658YHF4FR');
+            `,
+          }}
+        />
+
+        {/* Google Ads tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17470353644"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-17470353644');
             `,
           }}
         />
