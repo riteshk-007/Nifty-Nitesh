@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react"
+import { motion } from "framer-motion"
 import {
   GraduationCap,
   Video,
@@ -20,25 +20,25 @@ import {
   Star,
   Send,
   Loader2,
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import { Toaster } from "sonner";
-import { useRouter } from "next/navigation";
+} from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { toast } from "sonner"
+import { Toaster } from "sonner"
+import { useRouter } from "next/navigation"
 
 const ServiceCards = () => {
-  const [showBookingModal, setShowBookingModal] = useState(false);
-  const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
-  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState("one-time");
-  const [showPaymentPlans, setShowPaymentPlans] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false)
+  const [showEnrollmentModal, setShowEnrollmentModal] = useState(false)
+  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState("one-time")
+  const [showPaymentPlans, setShowPaymentPlans] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     experience: "",
     email: "",
-  });
+  })
   const [enrollmentData, setEnrollmentData] = useState({
     name: "",
     phone: "",
@@ -46,59 +46,56 @@ const ServiceCards = () => {
     occupation: "",
     email: "",
     whatsapp: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  })
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const paymentPlans = [
     {
       id: "one-time",
       name: "One-Time Payment",
       amount: 9999,
       installments: 1,
-      description:
-        "Pay ₹9,999 once and get lifetime access — no recurring fees.",
+      description: "Pay ₹9,999 once and get lifetime access — no recurring fees.",
       savings: "Best Value",
       popular: true,
     },
     {
       id: "two-parts",
       name: "Two-Part Payment",
-      amount: 9999,
+      amount: "4999 X 2",
       installments: 2,
       installmentAmount: 4999,
-      description:
-        "Split into 2 payments: ₹4,999 now and ₹4,999 next month. Simple and flexible.",
+      description: "Split into 2 payments: ₹4,999 now and ₹4,999 next month. Simple and flexible.",
       savings: "Flexible",
     },
     {
       id: "three-parts",
       name: "Three-Part Payment",
-      amount: 9999,
+      amount: "3333 X 3",
       installments: 3,
       installmentAmount: 3333,
-      description:
-        "Pay in 3 monthly installments of ₹3,333. Start today, no extra charges.",
+      description: "Pay in 3 monthly installments of ₹3,333. Start today, no extra charges.",
       savings: "Most Flexible",
     },
-  ];
+  ]
 
   const handleFormChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const handleEnrollmentChange = (e) => {
     setEnrollmentData({
       ...enrollmentData,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const handleBookingSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+    e.preventDefault()
+    setLoading(true)
 
     try {
       const response = await fetch("/api/submit-session-booking", {
@@ -110,48 +107,45 @@ const ServiceCards = () => {
           ...formData,
           timestamp: new Date().toISOString(),
         }),
-      });
+      })
 
-      const result = await response.json();
+      const result = await response.json()
 
       if (result.success) {
-        toast.success(
-          "Session booked successfully! We'll contact you shortly.",
-          {
-            description: "Check your email for confirmation details.",
-          }
-        );
-        setFormData({ name: "", phone: "", experience: "", email: "" });
+        toast.success("Session booked successfully! We'll contact you shortly.", {
+          description: "Check your email for confirmation details.",
+        })
+        setFormData({ name: "", phone: "", experience: "", email: "" })
         setTimeout(() => {
-          setShowBookingModal(false);
-        }, 2000);
+          setShowBookingModal(false)
+        }, 2000)
       } else {
         if (result.details) {
           // Show field-specific validation errors
           Object.entries(result.details).forEach(([field, error]) => {
             toast.error(`${error}`, {
               description: `Please check the ${field} field`,
-            });
-          });
+            })
+          })
         } else {
           toast.error("Error submitting booking", {
             description: result.error || "Please try again",
-          });
+          })
         }
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error)
       toast.error("Error submitting booking", {
         description: "Please try again later",
-      });
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleEnrollmentSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+    e.preventDefault()
+    setLoading(true)
 
     try {
       const response = await fetch("/api/submit-enrollment", {
@@ -169,47 +163,42 @@ const ServiceCards = () => {
           paymentPlan: selectedPaymentPlan,
           timestamp: new Date().toISOString(),
         }),
-      });
+      })
 
-      const result = await response.json();
+      const result = await response.json()
 
       if (result.success) {
         toast.success("Enrollment submitted successfully!", {
           description: "Redirecting to payment...",
-        });
+        })
         // Redirect to dedicated enrollment page with payment flow
-        window.location.href = `/enrollment?step=2&submissionId=${
-          result.submissionId
-        }&qrCode=${encodeURIComponent(result.qrCode)}&amount=${
-          result.paymentAmount
-        }&name=${encodeURIComponent(
-          enrollmentData.name
-        )}&paymentPlan=${encodeURIComponent(selectedPaymentPlan)}`;
+        window.location.href = `/enrollment?step=2&submissionId=${result.submissionId
+          }&qrCode=${encodeURIComponent(result.qrCode)}&amount=${result.paymentAmount}&name=${encodeURIComponent(
+            enrollmentData.name,
+          )}&paymentPlan=${encodeURIComponent(selectedPaymentPlan)}`
       } else {
         if (result.details) {
           // Show field-specific errors
           Object.entries(result.details).forEach(([field, error]) => {
-            toast.error(`${field}: ${error}`);
-          });
+            toast.error(`${field}: ${error}`)
+          })
         } else {
           toast.error("Error submitting enrollment", {
             description: result.error || "Please try again",
-          });
+          })
         }
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error)
       toast.error("Error submitting enrollment", {
         description: "Please try again later",
-      });
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
-  const selectedPlan = paymentPlans.find(
-    (plan) => plan.id === selectedPaymentPlan
-  );
+  const selectedPlan = paymentPlans.find((plan) => plan.id === selectedPaymentPlan)
 
   return (
     <section className="w-full  py-20 relative overflow-hidden bg-gradient-to-b from-green-800/30 via-black to-black">
@@ -232,9 +221,8 @@ const ServiceCards = () => {
             Choose Your <span className="text-emerald-400">Learning Path</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Start with a personalized session or dive deep into our
-            comprehensive course. Both options designed to accelerate your
-            trading journey.
+            Start with a personalized session or dive deep into our comprehensive course. Both options designed to
+            accelerate your trading journey.
           </p>
         </motion.div>
 
@@ -254,15 +242,9 @@ const ServiceCards = () => {
                   <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <Video className="w-10 h-10 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    1-on-1 Trading Session
-                  </h3>
-                  <div className="text-3xl font-bold text-emerald-400 mb-2">
-                    ₹250
-                  </div>
-                  <Badge className="bg-green-500 text-white mb-4">
-                    FREE for Students
-                  </Badge>
+                  <h3 className="text-2xl font-bold text-white mb-4">1-on-1 Trading Session</h3>
+                  <div className="text-3xl font-bold text-emerald-400 mb-2">₹250</div>
+                  <Badge className="bg-green-500 text-white mb-4">FREE for Students</Badge>
                   <p className="text-gray-300 text-sm">Saturday sessions</p>
                 </div>
 
@@ -307,18 +289,15 @@ const ServiceCards = () => {
                   <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <GraduationCap className="w-10 h-10 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Complete Trading Course
-                  </h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">Complete Trading Course</h3>
                   <div className="text-3xl font-bold text-emerald-400 mb-2">
-                    ₹9,999
+                    ₹
+                    {typeof selectedPlan?.amount === "number"
+                      ? selectedPlan.amount.toLocaleString()
+                      : selectedPlan?.amount || "9,999"}{" "}/Month
                   </div>
-                  <Badge className="bg-emerald-500 text-white mb-4">
-                    Popular Choice
-                  </Badge>
-                  <p className="text-gray-300 text-sm mb-6">
-                    Choose your payment plan • 20-day intensive course
-                  </p>
+                  <Badge className="bg-emerald-500 text-white mb-4">Popular Choice</Badge>
+                  <p className="text-gray-300 text-sm mb-6">Choose your payment plan • 20-day intensive course</p>
                 </div>
 
                 {/* Payment Plans Dropdown */}
@@ -334,34 +313,22 @@ const ServiceCards = () => {
                           {showPaymentPlans ? (
                             <>
                               <div className="flex items-center gap-2">
-                                <span className="text-white font-semibold">
-                                  {selectedPlan.name}
-                                </span>
+                                <span className="text-white font-semibold">{selectedPlan.name}</span>
                                 {selectedPlan.popular && (
-                                  <Badge className="bg-emerald-500 text-white text-xs">
-                                    Popular
-                                  </Badge>
+                                  <Badge className="bg-emerald-500 text-white text-xs">Popular</Badge>
                                 )}
                               </div>
-                              <p className="text-gray-300 text-sm mt-1">
-                                {selectedPlan.description}
-                              </p>
+                              <p className="text-gray-300 text-sm mt-1">{selectedPlan.description}</p>
                               {selectedPlan.installments > 1 && (
                                 <p className="text-emerald-400 text-sm font-medium mt-1">
-                                  ₹
-                                  {selectedPlan.installmentAmount.toLocaleString()}{" "}
-                                  per installment
+                                  ₹{selectedPlan.installmentAmount.toLocaleString()} per installment
                                 </p>
                               )}
                             </>
                           ) : (
                             <>
-                              <span className="text-white font-semibold">
-                                Choose Payment Plan
-                              </span>
-                              <p className="text-gray-300 text-sm mt-1">
-                                3 flexible payment options available
-                              </p>
+                              <span className="text-white font-semibold">Choose Payment Plan</span>
+                              <p className="text-gray-300 text-sm mt-1">3 flexible payment options available</p>
                             </>
                           )}
                         </div>
@@ -370,17 +337,16 @@ const ServiceCards = () => {
                         {showPaymentPlans ? (
                           <div className="text-right">
                             <div className="text-lg font-bold text-emerald-400">
-                              ₹{selectedPlan.amount.toLocaleString()}
+                              ₹
+                              {typeof selectedPlan.amount === "number"
+                                ? selectedPlan.amount.toLocaleString()
+                                : selectedPlan.amount}
                             </div>
-                            <div className="text-xs text-gray-400">
-                              {selectedPlan.savings}
-                            </div>
+                            <div className="text-xs text-gray-400">{selectedPlan.savings}</div>
                           </div>
                         ) : (
                           <div className="text-right">
-                            <div className="text-sm font-medium text-emerald-400">
-                              View Options
-                            </div>
+                            <div className="text-sm font-medium text-emerald-400">View Options</div>
                           </div>
                         )}
                         {showPaymentPlans ? (
@@ -406,25 +372,23 @@ const ServiceCards = () => {
                           key={plan.id}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className={`relative cursor-pointer rounded-lg border-2 transition-all duration-300 ${
-                            selectedPaymentPlan === plan.id
-                              ? "border-emerald-500 bg-emerald-500/10"
-                              : "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40"
-                          }`}
+                          className={`relative cursor-pointer rounded-lg border-2 transition-all duration-300 ${selectedPaymentPlan === plan.id
+                            ? "border-emerald-500 bg-emerald-500/10"
+                            : "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40"
+                            }`}
                           onClick={() => {
-                            setSelectedPaymentPlan(plan.id);
-                            setShowPaymentPlans(false);
+                            setSelectedPaymentPlan(plan.id)
+                            setShowPaymentPlans(false)
                           }}
                         >
                           <div className="p-3">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <div
-                                  className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
-                                    selectedPaymentPlan === plan.id
-                                      ? "border-emerald-500 bg-emerald-500"
-                                      : "border-emerald-500/40 bg-transparent"
-                                  }`}
+                                  className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${selectedPaymentPlan === plan.id
+                                    ? "border-emerald-500 bg-emerald-500"
+                                    : "border-emerald-500/40 bg-transparent"
+                                    }`}
                                 >
                                   {selectedPaymentPlan === plan.id && (
                                     <div className="w-full h-full rounded-full bg-white scale-50"></div>
@@ -432,33 +396,24 @@ const ServiceCards = () => {
                                 </div>
                                 <div>
                                   <div className="flex items-center gap-2">
-                                    <span className="text-white font-semibold text-sm">
-                                      {plan.name}
-                                    </span>
+                                    <span className="text-white font-semibold text-sm">{plan.name}</span>
                                     {plan.popular && (
-                                      <Badge className="bg-emerald-500 text-white text-xs">
-                                        Popular
-                                      </Badge>
+                                      <Badge className="bg-emerald-500 text-white text-xs">Popular</Badge>
                                     )}
                                   </div>
-                                  <p className="text-gray-300 text-xs mt-1">
-                                    {plan.description}
-                                  </p>
+                                  <p className="text-gray-300 text-xs mt-1">{plan.description}</p>
                                   {plan.installments > 1 && (
                                     <p className="text-emerald-400 text-xs font-medium mt-1">
-                                      ₹{plan.installmentAmount.toLocaleString()}{" "}
-                                      per installment
+                                      ₹{plan.installmentAmount.toLocaleString()} per installment
                                     </p>
                                   )}
                                 </div>
                               </div>
                               <div className="text-right">
                                 <div className="text-sm font-bold text-emerald-400">
-                                  ₹{plan.amount.toLocaleString()}
+                                  ₹{typeof plan.amount === "number" ? plan.amount.toLocaleString() : plan.amount}
                                 </div>
-                                <div className="text-xs text-gray-400">
-                                  {plan.savings}
-                                </div>
+                                <div className="text-xs text-gray-400">{plan.savings}</div>
                               </div>
                             </div>
                           </div>
@@ -479,9 +434,7 @@ const ServiceCards = () => {
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-emerald-500/10 rounded-lg">
                     <Video className="w-5 h-5 text-emerald-400" />
-                    <span className="text-gray-300">
-                      Market Analysis Videos
-                    </span>
+                    <span className="text-gray-300">Market Analysis Videos</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-green-500/10 rounded-lg">
                     <Shield className="w-5 h-5 text-green-400" />
@@ -515,12 +468,8 @@ const ServiceCards = () => {
                   <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <Users className="w-10 h-10 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Refer a Friend
-                  </h3>
-                  <div className="text-3xl font-bold text-emerald-400 mb-2">
-                    🎁 Limited Time Offer
-                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Refer a Friend</h3>
+                  <div className="text-3xl font-bold text-emerald-400 mb-2">🎁 Limited Time Offer</div>
                   <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 text-white mb-4">
                     Share & Save 25%
                   </Badge>
@@ -540,23 +489,17 @@ const ServiceCards = () => {
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-emerald-500/10 rounded-lg">
                     <Star className="w-5 h-5 text-emerald-400" />
-                    <span className="text-gray-300">
-                      Study together & stay motivated
-                    </span>
+                    <span className="text-gray-300">Study together & stay motivated</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-green-500/10 rounded-lg">
                     <Send className="w-5 h-5 text-green-400" />
-                    <span className="text-gray-300">
-                      Lifetime access for both
-                    </span>
+                    <span className="text-gray-300">Lifetime access for both</span>
                   </div>
                 </div>
 
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4 mb-6">
                   <div className="text-center">
-                    <div className="text-emerald-400 font-semibold mb-2">
-                      🎉 Total 25% Savings!
-                    </div>
+                    <div className="text-emerald-400 font-semibold mb-2">🎉 Total 25% Savings!</div>
                     <ul className="text-sm text-gray-300 space-y-1">
                       <li>• You save 15% as referrer</li>
                       <li>• Friend saves 10% as new student</li>
@@ -599,19 +542,13 @@ const ServiceCards = () => {
               <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Video className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Book 1-on-1 Session
-              </h3>
-              <p className="text-gray-300">
-                Get personalized trading guidance from our experts
-              </p>
+              <h3 className="text-2xl font-bold text-white mb-2">Book 1-on-1 Session</h3>
+              <p className="text-gray-300">Get personalized trading guidance from our experts</p>
             </div>
 
             <form onSubmit={handleBookingSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Full Name *
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
                 <input
                   type="text"
                   name="name"
@@ -624,9 +561,7 @@ const ServiceCards = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Email Address *
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
                 <input
                   type="email"
                   name="email"
@@ -639,9 +574,7 @@ const ServiceCards = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Phone Number *
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number *</label>
                 <input
                   type="tel"
                   name="phone"
@@ -654,9 +587,7 @@ const ServiceCards = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Trading Experience
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Trading Experience</label>
                 <select
                   name="experience"
                   value={formData.experience}
@@ -719,9 +650,7 @@ const ServiceCards = () => {
               <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <GraduationCap className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                Enroll in Complete Course
-              </h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Enroll in Complete Course</h3>
               <p className="text-gray-300 text-sm sm:text-base">
                 Join hundreds of traders learning real market concepts
               </p>
@@ -732,9 +661,7 @@ const ServiceCards = () => {
               <div className="order-2 xl:order-1">
                 <form onSubmit={handleEnrollmentSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Full Name *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
                     <input
                       type="text"
                       name="name"
@@ -747,9 +674,7 @@ const ServiceCards = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Email Address *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
                     <input
                       type="email"
                       name="email"
@@ -762,9 +687,7 @@ const ServiceCards = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Phone Number *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number *</label>
                     <input
                       type="tel"
                       name="phone"
@@ -777,9 +700,7 @@ const ServiceCards = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Trading Experience
-                    </label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Trading Experience</label>
                     <select
                       name="experience"
                       value={enrollmentData.experience}
@@ -795,9 +716,7 @@ const ServiceCards = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Occupation *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Occupation *</label>
                     <select
                       name="occupation"
                       value={enrollmentData.occupation}
@@ -817,9 +736,7 @@ const ServiceCards = () => {
 
                   {/* Payment Plan Selection */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-3">
-                      Choose Payment Plan *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-300 mb-3">Choose Payment Plan *</label>
                     <div className="space-y-3">
                       {paymentPlans.map((plan) => (
                         <motion.label
@@ -827,11 +744,10 @@ const ServiceCards = () => {
                           htmlFor={`modal-${plan.id}`}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className={`relative cursor-pointer rounded-lg border-2 transition-all duration-300 block ${
-                            selectedPaymentPlan === plan.id
-                              ? "border-emerald-500 bg-emerald-500/10"
-                              : "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40"
-                          }`}
+                          className={`relative cursor-pointer rounded-lg border-2 transition-all duration-300 block ${selectedPaymentPlan === plan.id
+                            ? "border-emerald-500 bg-emerald-500/10"
+                            : "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40"
+                            }`}
                         >
                           <div className="p-3">
                             <div className="flex items-center justify-between mb-1">
@@ -842,40 +758,27 @@ const ServiceCards = () => {
                                   name="modalPaymentPlan"
                                   value={plan.id}
                                   checked={selectedPaymentPlan === plan.id}
-                                  onChange={(e) =>
-                                    setSelectedPaymentPlan(e.target.value)
-                                  }
+                                  onChange={(e) => setSelectedPaymentPlan(e.target.value)}
                                   className="w-4 h-4 text-emerald-500 bg-gray-800 border-emerald-500 focus:ring-emerald-500 focus:ring-2"
                                 />
-                                <span className="text-white font-semibold text-sm">
-                                  {plan.name}
-                                </span>
+                                <span className="text-white font-semibold text-sm">{plan.name}</span>
                               </div>
-                              {plan.popular && (
-                                <Badge className="bg-emerald-500 text-white text-xs">
-                                  Popular
-                                </Badge>
-                              )}
+                              {plan.popular && <Badge className="bg-emerald-500 text-white text-xs">Popular</Badge>}
                             </div>
                             <div className="flex items-center justify-between">
                               <div className="ml-7">
-                                <p className="text-gray-300 text-xs">
-                                  {plan.description}
-                                </p>
+                                <p className="text-gray-300 text-xs">{plan.description}</p>
                                 {plan.installments > 1 && (
                                   <p className="text-emerald-400 text-xs font-medium mt-1">
-                                    ₹{plan.installmentAmount.toLocaleString()}{" "}
-                                    per installment
+                                    ₹{plan.installmentAmount.toLocaleString()} per installment
                                   </p>
                                 )}
                               </div>
                               <div className="text-right">
                                 <div className="text-sm font-bold text-emerald-400">
-                                  ₹{plan.amount.toLocaleString()}
+                                  ₹{typeof plan.amount === "number" ? plan.amount.toLocaleString() : plan.amount}
                                 </div>
-                                <div className="text-xs text-gray-400">
-                                  {plan.savings}
-                                </div>
+                                <div className="text-xs text-gray-400">{plan.savings}</div>
                               </div>
                             </div>
                           </div>
@@ -904,16 +807,17 @@ const ServiceCards = () => {
                 <div className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20 rounded-xl p-4 sm:p-6 sticky top-4">
                   <div className="text-center mb-6">
                     <div className="text-3xl sm:text-4xl font-bold text-emerald-400 mb-2">
-                      ₹{selectedPlan?.amount.toLocaleString() || "9,999"}
+                      ₹
+                      {typeof selectedPlan?.amount === "number"
+                        ? selectedPlan.amount.toLocaleString()
+                        : selectedPlan?.amount || "9,999"}
                     </div>
                     <div className="text-gray-300 mb-2 text-sm sm:text-base">
-                      {selectedPlan?.name || "One-time payment"} • Complete
-                      access
+                      {selectedPlan?.name || "One-time payment"} • Complete access
                     </div>
                     {selectedPaymentPlan !== "one-time" && (
                       <div className="text-emerald-400 text-sm font-medium mb-2">
-                        ₹{selectedPlan?.installmentAmount.toLocaleString()} per
-                        installment
+                        ₹{selectedPlan?.installmentAmount.toLocaleString()} per installment
                       </div>
                     )}
                     <div className="w-full h-px bg-emerald-500/20 mb-4"></div>
@@ -924,65 +828,46 @@ const ServiceCards = () => {
                       <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium text-sm sm:text-base">
-                        Lifetime Access to Content
-                      </span>
+                      <span className="text-white font-medium text-sm sm:text-base">Lifetime Access to Content</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium text-sm sm:text-base">
-                        Expert Mentorship & Community
-                      </span>
+                      <span className="text-white font-medium text-sm sm:text-base">Expert Mentorship & Community</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium text-sm sm:text-base">
-                        Real Market Analysis Videos
-                      </span>
+                      <span className="text-white font-medium text-sm sm:text-base">Real Market Analysis Videos</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium text-sm sm:text-base">
-                        FREE 1-on-1 Sessions
-                      </span>
+                      <span className="text-white font-medium text-sm sm:text-base">FREE 1-on-1 Sessions</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="w-5 h-5 text-emerald-400" />
                       </div>
-                      <span className="text-white font-medium text-sm sm:text-base">
-                        Risk Management Training
-                      </span>
+                      <span className="text-white font-medium text-sm sm:text-base">Risk Management Training</span>
                     </div>
 
                     {/* Payment Plan Summary */}
                     <div className="mt-6 p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
                       <div className="flex items-center gap-2 mb-2">
                         <CreditCard className="w-5 h-5 text-emerald-400" />
-                        <span className="text-white font-semibold text-sm sm:text-base">
-                          Selected Plan
-                        </span>
+                        <span className="text-white font-semibold text-sm sm:text-base">Selected Plan</span>
                       </div>
                       <div className="text-sm text-gray-300">
-                        <div className="font-medium text-emerald-400">
-                          {selectedPlan?.name}
-                        </div>
-                        <div className="text-xs mt-1">
-                          {selectedPlan?.description}
-                        </div>
+                        <div className="font-medium text-emerald-400">{selectedPlan?.name}</div>
+                        <div className="text-xs mt-1">{selectedPlan?.description}</div>
                         {selectedPaymentPlan !== "one-time" && (
                           <div className="text-xs text-emerald-400 mt-1">
-                            Next payment: ₹
-                            {selectedPlan?.installmentAmount.toLocaleString()}{" "}
-                            in{" "}
-                            {selectedPaymentPlan === "two-parts" ? "10" : "7"}{" "}
-                            days
+                            Next payment: ₹{selectedPlan?.installmentAmount.toLocaleString()} in{" "}
+                            {selectedPaymentPlan === "two-parts" ? "10" : "7"} days
                           </div>
                         )}
                       </div>
@@ -997,7 +882,7 @@ const ServiceCards = () => {
 
       <Toaster richColors position="top-center" />
     </section>
-  );
-};
+  )
+}
 
-export default ServiceCards;
+export default ServiceCards
