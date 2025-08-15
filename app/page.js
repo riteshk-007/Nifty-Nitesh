@@ -2,12 +2,12 @@ import Link from "next/link";
 import About from "./components/About";
 import FaqQuesAns from "./components/FaqQuesAns";
 import Hero from "./components/Hero";
-import Journey from "./components/Journey";
 import ModernStats from "./components/ModernStats";
 import ServiceCards from "./components/ServiceCards";
 import { Button } from "@/components/ui/button";
 import FeaturesShowcase from "./components/Slider";
 import RadialGallery from "./components/radial-gallery";
+import PlaylistGallery from "./components/playlist-gallery";
 
 export default function Home() {
   return (
@@ -20,8 +20,7 @@ export default function Home() {
         <RadialGallery />
       </main>
 
-      {/* How It Works - Journey Section */}
-      {/* <Journey /> */}
+      <PlaylistGallery />
 
       {/* Modern Stats Section */}
       <ModernStats />
