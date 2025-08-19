@@ -16,6 +16,10 @@ import {
   Zap,
   Star,
   CheckCircle,
+  Calculator,
+  IndianRupee,
+  Clock,
+  Activity,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,7 +27,6 @@ import Image from "next/image";
 import { dashboard } from "@/assets";
 
 const FeaturesShowcase = () => {
-  const [activeTab, setActiveTab] = useState(0);
   const [counters, setCounters] = useState({
     traders: 0,
     volume: 0,
@@ -131,18 +134,18 @@ const FeaturesShowcase = () => {
       ],
     },
     {
-      icon: MessageCircle,
-      title: "Signal Room",
+      icon: Calculator,
+      title: "Options Trading Mastery",
       description:
-        "Premium trade setups shared with clear logic and structured risk management",
+        "Complete options trading education with strategies, Greeks analysis, and risk management",
       color: "text-green-500",
       bgColor: "from-green-600/10 to-emerald-600/10",
       borderColor: "border-green-600/30",
       benefits: [
-        "Precise Entry/Exit Zones",
-        "Pre-defined Risk Levels",
-        "Instant Trade Updates",
-        "Logic-Based Alerts",
+        "Options Greeks Analysis",
+        "Strategy Builder Tools",
+        "Volatility Trading",
+        "Risk-Reward Optimization",
       ],
     },
   ];
@@ -175,35 +178,33 @@ const FeaturesShowcase = () => {
         "Learn capital protection, risk levels, and logical trade management",
       color: "text-green-500",
     },
-  ];
-
-  const trustStats = [
+    //  Added options trading specific features
     {
-      number: counters.traders,
-      suffix: "+",
-      label: "Active Students",
-      icon: Users,
+      icon: IndianRupee,
+      title: "Options Strategy Builder",
+      description:
+        "Create and analyze complex options strategies with profit/loss visualization",
       color: "text-emerald-400",
     },
     {
-      number: counters.volume,
-      suffix: "%",
-      label: "Success Rate",
-      icon: Award,
+      icon: Clock,
+      title: "Time Decay Analysis",
+      description:
+        "Master theta decay and timing for maximum options trading profitability",
       color: "text-green-400",
     },
     {
-      number: counters.success,
-      suffix: "%",
-      label: "Satisfaction Rate",
-      icon: Star,
+      icon: Activity,
+      title: "Volatility Tracking",
+      description:
+        "Monitor implied volatility changes and capitalize on volatility opportunities",
       color: "text-emerald-500",
     },
     {
-      number: counters.support,
-      suffix: "/7",
-      label: "Community Support",
-      icon: Shield,
+      icon: Calculator,
+      title: "Greeks Calculator",
+      description:
+        "Real-time Delta, Gamma, Theta, and Vega calculations for informed decisions",
       color: "text-green-500",
     },
   ];

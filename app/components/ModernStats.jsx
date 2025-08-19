@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { TrendingUp, Shield } from "lucide-react";
+import { TrendingUp, Shield, CandlestickChart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const ModernStats = () => {
@@ -86,6 +86,15 @@ const ModernStats = () => {
       color: "text-green-500",
       bgColor: "from-green-600/10 to-emerald-600/10",
       iconBg: "bg-green-600/20",
+    },
+    {
+      icon: CandlestickChart,
+      title: "Options Trading Mastery",
+      description:
+        "Master the art of options trading with institutional strategies, risk management, and advanced market dynamics.",
+      color: "text-green-500",
+      bgColor: "from-emerald-500/10 to-green-500/10",
+      iconBg: "bg-emerald-500/20",
     },
   ];
 

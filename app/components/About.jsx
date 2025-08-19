@@ -189,13 +189,6 @@ const About = () => {
             Liquidity Zones, and Institutional Footprints. No fluff. No false
             promises. Just what works.
           </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-12">
-            <button className="bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:shadow-lg hover:shadow-emerald-500/30 hover:scale-105 transition-all duration-300 flex items-center space-x-2 w-full sm:w-auto">
-              <span>🔥 Start Learning Today</span>
-            </button>
-          </div>
         </div>
 
         {/* About Me Section */}

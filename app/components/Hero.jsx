@@ -105,10 +105,10 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="max-w-4xl mx-auto text-lg md:text-xl text-text-secondary leading-relaxed mb-12"
         >
-          Learn institutional footprint trading, global market dynamics, and
-          demand-supply precision from top industry experts. Join a network of
-          traders mastering high-level strategies to navigate and dominate
-          financial markets.
+          Learn institutional footprint trading, global market dynamics, options
+          trading, and demand-supply precision from top industry experts. Join a
+          network of traders mastering high-level strategies to navigate and
+          dominate financial markets.
         </motion.p>
 
         {/* Tag Line */}

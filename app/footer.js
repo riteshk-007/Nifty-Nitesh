@@ -33,11 +33,6 @@ const Footer = () => {
 
   const courseCategories = [
     {
-      name: "Premium Content",
-      href: "/online-classes",
-      description: "Exclusive Content",
-    },
-    {
       name: "Personal Mentorship",
       href: "/contact",
       description: "Personal Mentorship",
