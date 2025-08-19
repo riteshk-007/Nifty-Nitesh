@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
-import { FaAngleDown, FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
 import Link from "next/link";
 import { newlogo } from "@/assets";
@@ -94,12 +94,6 @@ const Navbar = () => {
     setIsDropdownOpen(false);
     setIsCompactExpanded(false);
   }, [isOpen]);
-
-  const handleDropdownToggle = useCallback(() => {
-    setIsDropdownOpen((prev) => !prev);
-    setIsOpen(false);
-    setIsCompactExpanded(false);
-  }, []);
 
   const isCompact = isScrolled && !isCompactExpanded;
 
@@ -228,34 +222,34 @@ const Navbar = () => {
 
               {/* CTA and Mobile Menu Button */}
               <div className="flex items-center space-x-4">
-                {/* WhatsApp Channel CTA Button */}
+                {/* WhatsApp CTA Button - Desktop */}
                 <a
-                  href="https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V"
+                  href="https://wa.me/917827433875?text=Hi%21%20I%27m%20interested%20in%20your%20trading%20course.%20Can%20you%20please%20provide%20more%20details%3F"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hidden lg:block"
                   onClick={handleLinkClick}
                 >
                   <button
-                    className="bg-gradient-to-r from-green-500 to-green-400 text-black 
-                              font-semibold px-6 py-3 rounded-full flex items-center space-x-2 
-                              hover:shadow-lg hover:shadow-green-500/40 hover:scale-110 
-                              transition-all duration-500 ease-bounce active:scale-95
-                              transform-gpu will-change-transform"
+                    className="bg-gradient-to-r from-green-500 to-green-600 text-black 
+              font-semibold px-6 py-3 rounded-full flex items-center space-x-2 
+              hover:shadow-lg hover:shadow-green-500/40 hover:scale-110 
+              transition-all duration-500 ease-bounce active:scale-95
+              transform-gpu will-change-transform"
                   >
                     <FaWhatsapp className="w-5 h-5 transition-transform duration-300 hover:scale-125 transform-gpu will-change-transform" />
-                    <span>Join Channel</span>
+                    <span>Message Us</span>
                   </button>
                 </a>
 
                 {/* Mobile WhatsApp Icon */}
                 <a
-                  href="https://whatsapp.com/channel/0029VaS551C17En02ZJgld1V"
+                  href="https://wa.me/917827433875?text=Hi%21%20I%27m%20interested%20in%20your%20trading%20course.%20Can%20you%20please%20provide%20more%20details%3F"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="lg:hidden p-3 rounded-full bg-green-500/20 border border-green-500/30 
-                            hover:bg-green-500/30 hover:scale-125 transition-all duration-500 ease-bounce
-                            active:scale-95 transform-gpu will-change-transform"
+            hover:bg-green-500/30 hover:scale-125 transition-all duration-500 ease-bounce
+            active:scale-95 transform-gpu will-change-transform"
                   onClick={handleLinkClick}
                 >
                   <FaWhatsapp className="w-5 h-5 text-green-400 transition-transform duration-300 hover:scale-125 transform-gpu will-change-transform" />

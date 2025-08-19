@@ -15,13 +15,6 @@ import {
 } from "lucide-react";
 
 const About = () => {
-  const [counters, setCounters] = useState({
-    students: 0,
-    success: 0,
-    experience: 0,
-    rating: 0,
-  });
-
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -42,13 +35,6 @@ const About = () => {
   }, [isVisible]);
 
   const startCountAnimation = () => {
-    const targets = {
-      students: 2500,
-      success: 95,
-      experience: 8,
-      rating: 4.9,
-    };
-
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;
@@ -56,19 +42,9 @@ const About = () => {
     let currentStep = 0;
     const timer = setInterval(() => {
       currentStep++;
-      const progress = Math.min(currentStep / steps, 1);
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-
-      setCounters({
-        students: Math.floor(targets.students * easeOutQuart),
-        success: Math.floor(targets.success * easeOutQuart),
-        experience: Math.floor(targets.experience * easeOutQuart),
-        rating: Number.parseFloat((targets.rating * easeOutQuart).toFixed(1)),
-      });
 
       if (currentStep >= steps) {
         clearInterval(timer);
-        setCounters(targets);
       }
     }, interval);
 
@@ -118,7 +94,6 @@ const About = () => {
       description: "Understand how big players trap retail",
       color: "text-green-400",
     },
-
     {
       icon: Shield,
       concept: "Risk Management",
@@ -246,18 +221,18 @@ const About = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/10 hover:scale-[1.02] hover:translate-x-1 transition-all duration-300 rounded-xl p-4 sm:p-6`}
+                className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/10 hover:scale-[1.02] hover:translate-x-1 transition-all duration-300 rounded-xl p-4 sm:p-6 group`}
               >
                 <div className="flex items-start space-x-3 sm:space-x-4">
                   <div
-                    className={`flex-shrink-0 p-2 sm:p-3 ${feature.iconBg} rounded-xl border border-emerald-500/20 hover:rotate-360 transition-transform duration-600`}
+                    className={`flex-shrink-0 p-2 sm:p-3 ${feature.iconBg} rounded-xl border border-emerald-500/20 group-hover:rotate-12 transition-transform duration-300`}
                   >
                     <feature.icon
                       className={`w-5 h-5 sm:w-6 sm:h-6 ${feature.color}`}
                     />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-2 text-base sm:text-lg">
+                    <h4 className="font-semibold text-white mb-2 text-base sm:text-lg group-hover:text-emerald-400 transition-colors duration-300">
                       {feature.title}
                     </h4>
                     <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
@@ -270,7 +245,7 @@ const About = () => {
           </div>
 
           {/* Trading Concepts */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8">
               <span className="text-emerald-400">Learn These Concepts</span>{" "}
               Inside
@@ -280,15 +255,15 @@ const About = () => {
               {tradingConcepts.map((concept, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-r from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-all duration-300"
+                  className="bg-gradient-to-r from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm rounded-xl p-4 sm:p-6 hover:scale-[1.02] hover:border-emerald-400/40 transition-all duration-300 group"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="flex items-center space-x-3 sm:space-x-4">
                     <concept.icon
-                      className={`w-5 h-5 sm:w-6 sm:h-6 ${concept.color}`}
+                      className={`w-5 h-5 sm:w-6 sm:h-6 ${concept.color} group-hover:scale-110 transition-transform duration-300`}
                     />
                     <div>
-                      <h4 className="font-semibold text-white text-sm sm:text-base mb-1">
+                      <h4 className="font-semibold text-white text-sm sm:text-base mb-1 group-hover:text-emerald-400 transition-colors duration-300">
                         {concept.concept}
                       </h4>
                       <p className="text-xs sm:text-sm text-gray-400">
@@ -312,7 +287,7 @@ const About = () => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20 backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:scale-[1.02] transition-all duration-300"
+                className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20 backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 group"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <div className="mb-4">
@@ -320,7 +295,8 @@ const About = () => {
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current group-hover:scale-110 transition-transform duration-300"
+                        style={{ transitionDelay: `${i * 0.1}s` }}
                       />
                     ))}
                   </div>
@@ -329,7 +305,7 @@ const About = () => {
                   </p>
                 </div>
                 <div className="border-t border-emerald-500/20 pt-4">
-                  <p className="text-emerald-400 font-semibold text-sm sm:text-base">
+                  <p className="text-emerald-400 font-semibold text-sm sm:text-base group-hover:text-emerald-300 transition-colors duration-300">
                     {testimonial.author}
                   </p>
                   <p className="text-gray-400 text-xs sm:text-sm">
