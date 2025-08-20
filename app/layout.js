@@ -6,6 +6,7 @@ import SocialLinks from "./components/SocialLinks";
 import ReferralPopup from "./components/ReferralPopup";
 import { Analytics } from "@vercel/analytics/react";
 import FloatingWhatsAppButton from "./components/floating-whatsapp-button";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -1260,7 +1261,7 @@ export default function RootLayout({ children }) {
         <Footer />
 
         {/* Google Analytics tag (gtag.js) */}
-        <script
+        <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-B658YHF4FR"
         />
@@ -1276,7 +1277,7 @@ export default function RootLayout({ children }) {
         />
 
         {/* Google Ads tag (gtag.js) */}
-        <script
+        <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=AW-17470353644"
         />
