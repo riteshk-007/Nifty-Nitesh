@@ -15,7 +15,7 @@ const inter = Inter({
 
 export const metadata = {
   title:
-    "Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh | Online Offline Course",
+    "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
   description:
     "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
   // Enhanced keywords array with comprehensive options trading terms
@@ -775,11 +775,11 @@ export const metadata = {
   ],
   openGraph: {
     title:
-      "Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh | Online Offline Course",
+      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     url: "https://niftynitesh.com",
-    siteName: "Nifty Nitesh - Best Share Market Classes in Delhi",
+    siteName: "Nifty Nitesh - Best Share Market Classes in India",
     images: [
       {
         url: "https://www.niftynitesh.com/opengraph-image.png",
@@ -796,7 +796,7 @@ export const metadata = {
     site: "@niftynitesh",
     creator: "@niftynitesh",
     title:
-      "Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh | Online Offline Course",
+      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     images: [
@@ -810,7 +810,7 @@ export const metadata = {
     appId: "your-facebook-app-id", // Replace with your Facebook App ID
     pages: "niftynitesh",
     title:
-      "Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh | Online Offline Course",
+      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     image: "https://www.niftynitesh.com/opengraph-image.png",
@@ -818,7 +818,7 @@ export const metadata = {
   instagram: {
     site: "@niftynitesh",
     title:
-      "Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh | Online Offline Course",
+      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     image: "https://www.niftynitesh.com/opengraph-image.png",
@@ -826,14 +826,14 @@ export const metadata = {
   linkedin: {
     site: "niftynitesh",
     title:
-      "Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh | Online Offline Course",
+      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     image: "https://www.niftynitesh.com/opengraph-image.png",
   },
   whatsapp: {
     title:
-      "Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh | Online Offline Course",
+      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     image: "https://www.niftynitesh.com/opengraph-image.png",
@@ -871,7 +871,7 @@ export const metadata = {
   schema: {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    name: "Nifty Nitesh - Best Share Market Classes in Delhi",
+    name: "Nifty Nitesh - Best Share Market Classes in India",
     alternateName: "Nifty Nitesh Trading Academy",
     url: "https://niftynitesh.com",
     logo: "https://www.niftynitesh.com/favicon.ico",
@@ -1091,7 +1091,7 @@ export default function RootLayout({ children }) {
         {/* Rich Snippets */}
         <meta
           itemProp="name"
-          content="Best Share Market & Stock Trading Classes in Delhi India 2025 - Nifty Nitesh"
+          content="Best Share Market & Stock Trading Classes in India - Nifty Nitesh"
         />
         <meta
           itemProp="description"
@@ -1133,7 +1133,7 @@ export default function RootLayout({ children }) {
         {/* WhatsApp Meta Tags */}
         <meta
           property="og:image:alt"
-          content="Nifty Nitesh Share Market Classes Delhi - Best Stock Trading Course"
+          content="Nifty Nitesh Share Market Classes India - Best Stock Trading Course"
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
@@ -1150,7 +1150,7 @@ export default function RootLayout({ children }) {
         {/* LinkedIn Meta Tags */}
         <meta
           property="og:site_name"
-          content="Nifty Nitesh - Best Share Market Classes in Delhi"
+          content="Nifty Nitesh - Best Share Market Classes in India"
         />
         <meta property="og:updated_time" content="2025-07-08T00:00:00+00:00" />
 
