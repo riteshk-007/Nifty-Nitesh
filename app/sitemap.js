@@ -1,28 +1,42 @@
 export default function sitemap() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   return [
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+      url: baseUrl,
       lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1.0,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}about`,
+      url: `${baseUrl}/about`,
       lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}contact`,
+      url: `${baseUrl}/contact`,
       lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}enrollment`,
+      url: `${baseUrl}/enrollment`,
       lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}refer`,
+      url: `${baseUrl}/refer`,
       lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}faq`,
+      url: `${baseUrl}/faq`,
       lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
   ];
 }
