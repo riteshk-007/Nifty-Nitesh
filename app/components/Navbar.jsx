@@ -103,11 +103,10 @@ const Navbar = () => {
       <div className="fixed bottom-4 z-[100] w-full max-w-none px-4">
         {/* Compact Circle Mode - Enhanced Scale Animation */}
         <div
-          className={`fixed bottom-4 right-4 w-20 h-20 z-[101] transition-all duration-700 ease-bounce ${
-            isCompact
+          className={`fixed bottom-4 right-4 w-20 h-20 z-[101] transition-all duration-700 ease-bounce ${isCompact
               ? "opacity-100 scale-100 translate-y-0 rotate-0"
               : "opacity-0 scale-0 translate-y-8 rotate-180 pointer-events-none"
-          }`}
+            }`}
         >
           <div
             className="bg-black/40 backdrop-blur-xl border border-green-500/30 
@@ -132,11 +131,10 @@ const Navbar = () => {
 
         {/* Full Expanded Mode - Enhanced Scale Animation */}
         <nav
-          className={`mx-auto w-[90%] max-w-6xl transition-all duration-700 ease-bounce transform-gpu will-change-transform ${
-            !isCompact
+          className={`mx-auto w-[90%] max-w-6xl transition-all duration-700 ease-bounce transform-gpu will-change-transform ${!isCompact
               ? "opacity-100 scale-100 translate-y-0"
               : "opacity-0 scale-75 translate-y-8 pointer-events-none"
-          }`}
+            }`}
         >
           <div
             className="bg-black/40 backdrop-blur-xl border border-green-500/30 
@@ -194,6 +192,17 @@ const Navbar = () => {
                   onClick={handleLinkClick}
                 >
                   About
+                </Link>
+                <Link
+                  href="/blogs"
+                  className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
+                            font-medium relative after:absolute after:bottom-0 after:left-0 
+                            after:w-0 after:h-0.5 after:bg-green-400 after:transition-all 
+                            after:duration-500 after:ease-bounce hover:after:w-full
+                            hover:scale-110 transform-gpu will-change-transform"
+                  onClick={handleLinkClick}
+                >
+                  Blogs
                 </Link>
                 <Link
                   href="/contact"
@@ -265,18 +274,16 @@ const Navbar = () => {
                 >
                   <div className="relative w-6 h-6 flex items-center justify-center">
                     <RiMenu3Fill
-                      className={`w-6 h-6 transition-all duration-500 ease-bounce transform-gpu will-change-transform ${
-                        isOpen
+                      className={`w-6 h-6 transition-all duration-500 ease-bounce transform-gpu will-change-transform ${isOpen
                           ? "opacity-0 rotate-90 scale-0"
                           : "opacity-100 rotate-0 scale-100"
-                      }`}
+                        }`}
                     />
                     <CgClose
-                      className={`w-6 h-6 absolute transition-all duration-500 ease-bounce transform-gpu will-change-transform ${
-                        isOpen
+                      className={`w-6 h-6 absolute transition-all duration-500 ease-bounce transform-gpu will-change-transform ${isOpen
                           ? "opacity-100 rotate-0 scale-100"
                           : "opacity-0 rotate-90 scale-0"
-                      }`}
+                        }`}
                     />
                   </div>
                 </button>
@@ -285,11 +292,10 @@ const Navbar = () => {
 
             {/* Mobile Navigation Menu */}
             <div
-              className={`md:hidden overflow-hidden transition-all duration-700 ease-bounce transform-gpu will-change-transform ${
-                isOpen
+              className={`md:hidden overflow-hidden transition-all duration-700 ease-bounce transform-gpu will-change-transform ${isOpen
                   ? "max-h-96 opacity-100 mt-6 scale-100"
                   : "max-h-0 opacity-0 scale-95"
-              }`}
+                }`}
             >
               <div className="bg-black/30 backdrop-blur-md rounded-xl border border-green-500/20 p-6 transition-all duration-500 ease-bounce transform-gpu will-change-transform">
                 <div className="space-y-4">
@@ -308,6 +314,14 @@ const Navbar = () => {
                               py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
                   >
                     About
+                  </Link>
+                  <Link
+                    href="/blogs"
+                    onClick={handleLinkClick}
+                    className="block text-white hover:text-green-400 transition-all duration-500 ease-bounce
+                              py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
+                  >
+                    Blogs
                   </Link>
                   <Link
                     href="/enrollment"

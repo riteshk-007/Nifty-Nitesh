@@ -14,6 +14,7 @@ import {
   Clock,
   Shield,
   Award,
+  BookOpen,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +28,7 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", href: "/", icon: Users },
     { name: "About Us", href: "/about", icon: Award },
+    { name: "Blogs", href: "/blogs", icon: BookOpen },
     { name: "FAQ", href: "/faq", icon: Shield },
     { name: "Contact", href: "/contact", icon: Mail },
   ];
@@ -186,17 +188,20 @@ const Footer = () => {
                 Developed & Designed by:
               </p>
               <motion.a
-                href="https://linktr.ee/riteshk_007"
+                href="https://codexprime.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 transition-colors group"
                 whileHover={{ x: 3 }}
               >
-                <span className="font-semibold">Ritesh</span>
+                <span className="font-semibold">
+                  Code X Prime
+                </span>
                 <ExternalLink className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <p className="text-gray-400 text-xs mt-1">
-                Full Stack Developer 🧑🏼‍💻
+                &copy; {new Date().getFullYear()} Code X Prime. All rights
+                reserved.
               </p>
             </motion.div>
           </motion.div>
