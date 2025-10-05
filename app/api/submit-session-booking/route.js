@@ -38,7 +38,18 @@ const transporter = nodemailer.createTransport({
 export async function POST(request) {
   try {
     const formData = await request.json();
-    const { name, phone, experience, email, timestamp } = formData;
+    const {
+      name,
+      phone,
+      email,
+      whatsapp,
+      occupation,
+      experience,
+      courseType,
+      courseTitle,
+      coursePrice,
+      submittedAt
+    } = formData;
 
     // Validate required fields
     const errors = {};
@@ -63,21 +74,24 @@ export async function POST(request) {
       .toString(36)
       .substr(2, 9)}`;
 
-    // Append data to Google Sheets (Sheet2 for sessions)
+    // Append data to Google Sheets (Sheet3 for sessions)
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-    const range = "Sheet3!A:I"; // Fixed range format
+    const range = "Sheet3!A:L"; // Updated range for more columns
 
     const values = [
       [
-        new Date().toISOString(), // Timestamp
+        submittedAt || new Date().toISOString(), // Timestamp
         bookingId, // Booking ID
         name, // Name
         phone, // Phone
-        email || "", // Email
+        email, // Email
+        whatsapp || phone, // WhatsApp
+        occupation || "Not specified", // Occupation
         experience || "Not specified", // Trading Experience
-        "1-on-1 Session", // Service Type
-        "₹250 (FREE for students)", // Price
-        "Pending Confirmation", // Status
+        courseTitle || "1-on-1 Trading Session", // Service Type
+        coursePrice || "₹199", // Price
+        "Form Submitted - Pending Contact", // Status
+        courseType || "session", // Course Type
       ],
     ];
 
@@ -88,61 +102,42 @@ export async function POST(request) {
       resource: { values },
     });
 
-    // Send confirmation email to user (if email provided)
+    // Send confirmation email to user
     if (email) {
       const mailOptions = {
         from: emailConfig.fromEmail,
         to: email,
-        subject: "Session Booking Confirmation - Nifty Nitesh",
+        subject: "1-on-1 Trading Session - Form Submission Confirmation",
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000000; padding: 20px;">
-            <div style="background-color: #111111; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); border: 1px solid #333333;">
-              <div style="text-align: center; margin-bottom: 30px;">
-                <img src="https://niftynitesh.com/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
-                <h1 style="color: #10b981; margin: 0; font-size: 28px;">📅 Session Booking Confirmed!</h1>
-                <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 16px;">Your 1-on-1 trading session has been booked successfully</p>
-              </div>
-              
-              <div style="background-color: #1f2937; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #374151;">
-                <h2 style="color: #f3f4f6; margin-top: 0; font-size: 20px;">📋 Session Details</h2>
-                <table style="width: 100%; border-collapse: collapse;">
-                  <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Booking ID:</td><td style="padding: 8px 0; color: #f3f4f6; font-family: monospace;">${bookingId}</td></tr>
-                  <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Name:</td><td style="padding: 8px 0; color: #f3f4f6;">${name}</td></tr>
-                  <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Phone:</td><td style="padding: 8px 0; color: #f3f4f6;">${phone}</td></tr>
-                  <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Experience:</td><td style="padding: 8px 0; color: #f3f4f6;">${
-                    experience || "Not specified"
-                  }</td></tr>
-                  <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Available:</td><td style="padding: 8px 0; color: #f3f4f6;">Saturdays</td></tr>
-                  <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Price:</td><td style="padding: 8px 0; color: #10b981; font-weight: bold;">₹250 (FREE for students)</td></tr>
-                </table>
-              </div>
-              
-              <div style="background-color: #064e3b; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10b981;">
-                <h2 style="color: #6ee7b7; margin-top: 0; font-size: 18px;">📞 What's Next?</h2>
-                <ol style="color: #d1fae5; margin: 10px 0; padding-left: 20px;">
-                  <li style="margin: 8px 0;">Our team will contact you within 24 hours to confirm the session</li>
-                  <li style="margin: 8px 0;">We'll schedule the session based on your availability</li>
-                 
-                  <li style="margin: 8px 0;">Join the session at the scheduled time</li>
-                </ol>
-              </div>
-              
-              <div style="background-color: #451a03; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b;">
-                <h2 style="color: #fbbf24; margin-top: 0; font-size: 18px;">💡 Session Preparation</h2>
-                <ul style="color: #fed7aa; margin: 10px 0; padding-left: 20px;">
-                  <li style="margin: 8px 0;">Prepare your trading questions in advance</li>
-                  <li style="margin: 8px 0;">Have your trading setup ready (if applicable)</li>
-                  <li style="margin: 8px 0;">Keep a notepad for taking notes</li>
-                  <li style="margin: 8px 0;">Ensure stable internet connection</li>
-                </ul>
-              </div>
-              
-              <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #374151;">
-                <p style="color: #9ca3af; margin: 0;">Need help? Contact us at:</p>
-                <p style="color: #10b981; margin: 10px 0; font-weight: bold;">📧 niftynitesh000@gmail.com</p>
-                <p style="color: #9ca3af; margin: 0; font-size: 14px;">We're excited to help you on your trading journey! 🚀</p>
-              </div>
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #10b981;">Thank you for your interest in 1-on-1 Trading Session!</h2>
+            
+            <p>Dear ${name},</p>
+            
+            <p>We have received your form submission for <strong>1-on-1 Trading Session</strong>. Our team will contact you soon to schedule your session.</p>
+            
+            <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="color: #374151; margin-top: 0;">Your Details</h3>
+              <p><strong>Booking ID:</strong> ${bookingId}</p>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Phone:</strong> ${phone}</p>
+              <p><strong>WhatsApp:</strong> ${whatsapp || phone}</p>
+              <p><strong>Trading Experience:</strong> ${experience || "Not specified"}</p>
+              <p><strong>Session Price:</strong> ${coursePrice || "₹199"}</p>
             </div>
+            
+            <div style="background-color: #ecfdf5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10b981;">
+              <h3 style="color: #065f46; margin-top: 0;">What's Next?</h3>
+              <p>• Our team will call you within 24 hours</p>
+              <p>• We'll schedule your 1-on-1 session at a convenient time</p>
+              <p>• You'll receive session details and meeting link</p>
+              <p>• Get ready for personalized trading guidance!</p>
+            </div>
+            
+            <p>If you have any immediate questions, please contact us at <a href="mailto:niftynitesh000@gmail.com">niftynitesh000@gmail.com</a></p>
+            
+            <p>Best regards,<br>Nifty Nitesh Trading Team</p>
           </div>
         `,
       };
@@ -154,42 +149,25 @@ export async function POST(request) {
     const adminMailOptions = {
       from: emailConfig.fromEmail,
       to: "niftynitesh000@gmail.com",
-      subject: `📅 New Session Booking - ${name}`,
+      subject: `New 1-on-1 Session Request - ${name}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000000; padding: 20px;">
-          <div style="background-color: #111111; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); border: 1px solid #333333;">
-            <div style="text-align: center; margin-bottom: 30px;">
-              <img src="https://niftynitesh.com/logo.png" alt="Nifty Nitesh" style="width: 120px; height: auto; margin-bottom: 20px;">
-              <h1 style="color: #10b981; margin: 0; font-size: 28px;">📅 New Session Booking!</h1>
-              <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 16px;">A new student has booked a 1-on-1 trading session</p>
-            </div>
-            
-            <div style="background-color: #1f2937; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #374151;">
-              <h2 style="color: #f3f4f6; margin-top: 0; font-size: 20px;">👤 Student Details</h2>
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Booking ID:</td><td style="padding: 8px 0; color: #f3f4f6; font-family: monospace;">${bookingId}</td></tr>
-                <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Name:</td><td style="padding: 8px 0; color: #f3f4f6;">${name}</td></tr>
-                <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Phone:</td><td style="padding: 8px 0; color: #f3f4f6;">${phone}</td></tr>
-                <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Email:</td><td style="padding: 8px 0; color: #f3f4f6;">${
-                  email || "Not provided"
-                }</td></tr>
-                <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Experience:</td><td style="padding: 8px 0; color: #f3f4f6;">${
-                  experience || "Not specified"
-                }</td></tr>
-                <tr><td style="padding: 8px 0; color: #9ca3af; font-weight: bold;">Booking Time:</td><td style="padding: 8px 0; color: #f3f4f6;">${new Date().toLocaleString()}</td></tr>
-              </table>
-            </div>
-            
-            <div style="background-color: #451a03; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b;">
-              <h2 style="color: #fbbf24; margin-top: 0; font-size: 18px;">⏰ Action Required</h2>
-              <p style="color: #fed7aa; margin: 10px 0;">Please contact the student within 24 hours to confirm the session schedule.</p>
-              <p style="color: #fed7aa; margin: 10px 0;">Session details have been saved to Google Sheets (Sheet2).</p>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #374151;">
-              <p style="color: #9ca3af; margin: 0; font-size: 14px;">Check your Google Sheets for complete booking details</p>
-            </div>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #10b981;">New 1-on-1 Trading Session Request</h2>
+          
+          <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #374151; margin-top: 0;">Student Details</h3>
+            <p><strong>Booking ID:</strong> ${bookingId}</p>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>WhatsApp:</strong> ${whatsapp || phone}</p>
+            <p><strong>Occupation:</strong> ${occupation || "Not specified"}</p>
+            <p><strong>Trading Experience:</strong> ${experience || "Not specified"}</p>
+            <p><strong>Session Price:</strong> ${coursePrice || "₹199"}</p>
+            <p><strong>Request Time:</strong> ${new Date().toLocaleString()}</p>
           </div>
+          
+          <p><strong>Action Required:</strong> Please call the student to schedule their 1-on-1 trading session.</p>
         </div>
       `,
     };

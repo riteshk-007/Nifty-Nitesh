@@ -333,7 +333,7 @@ export default function BlogPostClient({ post }) {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
-                            href="/enrollment"
+                            href="/#services"
                             className="px-8 py-3 bg-accent-green text-bg-primary font-semibold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center gap-2"
                         >
                             <TrendingUp className="h-5 w-5" />

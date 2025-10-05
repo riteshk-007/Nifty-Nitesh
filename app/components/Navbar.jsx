@@ -104,8 +104,8 @@ const Navbar = () => {
         {/* Compact Circle Mode - Enhanced Scale Animation */}
         <div
           className={`fixed bottom-4 right-4 w-20 h-20 z-[101] transition-all duration-700 ease-bounce ${isCompact
-              ? "opacity-100 scale-100 translate-y-0 rotate-0"
-              : "opacity-0 scale-0 translate-y-8 rotate-180 pointer-events-none"
+            ? "opacity-100 scale-100 translate-y-0 rotate-0"
+            : "opacity-0 scale-0 translate-y-8 rotate-180 pointer-events-none"
             }`}
         >
           <div
@@ -132,8 +132,8 @@ const Navbar = () => {
         {/* Full Expanded Mode - Enhanced Scale Animation */}
         <nav
           className={`mx-auto w-[90%] max-w-6xl transition-all duration-700 ease-bounce transform-gpu will-change-transform ${!isCompact
-              ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-75 translate-y-8 pointer-events-none"
+            ? "opacity-100 scale-100 translate-y-0"
+            : "opacity-0 scale-75 translate-y-8 pointer-events-none"
             }`}
         >
           <div
@@ -275,14 +275,14 @@ const Navbar = () => {
                   <div className="relative w-6 h-6 flex items-center justify-center">
                     <RiMenu3Fill
                       className={`w-6 h-6 transition-all duration-500 ease-bounce transform-gpu will-change-transform ${isOpen
-                          ? "opacity-0 rotate-90 scale-0"
-                          : "opacity-100 rotate-0 scale-100"
+                        ? "opacity-0 rotate-90 scale-0"
+                        : "opacity-100 rotate-0 scale-100"
                         }`}
                     />
                     <CgClose
                       className={`w-6 h-6 absolute transition-all duration-500 ease-bounce transform-gpu will-change-transform ${isOpen
-                          ? "opacity-100 rotate-0 scale-100"
-                          : "opacity-0 rotate-90 scale-0"
+                        ? "opacity-100 rotate-0 scale-100"
+                        : "opacity-0 rotate-90 scale-0"
                         }`}
                     />
                   </div>
@@ -293,8 +293,8 @@ const Navbar = () => {
             {/* Mobile Navigation Menu */}
             <div
               className={`md:hidden overflow-hidden transition-all duration-700 ease-bounce transform-gpu will-change-transform ${isOpen
-                  ? "max-h-96 opacity-100 mt-6 scale-100"
-                  : "max-h-0 opacity-0 scale-95"
+                ? "max-h-96 opacity-100 mt-6 scale-100"
+                : "max-h-0 opacity-0 scale-95"
                 }`}
             >
               <div className="bg-black/30 backdrop-blur-md rounded-xl border border-green-500/20 p-6 transition-all duration-500 ease-bounce transform-gpu will-change-transform">
@@ -324,20 +324,12 @@ const Navbar = () => {
                     Blogs
                   </Link>
                   <Link
-                    href="/enrollment"
+                    href="/#services"
                     onClick={handleLinkClick}
                     className="block text-white hover:text-green-400 transition-all duration-500 ease-bounce
                               py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
                   >
                     Enroll Now
-                  </Link>
-                  <Link
-                    href="/refer"
-                    onClick={handleLinkClick}
-                    className="block text-white hover:text-green-400 transition-all duration-500 ease-bounce
-                              py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
-                  >
-                    Refer Friend
                   </Link>
                   <div className="space-y-3">
                     <div className="text-gray-300 text-sm font-semibold uppercase tracking-wider">
@@ -436,7 +428,7 @@ const Navbar = () => {
                     About
                   </Link>
                   <Link
-                    href="/enrollment"
+                    href="/#services"
                     className="block text-white hover:text-green-400 transition-all duration-300 ease-bounce
                               py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
                     onClick={handleLinkClick}

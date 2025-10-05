@@ -26,7 +26,9 @@ export default function Home() {
       <ModernStats />
 
       {/* Service Cards Section */}
-      <ServiceCards />
+      <div id="services">
+        <ServiceCards />
+      </div>
 
       {/* Student Reviews */}
       <div className="w-full ">
