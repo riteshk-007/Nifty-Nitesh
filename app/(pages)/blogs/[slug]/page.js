@@ -1,7 +1,6 @@
 import BlogPostClient from './BlogPostClient';
 import { notFound } from 'next/navigation';
 
-// Mock blog data - आप इसे API से replace कर सकते हैं
 const blogPosts = [
     {
         id: 1,
@@ -346,7 +345,6 @@ Remember to always combine zone analysis with proper risk management and market 
         featured: true,
         views: 980,
     },
-    // Add more blog posts here...
 ];
 
 export async function generateMetadata({ params }) {

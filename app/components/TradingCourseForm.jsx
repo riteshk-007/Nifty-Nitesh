@@ -299,7 +299,7 @@ const TradingCourseForm = () => {
           console.error("Cloudinary Error:", data);
           setUploadError(
             "Failed to upload image to Cloudinary: " +
-              (data.error?.message || "Unknown error")
+            (data.error?.message || "Unknown error")
           );
         }
       }
@@ -413,19 +413,17 @@ const TradingCourseForm = () => {
             {[1, 2, 3, 4].map((stepNum) => (
               <div key={stepNum} className="flex items-center">
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    step >= stepNum
+                  className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= stepNum
                       ? "bg-emerald-500 text-white"
                       : "bg-gray-600 text-gray-400"
-                  }`}
+                    }`}
                 >
                   {stepNum}
                 </div>
                 {stepNum < 4 && (
                   <div
-                    className={`w-8 h-0.5 ${
-                      step > stepNum ? "bg-emerald-500" : "bg-gray-600"
-                    }`}
+                    className={`w-8 h-0.5 ${step > stepNum ? "bg-emerald-500" : "bg-gray-600"
+                      }`}
                   />
                 )}
               </div>
@@ -455,9 +453,8 @@ const TradingCourseForm = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
-                        errors.name ? "border-red-500" : "border-gray-600"
-                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.name ? "border-red-500" : "border-gray-600"
+                        } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       placeholder="Enter your full name"
                       required
                     />
@@ -476,9 +473,8 @@ const TradingCourseForm = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
-                        errors.email ? "border-red-500" : "border-gray-600"
-                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.email ? "border-red-500" : "border-gray-600"
+                        } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       placeholder="Enter your email address"
                       required
                     />
@@ -499,9 +495,8 @@ const TradingCourseForm = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
-                        errors.phone ? "border-red-500" : "border-gray-600"
-                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.phone ? "border-red-500" : "border-gray-600"
+                        } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       placeholder="Enter your phone number"
                       required
                     />
@@ -522,9 +517,8 @@ const TradingCourseForm = () => {
                       name="whatsapp"
                       value={formData.whatsapp}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
-                        errors.whatsapp ? "border-red-500" : "border-gray-600"
-                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.whatsapp ? "border-red-500" : "border-gray-600"
+                        } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       placeholder="Enter your WhatsApp number (optional)"
                     />
                     <p className="text-gray-400 text-xs mt-1">
@@ -541,9 +535,8 @@ const TradingCourseForm = () => {
                       name="occupation"
                       value={formData.occupation}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
-                        errors.occupation ? "border-red-500" : "border-gray-600"
-                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.occupation ? "border-red-500" : "border-gray-600"
+                        } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       required
                     >
                       <option value="">Select your occupation</option>
@@ -569,9 +562,8 @@ const TradingCourseForm = () => {
                       name="experience"
                       value={formData.experience}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-3 bg-gray-700/50 border ${
-                        errors.experience ? "border-red-500" : "border-gray-600"
-                      } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
+                      className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.experience ? "border-red-500" : "border-gray-600"
+                        } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 transition-colors`}
                       required
                     >
                       <option value="">Select your experience level</option>
@@ -615,11 +607,10 @@ const TradingCourseForm = () => {
                           className="sr-only"
                         />
                         <div
-                          className={`p-4 rounded-lg border cursor-pointer transition-all ${
-                            formData.paymentPlan === plan.id
+                          className={`p-4 rounded-lg border cursor-pointer transition-all ${formData.paymentPlan === plan.id
                               ? "border-emerald-500 bg-emerald-500/10"
                               : "border-gray-600 bg-gray-700/30"
-                          }`}
+                            }`}
                           onClick={() =>
                             setFormData({ ...formData, paymentPlan: plan.id })
                           }
@@ -632,11 +623,10 @@ const TradingCourseForm = () => {
                                 </h3>
                                 {plan.badge && (
                                   <span
-                                    className={`px-2 py-1 rounded-full text-xs ${
-                                      plan.popular
+                                    className={`px-2 py-1 rounded-full text-xs ${plan.popular
                                         ? "bg-emerald-500 text-white"
                                         : "bg-gray-600 text-gray-300"
-                                    }`}
+                                      }`}
                                   >
                                     {plan.badge}
                                   </span>

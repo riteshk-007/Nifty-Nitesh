@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, User, Calendar, Share2, Bookmark, ThumbsUp, Eye, Tag, ChevronRight, BookOpen, TrendingUp } from 'lucide-react';
 
 // Mock related posts
