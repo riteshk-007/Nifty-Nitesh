@@ -74,7 +74,7 @@ export async function POST(request) {
       .toString(36)
       .substr(2, 9)}`;
 
-    // Append data to Google Sheets (Sheet3 for sessions)
+    // Append data to Google Sheets (Sheet3 for sessions) - safe-guarded
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
     const range = "Sheet3!A:L"; // Updated range for more columns
 
@@ -95,12 +95,20 @@ export async function POST(request) {
       ],
     ];
 
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range,
-      valueInputOption: "RAW",
-      resource: { values },
-    });
+    if (spreadsheetId) {
+      try {
+        await sheets.spreadsheets.values.append({
+          spreadsheetId,
+          range,
+          valueInputOption: "RAW",
+          resource: { values },
+        });
+      } catch (sheetErr) {
+        console.warn("Session: Google Sheets append failed:", sheetErr?.message || sheetErr);
+      }
+    } else {
+      console.warn("GOOGLE_SHEETS_SPREADSHEET_ID not set. Skipping session rows append.");
+    }
 
     // Send confirmation email to user
     if (email) {

@@ -1,48 +1,186 @@
-import BlogsClient from './BlogsClient';
+import Link from 'next/link';
+import Image from 'next/image';
 
-export const metadata = {
-    title: "Stock Market Blogs & Trading Tips - Nifty Nitesh",
-    description: "Read latest stock market blogs, trading tips, technical analysis guides and share market insights by Nifty Nitesh. Learn about demand supply trading, smart money concepts and more.",
-    keywords: [
-        "stock market blogs",
-        "trading tips",
-        "technical analysis",
-        "share market insights",
-        "nifty trading tips",
-        "demand supply trading",
-        "smart money concepts",
-        "trading psychology",
-        "market analysis",
-        "investment tips"
-    ],
-    openGraph: {
-        title: "Stock Market Blogs & Trading Tips - Nifty Nitesh",
-        description: "Read latest stock market blogs, trading tips, technical analysis guides and share market insights by Nifty Nitesh.",
-        url: "https://niftynitesh.com/blogs",
-        siteName: "Nifty Nitesh - Stock Market Blogs",
-        images: [
-            {
-                url: "https://www.niftynitesh.com/opengraph-image.png",
-                width: 1200,
-                height: 630,
-                alt: "Nifty Nitesh Stock Market Blogs",
-            },
-        ],
-        type: "website",
-    },
-    twitter: {
-        card: "summary_large_image",
-        site: "@niftynitesh",
-        creator: "@niftynitesh",
-        title: "Stock Market Blogs & Trading Tips - Nifty Nitesh",
-        description: "Read latest stock market blogs, trading tips, technical analysis guides and share market insights.",
-        images: ["https://www.niftynitesh.com/opengraph-image.png"],
-    },
-    alternates: {
-        canonical: "https://niftynitesh.com/blogs",
-    },
-};
+import { format } from 'date-fns';
+import { getPosts, getCategories } from '@/lib/blog-api';
+import { safeImageUrl, shimmer, toBase64 } from '@/lib/utils';
+import Breadcrumbs from '@/app/components/Breadcrumbs';
+export default async function BlogPage({ searchParams }) {
+    const page = parseInt(searchParams?.page || '1');
+    const category = searchParams?.category;
 
-export default function BlogsPage() {
-    return <BlogsClient />;
+    const [postsRes, catsRes] = await Promise.allSettled([
+        getPosts({ page, limit: 12, category }),
+        getCategories(),
+    ]);
+
+    const postsData = postsRes.status === 'fulfilled'
+        ? postsRes.value
+        : { posts: [], pagination: { totalPages: 1 } };
+
+    const categoriesData = catsRes.status === 'fulfilled'
+        ? catsRes.value
+        : { categories: [], error: true };
+
+    const hadError = postsRes.status === 'rejected' || catsRes.status === 'rejected';
+
+    return (
+        <div className="min-h-screen bg-black text-white">
+            <section className="relative overflow-hidden bg-gradient-to-t from-black to-gray-800 text-white">
+                <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
+                    <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Blogs' }]} />
+                    <h1 className="mt-6 text-4xl md:text-5xl font-extrabold leading-tight text-white">
+                        Insights, how‑to guides, and ideas
+                    </h1>
+                    <p className="mt-4 text-lg text-gray-300 max-w-2xl">
+                        Short, practical articles on trading, analysis, and finance.
+                    </p>
+                </div>
+            </section>
+
+            <div className="max-w-7xl mx-auto px-6 py-10">
+                {hadError && (
+                    <div className="mb-6 border border-yellow-500 bg-yellow-100 text-yellow-900 px-4 py-3">
+                        Some content couldn’t be loaded. Showing what’s available.
+                    </div>
+                )}
+
+                <div className="mb-8 overflow-x-auto">
+                    <div className="inline-flex items-stretch gap-1 border-b border-green-700">
+                        <Link
+                            href="/blog"
+                            className={`px-4 py-2 text-sm font-medium ${!category
+                                ? 'text-green-400 border-b-2 border-green-500'
+                                : 'text-green-300 hover:text-green-200'
+                                }`}
+                        >
+                            All
+                        </Link>
+                        {categoriesData.categories.map((cat) => (
+                            <Link
+                                key={cat.id}
+                                href={`/blog?category=${cat.slug}`}
+                                className={`px-4 py-2 text-sm font-medium ${category === cat.slug
+                                    ? 'text-green-400 border-b-2 border-green-500'
+                                    : 'text-green-300 hover:text-green-200'
+                                    }`}
+                            >
+                                {cat.name} {typeof cat._count?.posts === 'number' ? `(${cat._count.posts})` : ''}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+
+                {postsData.posts.length === 0 ? (
+                    <p className="py-10 text-green-200">No posts available right now.</p>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {postsData.posts.map((post) => (
+                            <Link key={post.id} href={`/blogs/${post.slug}`} className="block group">
+                                <article className="h-full border border-gray-700 bg-zinc-900 p-6 rounded hover:shadow-lg hover:border-gray-500 transition-all duration-300">
+                                    {post.featuredImage && (
+                                        <div className="relative w-full h-40 mb-4 overflow-hidden rounded bg-green-900">
+                                            <Image
+                                                src={safeImageUrl(post.featuredImage)}
+                                                alt={post.title}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 420px"
+                                                className="object-cover"
+                                                placeholder="blur"
+                                                blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(800, 400))}`}
+                                            />
+                                        </div>
+                                    )}
+
+                                    <div>
+                                        <div className="flex items-center gap-3 text-sm text-green-400">
+                                            {post.category?.name && <span>{post.category.name}</span>}
+                                            {post.publishedAt && (
+                                                <span>{format(new Date(post.publishedAt), 'yyyy-MM-dd')}</span>
+                                            )}
+                                            <span className="text-green-500">•</span>
+                                            <span>{typeof post.views === 'number' ? `${post.views} views` : '0 views'}</span>
+                                        </div>
+
+                                        <h3 className="mt-3 text-xl font-semibold text-white group-hover:text-green-400">
+                                            {post.title}
+                                        </h3>
+
+                                        {post.excerpt && (
+                                            <p className="mt-2 text-green-300 line-clamp-3">
+                                                {post.excerpt}
+                                            </p>
+                                        )}
+
+                                        <div className="mt-4 text-sm text-green-500 font-medium">Read more →</div>
+                                    </div>
+                                </article>
+                            </Link>
+                        ))}
+                    </div>
+                )}
+
+                {(() => {
+                    const totalPages = postsData.pagination?.totalPages || 1;
+                    if (totalPages <= 1) return null;
+
+                    const makeHref = (p) => `/blog?page=${p}${category ? `&category=${category}` : ''}`;
+
+                    const pages = [];
+                    const add = (n) => pages.push(n);
+
+                    const window = 1;
+                    const start = Math.max(1, page - window);
+                    const end = Math.min(totalPages, page + window);
+                    add(1);
+                    if (start > 2) pages.push('ellipsis');
+                    for (let p = start; p <= end; p++) if (p !== 1 && p !== totalPages) add(p);
+                    if (end < totalPages - 1) pages.push('ellipsis');
+                    if (totalPages > 1) add(totalPages);
+
+                    return (
+                        <nav className="mt-10 flex items-center justify-center gap-1" aria-label="Pagination">
+                            <Link
+                                href={makeHref(Math.max(1, page - 1))}
+                                aria-disabled={page === 1}
+                                className={`px-3 py-2 text-sm border rounded ${page === 1
+                                    ? 'pointer-events-none text-gray-500 border-gray-600'
+                                    : 'text-green-400 hover:border-green-500'
+                                    }`}
+                            >
+                                Prev
+                            </Link>
+                            {pages.map((p, i) =>
+                                p === 'ellipsis' ? (
+                                    <span key={`e-${i}`} className="px-2 text-green-500">…</span>
+                                ) : (
+                                    <Link
+                                        key={p}
+                                        href={makeHref(p)}
+                                        aria-current={page === p ? 'page' : undefined}
+                                        className={`px-3 py-2 text-sm border rounded ${page === p
+                                            ? 'bg-green-600 text-white border-green-600'
+                                            : 'bg-black text-green-400 hover:border-green-500'
+                                            }`}
+                                    >
+                                        {p}
+                                    </Link>
+                                )
+                            )}
+                            <Link
+                                href={makeHref(Math.min(totalPages, page + 1))}
+                                aria-disabled={page === totalPages}
+                                className={`px-3 py-2 text-sm border rounded ${page === totalPages
+                                    ? 'pointer-events-none text-gray-500 border-gray-600'
+                                    : 'text-green-400 hover:border-green-500'
+                                    }`}
+                            >
+                                Next
+                            </Link>
+                        </nav>
+                    );
+                })()}
+            </div>
+        </div>
+    );
 }

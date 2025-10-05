@@ -1,412 +1,277 @@
-import BlogPostClient from './BlogPostClient';
+import Image from 'next/image';
+import Link from 'next/link';
+import { format } from 'date-fns';
 import { notFound } from 'next/navigation';
-
-const blogPosts = [
-    {
-        id: 1,
-        slug: "technical-analysis-beginners-guide",
-        title: "Technical Analysis Complete Guide for Beginners",
-        excerpt: "Learn the fundamentals of technical analysis, chart patterns, and how to read market trends like a professional trader.",
-        content: `
-# Technical Analysis Complete Guide for Beginners
-
-Technical analysis is the study of market action, primarily through the use of charts, for the purpose of forecasting future price trends. This comprehensive guide will help you understand the fundamentals of technical analysis and how to apply them in your trading.
-
-## What is Technical Analysis?
-
-Technical analysis is based on three fundamental assumptions:
-
-1. **Market action discounts everything** - All known information is already reflected in the price
-2. **Prices move in trends** - Markets tend to move in identifiable patterns
-3. **History repeats itself** - Market patterns tend to repeat due to human psychology
-
-## Key Components of Technical Analysis
-
-### 1. Chart Types
-
-**Line Charts**: Show only closing prices connected by a line
-- Simple and clean
-- Good for identifying overall trends
-- Best for long-term analysis
-
-**Candlestick Charts**: Show open, high, low, and close prices
-- Most popular among traders
-- Provide detailed price action information
-- Essential for pattern recognition
-
-**Bar Charts**: Similar to candlesticks but in bar format
-- Show OHLC data
-- Less visual than candlesticks
-- Good for technical indicators
-
-### 2. Support and Resistance
-
-**Support**: A price level where buying interest is strong enough to overcome selling pressure
-- Prices tend to bounce from support levels
-- Multiple tests strengthen support
-- Broken support becomes resistance
-
-**Resistance**: A price level where selling interest overcomes buying pressure
-- Prices tend to reverse at resistance levels
-- Acts as a ceiling for price movement
-- Broken resistance becomes support
-
-### 3. Trend Analysis
-
-**Uptrend**: Series of higher highs and higher lows
-- Shows bullish sentiment
-- Buy on pullbacks to support
-- Enter long positions
-
-**Downtrend**: Series of lower highs and lower lows
-- Shows bearish sentiment
-- Sell on rallies to resistance
-- Enter short positions
-
-**Sideways Trend**: Price moves within a range
-- Market consolidation
-- Range trading opportunities
-- Breakout setups
-
-## Popular Chart Patterns
-
-### Reversal Patterns
-
-**Head and Shoulders**
-- Bearish reversal pattern
-- Three peaks with middle peak highest
-- Neckline break confirms reversal
-
-**Double Top/Bottom**
-- Reversal patterns
-- Two equal peaks (top) or troughs (bottom)
-- Break of support/resistance confirms reversal
-
-### Continuation Patterns
-
-**Triangles**
-- Ascending, descending, symmetrical
-- Shows consolidation before continuation
-- Breakout direction usually follows previous trend
-
-**Flags and Pennants**
-- Short-term consolidation patterns
-- Sharp move followed by consolidation
-- Continuation in original direction
-
-## Technical Indicators
-
-### Trend Following Indicators
-
-**Moving Averages**
-- Simple Moving Average (SMA)
-- Exponential Moving Average (EMA)
-- Used for trend identification and support/resistance
-
-**MACD (Moving Average Convergence Divergence)**
-- Shows relationship between two moving averages
-- Signal line crossovers generate buy/sell signals
-- Histogram shows momentum changes
-
-### Momentum Indicators
-
-**RSI (Relative Strength Index)**
-- Oscillates between 0 and 100
-- Above 70 = overbought
-- Below 30 = oversold
-
-**Stochastic Oscillator**
-- Compares closing price to price range
-- %K and %D lines
-- Overbought/oversold conditions
-
-### Volume Indicators
-
-**Volume**
-- Confirms price movements
-- High volume = strong move
-- Low volume = weak move
-
-**On-Balance Volume (OBV)**
-- Running total of volume
-- Confirms trend direction
-- Divergences signal reversals
-
-## Risk Management in Technical Analysis
-
-### Position Sizing
-- Never risk more than 1-2% per trade
-- Calculate position size based on stop loss
-- Use fixed fractional method
-
-### Stop Loss Placement
-- Place stops beyond key levels
-- Use ATR (Average True Range) for dynamic stops
-- Trail stops in trending markets
-
-### Take Profit Strategies
-- Target key resistance/support levels
-- Use risk-reward ratios (minimum 1:2)
-- Scale out of positions partially
-
-## Common Mistakes to Avoid
-
-1. **Over-analyzing**: Don't use too many indicators
-2. **Ignoring risk management**: Always use stop losses
-3. **Forcing trades**: Wait for high-probability setups
-4. **Emotional trading**: Stick to your trading plan
-5. **Not adapting**: Markets change, so should your approach
-
-## Getting Started
-
-### Step 1: Learn the Basics
-- Understand chart types
-- Learn support and resistance
-- Study basic patterns
-
-### Step 2: Practice
-- Use paper trading first
-- Keep a trading journal
-- Review your trades regularly
-
-### Step 3: Develop Your Style
-- Find what works for you
-- Focus on few indicators
-- Stick to your timeframe
-
-## Conclusion
-
-Technical analysis is a powerful tool for trading and investing. While it's not perfect and doesn't guarantee success, it provides a systematic approach to market analysis. Remember that technical analysis works best when combined with proper risk management and trading psychology.
-
-Start with the basics, practice regularly, and always keep learning. The market is constantly evolving, and so should your skills as a technical analyst.
-
----
-
-*Ready to learn more? Join our comprehensive technical analysis course and master the art of reading charts like a professional trader.*
-    `,
-        author: "Nifty Nitesh",
-        publishedAt: "2024-10-01",
-        readTime: "8 min read",
-        category: "Technical Analysis",
-        tags: ["technical analysis", "charts", "patterns", "beginners"],
-        image: "/course/img1.png",
-        featured: true,
-        views: 1250,
-    },
-    {
-        id: 2,
-        slug: "demand-supply-zones-trading",
-        title: "Understanding Demand and Supply Zones in Trading",
-        excerpt: "Master the concept of demand and supply zones to identify high-probability trading setups and improve your trading accuracy.",
-        content: `
-# Understanding Demand and Supply Zones in Trading
-
-Demand and supply zones are areas on a price chart where the price has moved away sharply from these levels. These zones represent imbalances between buyers and sellers and are crucial for identifying high-probability trading setups.
-
-## What are Demand and Supply Zones?
-
-**Demand Zone**: An area where buyers are willing to step in and purchase, causing prices to move higher. These are areas of strong buying interest.
-
-**Supply Zone**: An area where sellers are willing to step in and sell, causing prices to move lower. These are areas of strong selling interest.
-
-## Key Characteristics
-
-### Fresh Zones
-- Zones that haven't been tested before
-- Higher probability of holding
-- Stronger reactions expected
-
-### Tested Zones
-- Zones that have been visited multiple times
-- Lower probability of holding
-- Weaker reactions possible
-
-## How to Identify Zones
-
-### 1. Look for Sharp Moves
-- Sudden price movements away from a level
-- Large candles with minimal wicks
-- High volume accompanying the move
-
-### 2. Base Formation
-- Consolidation before the sharp move
-- Multiple touches creating the zone
-- Clear rejection from the level
-
-### 3. Time and Sales
-- Institutional order flow
-- Large volume at specific levels
-- Absorption of retail orders
-
-## Trading Strategies
-
-### Zone-to-Zone Trading
-- Identify multiple zones on the chart
-- Trade from supply to demand and vice versa
-- Use zones as profit targets
-
-### Breakout Trading
-- Wait for zone breaks with volume
-- Trade the continuation move
-- Use broken zones as support/resistance
-
-### Retest Trading
-- Wait for price to return to the zone
-- Look for rejection signals
-- Enter in the direction of the zone
-
-## Risk Management
-
-### Stop Loss Placement
-- Place stops beyond the zone
-- Account for false breaks
-- Use proper position sizing
-
-### Take Profit Levels
-- Target opposite zones
-- Use measured moves
-- Scale out partially
-
-## Advanced Concepts
-
-### Institutional Order Blocks
-- Large orders from institutions
-- Create significant zones
-- Often respected multiple times
-
-### Liquidity Pools
-- Areas where stops are clustered
-- Often above/below zones
-- Targets for institutional players
-
-### Market Structure
-- Higher highs and higher lows (uptrend)
-- Lower highs and lower lows (downtrend)
-- Zones within market structure
-
-## Practical Application
-
-### 1. Multiple Timeframe Analysis
-- Identify zones on higher timeframes
-- Execute trades on lower timeframes
-- Align with overall market direction
-
-### 2. Confluence
-- Combine with other indicators
-- Look for Fibonacci levels
-- Use moving averages for confirmation
-
-### 3. Market Context
-- Consider overall market sentiment
-- Check economic news and events
-- Understand sector rotation
-
-## Common Mistakes
-
-1. **Trading every zone**: Not all zones are equal
-2. **Ignoring market structure**: Context is crucial
-3. **Poor risk management**: Always use stops
-4. **Over-complicating**: Keep it simple
-5. **Not waiting for confirmation**: Be patient
-
-## Tools and Indicators
-
-### Zone Drawing Tools
-- Rectangle tool for zone marking
-- Horizontal lines for key levels
-- Trend lines for dynamic zones
-
-### Volume Indicators
-- Volume profile
-- On-balance volume
-- Volume weighted average price (VWAP)
-
-### Momentum Indicators
-- RSI for divergences
-- MACD for trend confirmation
-- Stochastic for timing
-
-## Conclusion
-
-Demand and supply zone trading is a powerful methodology that can significantly improve your trading results. By understanding where institutional players are likely to step in, you can position yourself advantageously in the market.
-
-Remember to always combine zone analysis with proper risk management and market context. Practice identifying zones on historical charts before implementing them in live trading.
-
----
-
-*Want to master demand and supply zone trading? Join our advanced trading course and learn from professional traders.*
-    `,
-        author: "Nifty Nitesh",
-        publishedAt: "2024-09-28",
-        readTime: "6 min read",
-        category: "Trading Strategy",
-        tags: ["demand supply", "zones", "trading", "strategy"],
-        image: "/course/img2.png",
-        featured: true,
-        views: 980,
-    },
-];
-
+import { shimmer, toBase64, safeImageUrl } from '@/lib/utils';
+import { getPost } from '@/lib/blog-api';
+import ArticleJsonLd from '@/components/JsonLd';
+import Breadcrumbs from '@/app/components/Breadcrumbs';
+
+// Generate metadata for SEO
 export async function generateMetadata({ params }) {
-    const { slug } = params;
-    const post = blogPosts.find(post => post.slug === slug);
+    try {
+        const data = await getPost(params.slug);
+        const post = data.post;
 
-    if (!post) {
+        const year = new Date().getFullYear();
+        let absoluteTitle = (post.metaTitle || post.title || '').trim();
+        if (/which is best/i.test(absoluteTitle) && !absoluteTitle.includes(String(year))) {
+            absoluteTitle = absoluteTitle.replace(/\??\s*$/i, ` in ${year}?`);
+        }
+
+        const url = new URL(`/blogs/${params.slug}`, process.env.NEXT_PUBLIC_SITE_URL || 'https://niftynitesh.com').toString();
+
+        const globalTitle = 'Best Share Market & Stock Trading Classes in India - Nifty Nitesh';
+        const globalDescription = "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.";
+
         return {
-            title: 'Blog Post Not Found - Nifty Nitesh',
-            description: 'The requested blog post could not be found.',
-        };
-    }
-
-    return {
-        title: `${post.title} - Nifty Nitesh`,
-        description: post.excerpt,
-        keywords: post.tags,
-        openGraph: {
-            title: post.title,
-            description: post.excerpt,
-            url: `https://niftynitesh.com/blogs/${post.slug}`,
-            siteName: "Nifty Nitesh - Stock Market Blogs",
-            images: [
-                {
-                    url: `https://www.niftynitesh.com${post.image}`,
-                    width: 1200,
-                    height: 630,
-                    alt: post.title,
+            title: { absolute: post.title || absoluteTitle || globalTitle },
+            description: post.metaDescription || post.excerpt || globalDescription,
+            keywords: post.keywords || ['share market', 'stock trading', 'technical analysis', 'Nifty Nitesh'],
+            authors: post.author ? [{ name: post.author }] : undefined,
+            alternates: { canonical: url },
+            openGraph: {
+                title: absoluteTitle || post.title || globalTitle,
+                description: post.metaDescription || post.excerpt || globalDescription,
+                url,
+                siteName: 'Nifty Nitesh',
+                images: [post.featuredImage].filter(Boolean),
+                locale: 'en_US',
+                type: 'article',
+                publishedTime: post.publishedAt,
+                modifiedTime: post.updatedAt,
+                authors: post.author ? [post.author] : undefined,
+            },
+            twitter: {
+                card: 'summary_large_image',
+                title: absoluteTitle || post.title || globalTitle,
+                description: post.metaDescription || post.excerpt || globalDescription,
+                images: [post.featuredImage].filter(Boolean),
+            },
+            robots: {
+                index: true,
+                follow: true,
+                googleBot: {
+                    index: true,
+                    follow: true,
+                    'max-video-preview': -1,
+                    'max-image-preview': 'large',
+                    'max-snippet': -1,
                 },
-            ],
-            type: "article",
-            publishedTime: post.publishedAt,
-            authors: [post.author],
-            tags: post.tags,
-        },
-        twitter: {
-            card: "summary_large_image",
-            site: "@niftynitesh",
-            creator: "@niftynitesh",
-            title: post.title,
-            description: post.excerpt,
-            images: [`https://www.niftynitesh.com${post.image}`],
-        },
-        alternates: {
-            canonical: `https://niftynitesh.com/blogs/${post.slug}`,
-        },
-    };
+            },
+        };
+    } catch {
+        return {};
+    }
 }
 
-export async function generateStaticParams() {
-    return blogPosts.map((post) => ({
-        slug: post.slug,
-    }));
-}
-
-export default function BlogPost({ params }) {
-    const { slug } = params;
-    const post = blogPosts.find(post => post.slug === slug);
-
-    if (!post) {
+export default async function BlogPostPage({ params }) {
+    let data;
+    try {
+        data = await getPost(params.slug);
+    } catch {
         notFound();
     }
 
-    return <BlogPostClient post={post} />;
+    const { post, relatedPosts } = data;
+
+    const year = new Date().getFullYear();
+    const normalizeTitle = (t) => {
+        let abs = (t || '').trim();
+        abs = abs.replace(/\bvs\b/gi, 'vs');
+        if (/which is best/i.test(abs) && !abs.includes(String(year))) {
+            abs = abs.replace(/\??\s*$/i, ` in ${year}?`);
+        }
+        return abs;
+    };
+    const displayTitle = normalizeTitle(post.title);
+
+    return (
+        <>
+            <ArticleJsonLd post={{
+                slug: params.slug,
+                title: post.title,
+                excerpt: post.excerpt,
+                featuredImage: post.featuredImage,
+                publishedAt: post.publishedAt,
+                updatedAt: post.updatedAt,
+                author: post.author,
+                category: post.category?.name || post.category,
+                wordCount: post.wordCount,
+            }} />
+
+            <article className="min-h-screen bg-gradient-to-b from-gray-950 via-black to-gray-950">
+                {/* Hero Section */}
+                {post.featuredImage && (
+                    <div className="relative h-[450px] md:h-[550px] w-full overflow-hidden">
+                        <Image
+                            src={safeImageUrl(post.featuredImage)}
+                            alt={displayTitle}
+                            fill
+                            priority
+                            placeholder="blur"
+                            blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1200, 630))}`}
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 1200px"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-8">
+                            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                                {post.category && (
+                                    <span className="inline-block px-5 py-2 bg-green-500/20 backdrop-blur-md border border-green-500/30 rounded-full mb-5 text-green-400 font-semibold text-sm">
+                                        {post.category?.name || post.category}
+                                    </span>
+                                )}
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 leading-tight text-white drop-shadow-lg">
+                                    {displayTitle}
+                                </h1>
+                                <div className="flex flex-wrap items-center gap-4 text-sm">
+                                    <span className="text-gray-200 font-medium">{post.author}</span>
+                                    <span className="text-green-400">•</span>
+                                    <span className="text-gray-300">
+                                        {format(new Date(post.publishedAt), 'MMMM dd, yyyy')}
+                                    </span>
+                                    <span className="text-green-400">•</span>
+                                    <span className="text-gray-300">{post.views ?? 0} views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Content Container */}
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    {/* Breadcrumbs */}
+                    <div className="mb-8">
+                        <Breadcrumbs items={[
+                            { name: 'Home', href: '/' },
+                            { name: 'Blog', href: '/blogs' },
+                            { name: displayTitle }
+                        ]} />
+                    </div>
+
+                    {/* Excerpt */}
+                    {post.excerpt && (
+                        <div className="mb-10 p-6 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-xl">
+                            <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                                {post.excerpt}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Main Content - Using Tailwind Typography Plugin Classes */}
+                    <div
+                        className="prose prose-invert prose-lg max-w-none
+                        prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
+                        prose-h1:text-4xl prose-h1:mt-10 prose-h1:mb-5
+                        prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-5
+                        prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+                        prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
+                        prose-p:text-gray-300 prose-p:leading-relaxed prose-p:my-5 prose-p:text-[17px]
+                        prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 hover:prose-a:underline
+                        prose-strong:text-white prose-strong:font-bold
+                        prose-ul:my-6 prose-ul:list-disc prose-ul:pl-8
+                        prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-8
+                        prose-li:text-gray-300 prose-li:my-3 prose-li:leading-relaxed
+                        prose-code:text-green-400 prose-code:bg-green-500/10 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:border prose-code:border-green-500/30 prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+                        prose-pre:bg-gradient-to-br prose-pre:from-gray-900 prose-pre:to-gray-950 prose-pre:border prose-pre:border-gray-700 prose-pre:rounded-xl prose-pre:p-6 prose-pre:my-8 prose-pre:shadow-xl
+                        prose-blockquote:border-l-4 prose-blockquote:border-green-500 prose-blockquote:bg-green-500/5 prose-blockquote:pl-6 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:rounded-r-lg prose-blockquote:text-gray-300 prose-blockquote:italic
+                        prose-img:rounded-xl prose-img:my-8 prose-img:shadow-2xl prose-img:border prose-img:border-gray-800
+                        prose-hr:border-gray-800 prose-hr:my-10
+                        prose-table:w-full prose-table:my-10 prose-table:border-separate prose-table:border-spacing-0 prose-table:overflow-hidden prose-table:rounded-xl prose-table:border prose-table:border-green-500/30 prose-table:bg-gradient-to-br prose-table:from-green-500/5 prose-table:to-blue-500/5 prose-table:shadow-lg
+                        prose-thead:bg-gradient-to-r prose-thead:from-green-500/20 prose-thead:to-green-600/20 prose-thead:border-b-2 prose-thead:border-green-500/50
+                        prose-th:px-5 prose-th:py-4 prose-th:text-left prose-th:font-bold prose-th:text-green-400 prose-th:text-sm prose-th:uppercase prose-th:tracking-wider prose-th:border-r prose-th:border-green-500/20 prose-th:first:rounded-tl-xl prose-th:last:rounded-tr-xl prose-th:last:border-r-0
+                        prose-td:px-5 prose-td:py-4 prose-td:text-gray-300 prose-td:border-b  prose-td:border-r prose-td:border-gray-700/30 prose-td:last:border-r-0
+                        prose-tr:transition-colors hover:prose-tr:bg-green-500/5
+                        prose-tbody:prose-tr:last:prose-td:border-b-0"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
+
+                    {/* Tags Section */}
+                    {post.tags.length > 0 && (
+                        <div className="mt-16 pt-10 border-t border-gray-800/50">
+                            <h3 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
+                                <span className="text-green-400">#</span> Tags
+                            </h3>
+                            <div className="flex flex-wrap gap-3">
+                                {post.tags.map((tag) => (
+                                    <span
+                                        key={tag.id}
+                                        className="px-4 py-2 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/30 rounded-full text-sm text-gray-200 hover:bg-green-500/20 hover:border-green-400/50 transition-all duration-300 cursor-pointer"
+                                    >
+                                        #{tag.name}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Related Posts */}
+                    {relatedPosts.length > 0 && (
+                        <div className="mt-20">
+                            <h2 className="text-3xl font-bold mb-10 text-white">Related Articles</h2>
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {relatedPosts.map((related) => (
+                                    <Link
+                                        key={related.id}
+                                        href={`/blogs/${related.slug}`}
+                                        className="block group h-full"
+                                    >
+                                        <article className="h-full border border-gray-800/50 bg-gradient-to-br from-gray-900/50 to-gray-950/50 backdrop-blur-sm rounded-xl overflow-hidden hover:border-green-500/50 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300">
+                                            {related.featuredImage && (
+                                                <div className="relative w-full h-48 overflow-hidden bg-gray-900">
+                                                    <Image
+                                                        src={safeImageUrl(related.featuredImage)}
+                                                        alt={related.title}
+                                                        fill
+                                                        loading="lazy"
+                                                        sizes="(max-width: 768px) 100vw, 33vw"
+                                                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
+                                                </div>
+                                            )}
+                                            <div className="p-6">
+                                                <div className="flex flex-wrap items-center gap-2 text-xs mb-3">
+                                                    {related.category?.name && (
+                                                        <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-400 font-semibold">
+                                                            {related.category.name}
+                                                        </span>
+                                                    )}
+                                                    {related.publishedAt && (
+                                                        <span className="text-gray-400">
+                                                            {format(new Date(related.publishedAt), 'MMM dd, yyyy')}
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300 mb-3 line-clamp-2">
+                                                    {related.title}
+                                                </h3>
+
+                                                {related.excerpt && (
+                                                    <p className="text-gray-400 text-sm line-clamp-3 mb-4">
+                                                        {related.excerpt}
+                                                    </p>
+                                                )}
+
+                                                <div className="flex items-center justify-between text-sm">
+                                                    <span className="text-green-400 font-semibold group-hover:translate-x-1 transition-transform duration-300">
+                                                        Read more →
+                                                    </span>
+                                                    <span className="text-gray-500">
+                                                        {typeof related.views === 'number' ? `${related.views} views` : '0 views'}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </article>
+        </>
+    );
 }

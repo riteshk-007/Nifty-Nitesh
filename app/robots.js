@@ -1,72 +1,29 @@
 export default function robots() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
   return {
     rules: [
       {
         userAgent: '*',
-        allow: [
-          '/',
-          '/about',
-          '/contact',
-          '/faq',
-          '/enrollment',
-          '/refer',
-          '/blogs',
-          '/blogs/*',
-        ],
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/_next/',
-          '/static/',
-          '*.json',
-          '/tmp/',
-          '/cache/',
-        ],
-        crawlDelay: 1,
+        allow: '/',
+        disallow: ['/api/', '/admin/', '/_next/'],
       },
       {
         userAgent: 'Googlebot',
-        allow: [
-          '/',
-          '/about',
-          '/contact',
-          '/faq',
-          '/enrollment',
-          '/refer',
-          '/blogs',
-          '/blogs/*',
-        ],
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/_next/static/',
-          '/tmp/',
-        ],
+        allow: '/',
+        crawlDelay: 0,
       },
       {
         userAgent: 'Bingbot',
-        allow: [
-          '/',
-          '/about',
-          '/contact',
-          '/faq',
-          '/enrollment',
-          '/refer',
-          '/blogs',
-          '/blogs/*',
-        ],
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/_next/static/',
-          '/tmp/',
-        ],
-        crawlDelay: 2,
+        allow: '/',
+        crawlDelay: 5,
       },
+      {
+        userAgent: 'Yandex',
+        allow: '/',
+        crawlDelay: 10,
+      }
     ],
-    sitemap: `${process.env.NEXT_PUBLIC_BASE_URL}sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
