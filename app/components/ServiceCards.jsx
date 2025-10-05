@@ -9,19 +9,14 @@ import {
     Calendar,
     Users,
     Shield,
-    CheckCircle,
-    X,
     Heart,
     Star,
-    Send,
-    Loader2,
     BookOpen,
     Clock,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { Toaster } from "sonner";
 import TradingCourseForm from "./TradingCourseForm";
 
@@ -56,7 +51,8 @@ const ServiceCards = () => {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                {/* Responsive Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     {/* 1-on-1 Trading Session Card */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
@@ -195,7 +191,8 @@ const ServiceCards = () => {
                         transition={{ duration: 0.8, delay: 0.6 }}
                         viewport={{ once: true }}
                         whileHover={{ y: -10 }}
-                        className="group"
+                        // Ye col-span only small screen ke liye
+                        className="group sm:col-span-2 lg:col-span-1"
                     >
                         <Card className="glass-effect bg-gradient-to-br from-gray-900/50 to-black/50 border border-purple-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-500 h-full">
                             <CardContent className="p-8">

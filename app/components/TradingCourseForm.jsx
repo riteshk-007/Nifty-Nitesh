@@ -180,12 +180,19 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
     }
   };
 
+  // Layout classes - session uses single column and smaller modal to avoid empty column space
+  const cardMaxClass = courseType === "session" ? "max-w-lg" : "max-w-2xl";
+  const formGridClass =
+    courseType === "session"
+      ? "space-y-3 grid grid-cols-1 gap-2"
+      : "space-y-3 grid grid-cols-1 md:grid-cols-2 gap-2";
+
   if (submitted) {
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center  p-4 z-50"
       >
         <Card className="bg-gradient-to-br from-gray-900 to-black border border-emerald-500/30 max-w-md w-full">
           <CardContent className="p-8 text-center">
@@ -223,7 +230,7 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
       animate={{ opacity: 1, scale: 1 }}
       className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
     >
-      <Card className="bg-gradient-to-br from-gray-900 to-black border border-emerald-500/30 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <Card className={`bg-gradient-to-br from-gray-900 to-black border border-emerald-500/30 ${cardMaxClass} w-full max-h-[90vh] overflow-y-auto`}>
         <CardContent className="p-8">
           <div className="flex justify-between items-center mb-6">
             <div>
@@ -284,9 +291,9 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className={formGridClass}>
             {/* Name Field */}
-            <div className="space-y-2">
+            <div className={courseType === "session" ? "space-y-2 col-span-1" : "space-y-2"}>
               <label className="text-sm font-medium text-gray-300 flex items-center">
                 <User className="w-4 h-4 mr-2 text-emerald-400" />
                 Full Name *
@@ -304,7 +311,7 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
             </div>
 
             {/* Email Field */}
-            <div className="space-y-2">
+            <div className={courseType === "session" ? "space-y-2 col-span-1" : "space-y-2"}>
               <label className="text-sm font-medium text-gray-300 flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-emerald-400" />
                 Email Address *
@@ -322,7 +329,7 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
             </div>
 
             {/* Phone Field */}
-            <div className="space-y-2">
+            <div className={courseType === "session" ? "space-y-2 col-span-1" : "space-y-2"}>
               <label className="text-sm font-medium text-gray-300 flex items-center">
                 <Phone className="w-4 h-4 mr-2 text-emerald-400" />
                 Phone Number *
@@ -343,7 +350,7 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
             {courseType !== "session" && (
               <>
                 {/* Occupation Field */}
-                <div className="space-y-2">
+                <div className={courseType === "session" ? "space-y-2 col-span-1" : "space-y-2"}>
                   <label className="text-sm font-medium text-gray-300 flex items-center">
                     <Briefcase className="w-4 h-4 mr-2 text-emerald-400" />
                     Occupation *
@@ -367,7 +374,7 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
                 </div>
 
                 {/* Experience Field */}
-                <div className="space-y-2">
+                <div className={courseType === "session" ? "space-y-2 col-span-1" : "space-y-2"}>
                   <label className="text-sm font-medium text-gray-300">
                     Trading Experience *
                   </label>
@@ -390,19 +397,19 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
             )}
 
             {/* Submit Button */}
-            <div className="flex gap-4 pt-4">
+            <div className={courseType === "session" ? "flex flex-col gap-3 pt-4" : "flex gap-4 pt-4"}>
               <Button
                 type="button"
                 onClick={onClose}
                 variant="outline"
-                className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800"
+                className={courseType === "session" ? "w-full border-gray-600 text-gray-300 hover:bg-gray-800" : "flex-1 border-gray-600 text-gray-300 hover:bg-gray-800"}
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-3 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
+                className={courseType === "session" ? "w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-3 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300" : "flex-1 bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold py-3 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"}
               >
                 {loading ? (
                   <>

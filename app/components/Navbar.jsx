@@ -100,10 +100,10 @@ const Navbar = () => {
   return (
     <>
       {/* Fixed positioning container */}
-      <div className="fixed bottom-4 z-[100] w-full max-w-none px-4">
+      <div className="fixed bottom-4 z-[49] w-full max-w-none px-4">
         {/* Compact Circle Mode - Enhanced Scale Animation */}
         <div
-          className={`fixed bottom-4 right-4 w-20 h-20 z-[101] transition-all duration-700 ease-bounce ${isCompact
+          className={`fixed bottom-4 right-4 w-20 h-20 z-[49] transition-all duration-700 ease-bounce ${isCompact
             ? "opacity-100 scale-100 translate-y-0 rotate-0"
             : "opacity-0 scale-0 translate-y-8 rotate-180 pointer-events-none"
             }`}

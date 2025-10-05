@@ -77,6 +77,7 @@ const ModernStats = () => {
       color: "text-emerald-400",
       bgColor: "from-emerald-500/10 to-green-500/10",
       iconBg: "bg-emerald-500/20",
+      class: "col-span-1",
     },
     {
       icon: Shield,
@@ -86,6 +87,7 @@ const ModernStats = () => {
       color: "text-green-500",
       bgColor: "from-green-600/10 to-emerald-600/10",
       iconBg: "bg-green-600/20",
+      class: "col-span-1",
     },
     {
       icon: CandlestickChart,
@@ -95,6 +97,7 @@ const ModernStats = () => {
       color: "text-green-500",
       bgColor: "from-emerald-500/10 to-green-500/10",
       iconBg: "bg-emerald-500/20",
+      class: "col-span-2 md:col-span-1",
     },
   ];
 
@@ -121,7 +124,7 @@ const ModernStats = () => {
   };
 
   return (
-    <div className="w-full bg-black py-20 relative overflow-hidden">
+    <div className="w-full bg-black py-12 md:py-20 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-72 h-72 bg-emerald-500/5 rounded-full blur-3xl" />
@@ -151,7 +154,7 @@ const ModernStats = () => {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -163,24 +166,28 @@ const ModernStats = () => {
               variants={itemVariants}
               whileHover={{ y: -5, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className={`${feature.class}`}
             >
               <Card
-                className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500`}
+                className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500 md:h-60`}
               >
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-4">
+                <CardContent className="p-4 sm:p-8">
+                  <div className="flex items-start space-x-3 sm:space-x-4 flex-col md:flex-row">
+                    {/* Icon */}
                     <motion.div
-                      className={`w-12 h-12 ${feature.iconBg} rounded-xl flex items-center justify-center border border-emerald-500/20 flex-shrink-0`}
+                      className={`w-10 h-10 sm:w-12 sm:h-12 ${feature.iconBg} rounded md:rounded-xl flex items-center justify-center border border-emerald-500/20 flex-shrink-0 mx-auto md:mx-0 mb-3 md:mb-0`}
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6 }}
                     >
-                      <feature.icon className={`w-6 h-6 ${feature.color}`} />
+                      <feature.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${feature.color}`} />
                     </motion.div>
+
+                    {/* Text */}
                     <div>
-                      <h4 className="text-xl font-bold text-white mb-3">
+                      <h4 className="text-sm sm:text-lg lg:text-xl font-bold text-white mb-2 sm:mb-3 text-center md:text-left">
                         {feature.title}
                       </h4>
-                      <p className="text-gray-300 leading-relaxed">
+                      <p className="text-gray-300 text-xs sm:text-sm lg:text-base leading-relaxed text-center md:text-left">
                         {feature.description}
                       </p>
                     </div>
@@ -190,6 +197,7 @@ const ModernStats = () => {
             </motion.div>
           ))}
         </motion.div>
+
       </div>
     </div>
   );

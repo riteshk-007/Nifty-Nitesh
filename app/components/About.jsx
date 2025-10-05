@@ -60,6 +60,7 @@ const About = () => {
       color: "text-emerald-400",
       bgColor: "from-emerald-500/10 to-green-500/10",
       iconBg: "bg-emerald-500/20",
+      class: "col-span-1"
     },
     {
       icon: Brain,
@@ -69,6 +70,7 @@ const About = () => {
       color: "text-green-400",
       bgColor: "from-green-500/10 to-emerald-500/10",
       iconBg: "bg-green-500/20",
+      class: "col-span-1"
     },
     {
       icon: Target,
@@ -78,6 +80,7 @@ const About = () => {
       color: "text-emerald-500",
       bgColor: "from-emerald-600/10 to-green-600/10",
       iconBg: "bg-emerald-600/20",
+      class: "col-span-2 md:col-span-1"
     },
   ];
 
@@ -167,16 +170,16 @@ const About = () => {
         </div>
 
         {/* About Me Section */}
-        <div className="mb-16 sm:mb-20">
+        <div className="mb-12 sm:mb-20">
           <div className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20 backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300">
             <div className="text-center mb-6">
-              <h2 className="text-2xl sm:text-3xl font-bold text-emerald-400 mb-4 flex items-center justify-center flex-wrap gap-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-emerald-400 mb-4 flex items-center justify-center flex-wrap gap-2">
                 <MessageSquare className="w-6 h-6 sm:w-8 sm:h-8" />
                 About This Platform
               </h2>
             </div>
             <div className="max-w-4xl mx-auto">
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center">
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed text-center">
                 &quot;This platform is built by a trader, for traders. After
                 years of struggling with fake tips, confusing strategies, and
                 YouTube noise — I built a space where real concepts matter. My
@@ -196,11 +199,11 @@ const About = () => {
         {/* Mission Statement */}
         <div className="text-center mb-16 sm:mb-20">
           <div className="bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/20 backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 flex items-center justify-center flex-wrap gap-2">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 flex items-center justify-center flex-wrap gap-2">
               <Target className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-400" />
               Our Mission
             </h3>
-            <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-4xl mx-auto">
               To make trading simple, structured, and stress-free — by teaching
               concepts that real traders use. No hype. No unrealistic profits.
               Just practical learning that builds confidence in your own
@@ -217,31 +220,32 @@ const About = () => {
               Why Choose{" "}
               <span className="text-emerald-400">This Platform?</span>
             </h3>
-
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/10 hover:scale-[1.02] hover:translate-x-1 transition-all duration-300 rounded-xl p-4 sm:p-6 group`}
-              >
-                <div className="flex items-start space-x-3 sm:space-x-4">
-                  <div
-                    className={`flex-shrink-0 p-2 sm:p-3 ${feature.iconBg} rounded-xl border border-emerald-500/20 group-hover:rotate-12 transition-transform duration-300`}
-                  >
-                    <feature.icon
-                      className={`w-5 h-5 sm:w-6 sm:h-6 ${feature.color}`}
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white mb-2 text-base sm:text-lg group-hover:text-emerald-400 transition-colors duration-300">
-                      {feature.title}
-                    </h4>
-                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                      {feature.description}
-                    </p>
+            <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
+              {features.map((feature, index) => (
+                <div
+                  key={index}
+                  className={`bg-gradient-to-br ${feature.bgColor} border border-emerald-500/20 backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/10 hover:scale-[1.02] hover:translate-x-1 transition-all duration-300 rounded-xl p-4 sm:p-6 group ${feature.class}`}
+                >
+                  <div className="flex items-start space-x-3 sm:space-x-4 flex-col md:flex-row">
+                    <div
+                      className={`flex-shrink-0 p-2 sm:p-3 ${feature.iconBg} rounded md:rounded-xl border border-emerald-500/20 group-hover:rotate-12 transition-transform duration-300 mx-auto md:mx-0 my-2 md:my-0`}
+                    >
+                      <feature.icon
+                        className={`w- h-4 sm:w-6 sm:h-6 ${feature.color}`}
+                      />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-2 text-sm sm:text-lg group-hover:text-emerald-400 transition-colors duration-300 text-center md:text-left">
+                        {feature.title}
+                      </h4>
+                      <p className="text-xs sm:text-base text-gray-300 leading-relaxed text-center md:text-left">
+                        {feature.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Trading Concepts */}
@@ -251,7 +255,7 @@ const About = () => {
               Inside
             </h3>
 
-            <div className="space-y-4">
+            <div className=" grid grid-cols-2 md:grid-cols-1 gap-4">
               {tradingConcepts.map((concept, index) => (
                 <div
                   key={index}
@@ -260,7 +264,7 @@ const About = () => {
                 >
                   <div className="flex items-center space-x-3 sm:space-x-4">
                     <concept.icon
-                      className={`w-5 h-5 sm:w-6 sm:h-6 ${concept.color} group-hover:scale-110 transition-transform duration-300`}
+                      className={`w- h-4 sm:w-6 sm:h-6 ${concept.color} group-hover:scale-110 transition-transform duration-300`}
                     />
                     <div>
                       <h4 className="font-semibold text-white text-sm sm:text-base mb-1 group-hover:text-emerald-400 transition-colors duration-300">

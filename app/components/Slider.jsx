@@ -287,7 +287,7 @@ const FeaturesShowcase = () => {
 
         {/* Main Features Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-20"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 mb-16 md:mb-20"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -303,28 +303,28 @@ const FeaturesShowcase = () => {
               <Card
                 className={`h-full bg-gradient-to-br ${feature.bgColor} border-2 ${feature.borderColor} backdrop-blur-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500`}
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4 md:p-6">
                   <motion.div
-                    className={`w-16 h-16 bg-gradient-to-br ${feature.bgColor} rounded-2xl flex items-center justify-center mb-6 border ${feature.borderColor}`}
+                    className={`md:w-16 md:h-16 w-10 h-10 bg-gradient-to-br ${feature.bgColor} rounded md:rounded-2xl flex items-center justify-center mb-6 border ${feature.borderColor} mx-auto md:mx-0`}
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                    <feature.icon className={`md:w-8 md:h-8 w-5 h-5 ${feature.color}`} />
                   </motion.div>
 
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-base md:text-xl font-bold text-white mb-2 md:mb-3 text-center md:text-left">
                     {feature.title}
                   </h3>
 
-                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                  <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-2 md:mb-4 text-center md:text-left">
                     {feature.description}
                   </p>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1 md:space-y-2">
                     {feature.benefits.map((benefit, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center text-xs text-gray-400"
+                        className="flex items-center  text-xs text-gray-400"
                       >
                         <CheckCircle className="w-3 h-3 text-emerald-500 mr-2 flex-shrink-0" />
                         <span>{benefit}</span>
@@ -361,26 +361,26 @@ const FeaturesShowcase = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {additionalFeatures.map((feature, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-start space-x-3 p-4 rounded-xl bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/10 hover:border-emerald-500/30 transition-all duration-300"
+                  className="flex items-start space-x-3 p-4 rounded-xl bg-gradient-to-br from-gray-900/50 to-black/50 border border-emerald-500/10 hover:border-emerald-500/30 transition-all duration-300 flex-col md:flex-row"
                   whileHover={{ scale: 1.02, x: 5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
                   <motion.div
-                    className="flex-shrink-0 p-2 bg-emerald-500/20 rounded-lg border border-emerald-500/30"
+                    className="flex-shrink-0 p-2 bg-emerald-500/20 rounded-lg border border-emerald-500/30 mx-auto md:mx-0 my-2 md:my-0"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.6 }}
                   >
                     <feature.icon className={`w-5 h-5 ${feature.color}`} />
                   </motion.div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm mb-1">
+                    <h4 className="font-semibold text-white text-sm mb-1 text-center md:text-left">
                       {feature.title}
                     </h4>
-                    <p className="text-gray-400 text-xs leading-relaxed">
+                    <p className="text-gray-400 text-xs leading-relaxed text-center md:text-left">
                       {feature.description}
                     </p>
                   </div>

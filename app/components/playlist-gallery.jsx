@@ -128,7 +128,7 @@ export default function PlaylistGallery() {
           animate="visible"
           className="mx-auto max-w-7xl"
         >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             {playlists.map((playlist) => (
               <motion.div
                 key={playlist.id}
@@ -137,9 +137,9 @@ export default function PlaylistGallery() {
                 className="group cursor-pointer"
                 onClick={() => handlePlaylistClick(playlist.url)}
               >
-                <div className="space-y-3">
-                  {/* Thumbnail Container */}
-                  <div className="relative aspect-video overflow-hidden rounded-xl bg-gray-900">
+                <div className="space-y-2 sm:space-y-3">
+                  {/* Thumbnail */}
+                  <div className="relative aspect-video overflow-hidden rounded-lg sm:rounded-xl bg-gray-900">
                     <Image
                       width={1000}
                       height={1000}
@@ -148,68 +148,60 @@ export default function PlaylistGallery() {
                       className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
                     />
 
-                    {/* Duration Badge - Bottom Right */}
-                    <div className="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-xs font-medium text-white">
+                    {/* Duration */}
+                    <div className="absolute bottom-1.5 right-1.5 rounded bg-black/80 px-1 py-0.5 text-[10px] sm:text-xs font-medium text-white">
                       {playlist.duration}
                     </div>
 
-                    {/* Playlist Badge - Bottom Left */}
-                    <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded bg-black/80 px-1.5 py-0.5 text-xs font-medium text-white">
-                      <Play className="h-3 w-3" fill="currentColor" />
+                    {/* Playlist Badge */}
+                    <div className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded bg-black/80 px-1 py-0.5 text-[10px] sm:text-xs font-medium text-white">
+                      <Play className="h-2.5 w-2.5 sm:h-3 sm:w-3" fill="currentColor" />
                       {playlist.videoCount}
                     </div>
 
-                    {/* Hover Play Button */}
+                    {/* Hover Play Btn */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm">
-                        <Play
-                          className="ml-0.5 h-5 w-5 text-white"
-                          fill="currentColor"
-                        />
+                      <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm">
+                        <Play className="ml-0.5 h-4 w-4 sm:h-5 sm:w-5 text-white" fill="currentColor" />
                       </div>
                     </div>
                   </div>
 
                   {/* Video Info */}
-                  <div className="flex gap-3">
-                    {/* Channel Avatar */}
+                  <div className="flex gap-2 sm:gap-3">
+                    {/* Channel Logo */}
                     <div className="flex-shrink-0">
                       <Image
                         src="/logo.webp"
                         width={100}
                         height={100}
                         alt="logo"
-                        className="h-9  w-9 rounded-full"
+                        className="h-7 w-7 sm:h-9 sm:w-9 rounded-full"
                       />
                     </div>
 
-                    {/* Video Details */}
+                    {/* Details */}
                     <div className="flex-1 min-w-0">
-                      {/* Title */}
-                      <h3 className="font-medium text-white text-sm leading-5 line-clamp-2 group-hover:text-gray-200 transition-colors">
+                      <h3 className="font-medium text-white text-xs sm:text-sm md:text-base leading-4 sm:leading-5 line-clamp-2 group-hover:text-gray-200 transition-colors">
                         {playlist.title}
                       </h3>
-
-                      {/* Channel Name */}
-                      <p className="text-gray-400 text-sm mt-1 hover:text-gray-300 transition-colors">
+                      <p className="text-gray-400 text-[11px] sm:text-sm mt-0.5 sm:mt-1 hover:text-gray-300 transition-colors">
                         {playlist.channelName}
                       </p>
-
-                      {/* Views and Upload Time */}
-                      <div className="flex items-center gap-1 text-gray-400 text-sm mt-0.5">
+                      <div className="flex items-center gap-1 text-gray-400 text-[11px] sm:text-sm mt-0.5">
                         <span>{playlist.views}</span>
                         <span>•</span>
                         <span>{playlist.uploadTime}</span>
                       </div>
                     </div>
 
-                    {/* Options Menu (Three Dots) */}
+                    {/* 3 Dots Menu */}
                     <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button className="p-1 hover:bg-gray-800 rounded-full transition-colors">
                         <div className="flex flex-col gap-0.5">
-                          <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                          <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                          <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-gray-400 rounded-full"></div>
+                          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-gray-400 rounded-full"></div>
+                          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-gray-400 rounded-full"></div>
                         </div>
                       </button>
                     </div>
@@ -218,6 +210,7 @@ export default function PlaylistGallery() {
               </motion.div>
             ))}
           </div>
+
         </motion.div>
       </div>
     </div>

@@ -78,11 +78,10 @@ const FaqQuesAns = ({ numQuestions }) => {
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all ${
-                selectedCategory === category.id
-                  ? "bg-accent text-primary-dark"
-                  : "bg-bg-card border border-border-secondary text-text-secondary hover:border-accent hover:text-accent"
-              }`}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all ${selectedCategory === category.id
+                ? "bg-accent text-primary-dark"
+                : "bg-bg-card border border-border-secondary text-text-secondary hover:border-accent hover:text-accent"
+                }`}
             >
               <category.icon className="w-4 h-4" />
               <span className="text-sm font-medium">{category.name}</span>
@@ -104,9 +103,8 @@ const FaqQuesAns = ({ numQuestions }) => {
         <div className="text-text-muted text-sm">
           {filteredQuestions.length === 0
             ? "No questions found matching your criteria"
-            : `Showing ${filteredQuestions.length} question${
-                filteredQuestions.length !== 1 ? "s" : ""
-              }`}
+            : `Showing ${filteredQuestions.length} question${filteredQuestions.length !== 1 ? "s" : ""
+            }`}
         </div>
       </div>
 
@@ -162,7 +160,7 @@ const FaqQuesAns = ({ numQuestions }) => {
         </Accordion>
       ) : (
         <div className="glass-card p-12 text-center mb-12">
-          <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="md:w-16 md:h-16 w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <HiMagnifyingGlass className="w-8 h-8 text-accent" />
           </div>
           <h3 className="text-xl font-bold text-text-primary mb-2">
@@ -179,39 +177,39 @@ const FaqQuesAns = ({ numQuestions }) => {
       )}
 
       {/* FAQ Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div className="grid grid-cols-3 gap-6 mb-12">
         <div className="glass-card p-6 text-center group hover:border-accent/50 transition-all">
-          <div className="w-16 h-16 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-            <HiSparkles className="text-accent w-8 h-8" />
+          <div className="md:w-16 md:h-16 w-10 h-10 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors">
+            <HiSparkles className="text-accent md:w-8 md:h-8 w-5 h-5" />
           </div>
-          <div className="text-3xl font-bold text-accent mb-2 group-hover:glow-text transition-all">
+          <div className="text-xl md:text-3xl font-bold text-accent mb-2 group-hover:glow-text transition-all">
             500+
           </div>
-          <div className="text-text-secondary font-medium">
+          <div className="text-text-secondary font-medium text-sm md:text-base">
             Questions Answered
           </div>
         </div>
 
         <div className="glass-card p-6 text-center group hover:border-accent/50 transition-all">
-          <div className="w-16 h-16 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-            <FaQuestionCircle className="text-accent w-8 h-8" />
+          <div className="md:w-16 md:h-16 w-10 h-10 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors">
+            <FaQuestionCircle className="text-accent md:w-8 md:h-8 w-5 h-5" />
           </div>
-          <div className="text-3xl font-bold text-accent mb-2 group-hover:glow-text transition-all">
+          <div className="text-xl md:text-3xl font-bold text-accent mb-2 group-hover:glow-text transition-all">
             24/7
           </div>
-          <div className="text-text-secondary font-medium">
+          <div className="text-text-secondary font-medium text-sm md:text-base">
             Support Available
           </div>
         </div>
 
         <div className="glass-card p-6 text-center group hover:border-accent/50 transition-all">
-          <div className="w-16 h-16 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-            <div className="w-8 h-8 bg-accent rounded-full animate-pulse-glow"></div>
+          <div className="md:w-16 md:h-16 w-10 h-10 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors">
+            <div className="md:w-8 md:h-8 w-5 h-5 bg-accent rounded-full animate-pulse-glow"></div>
           </div>
-          <div className="text-3xl font-bold text-accent mb-2 group-hover:glow-text transition-all">
+          <div className="text-xl md:text-3xl font-bold text-accent mb-2 group-hover:glow-text transition-all">
             95%
           </div>
-          <div className="text-text-secondary font-medium">
+          <div className="text-text-secondary font-medium text-sm md:text-base">
             Satisfaction Rate
           </div>
         </div>
