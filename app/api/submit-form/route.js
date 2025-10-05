@@ -60,45 +60,55 @@ export async function POST(request) {
       );
     }
 
-    // Append data to Google Sheets
+    // Append data to Google Sheets (optional)
     const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
-    let range, sheetName;
-
-    // Determine sheet based on course type
-    if (courseType === "complete") {
-      range = "Sheet1!A:J"; // Complete course sheet
-      sheetName = "Complete Course";
-    } else if (courseType === "mentorship") {
-      range = "Sheet4!A:J"; // Mentorship sheet
-      sheetName = "Mentorship";
+    if (!spreadsheetId) {
+      // If spreadsheetId is not configured, skip Sheets append but continue the flow
+      console.warn("GOOGLE_SHEETS_ID not set - skipping Google Sheets append for form submission.");
     } else {
-      range = "Sheet1!A:J"; // Default sheet
-      sheetName = "General";
+      let range, sheetName;
+
+      // Determine sheet based on course type
+      if (courseType === "complete") {
+        range = "Sheet1!A:J"; // Complete course sheet
+        sheetName = "Complete Course";
+      } else if (courseType === "mentorship") {
+        range = "Sheet4!A:J"; // Mentorship sheet
+        sheetName = "Mentorship";
+      } else {
+        range = "Sheet1!A:J"; // Default sheet
+        sheetName = "General";
+      }
+
+      const values = [
+        [
+          submittedAt || new Date().toISOString(),
+          name,
+          email,
+          phone,
+          whatsapp || phone,
+          occupation || "Not specified",
+          experience || "Not specified",
+          courseType,
+          courseTitle,
+          coursePrice,
+          paymentPlan || "Single",
+          "Form Submitted - Pending Contact",
+        ],
+      ];
+
+      try {
+        await sheets.spreadsheets.values.append({
+          spreadsheetId,
+          range,
+          valueInputOption: "RAW",
+          resource: { values },
+        });
+      } catch (sheetError) {
+        // Log and continue - don't fail the whole API because Sheets is misconfigured
+        console.error("Google Sheets append failed:", sheetError?.message || sheetError);
+      }
     }
-
-    const values = [
-      [
-        submittedAt || new Date().toISOString(),
-        name,
-        email,
-        phone,
-        whatsapp || phone,
-        occupation || "Not specified",
-        experience || "Not specified",
-        courseType,
-        courseTitle,
-        coursePrice,
-        paymentPlan || "Single",
-        "Form Submitted - Pending Contact",
-      ],
-    ];
-
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range,
-      valueInputOption: "RAW",
-      resource: { values },
-    });
 
     // Send email notification
     const mailOptions = {

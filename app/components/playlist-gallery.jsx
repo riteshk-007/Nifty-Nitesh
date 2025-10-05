@@ -100,7 +100,7 @@ export default function PlaylistGallery() {
       <div className="w-full py-20 bg-gradient-to-b from-black to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.1),transparent_50%)]"></div>
 
-        <div className="relative z-10 px-4 py-16 sm:px-6 lg:px-8">
+        <div className="relative z-10 px-4 py-4 md:py-16 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

@@ -128,22 +128,13 @@ const RadialGallery = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           viewport={{ once: true }}
         >
+
           <motion.div
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500/10 to-green-500/10 border border-emerald-500/20 rounded-full px-8 py-4 mb-8 text-white"
-            whileHover={{ scale: 1.05, y: -2 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 md:px-6 py-2 mb-4 md:mb-6"
+            whileHover={{ scale: 1.05 }}
           >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 8,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-            >
-              <TrendingUp className="w-6 h-6 text-emerald-400" />
-            </motion.div>
-            <span className="text-emerald-400 font-bold text-lg uppercase tracking-wider">
+            <TrendingUp className="w-5 h-5 text-emerald-400" />
+            <span className="text-emerald-400 font-semibold text-xs md:text-sm uppercase tracking-wider">
               Live Chart Analysis
             </span>
           </motion.div>
