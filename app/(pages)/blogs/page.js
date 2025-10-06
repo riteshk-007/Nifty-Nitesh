@@ -1,10 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
-
-import { format } from 'date-fns';
 import { getPosts, getCategories } from '@/lib/blog-api';
-import { safeImageUrl, shimmer, toBase64 } from '@/lib/utils';
 import Breadcrumbs from '@/app/components/Breadcrumbs';
+import BlogCard from '@/app/components/BlogCard';
 export default async function BlogPage({ searchParams }) {
     const page = parseInt(searchParams?.page || '1');
     const category = searchParams?.category;
@@ -76,46 +73,8 @@ export default async function BlogPage({ searchParams }) {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {postsData.posts.map((post) => (
-                            <Link key={post.id} href={`/blogs/${post.slug}`} className="block group">
-                                <article className="h-full border border-gray-700 bg-zinc-900 p-6 rounded hover:shadow-lg hover:border-gray-500 transition-all duration-300">
-                                    {post.featuredImage && (
-                                        <div className="relative w-full h-40 mb-4 overflow-hidden rounded bg-green-900">
-                                            <Image
-                                                src={safeImageUrl(post.featuredImage)}
-                                                alt={post.title}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, 420px"
-                                                className="object-cover"
-                                                placeholder="blur"
-                                                blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(800, 400))}`}
-                                            />
-                                        </div>
-                                    )}
+                            <BlogCard key={post.id} blog={post} />
 
-                                    <div>
-                                        <div className="flex items-center gap-3 text-sm text-green-400">
-                                            {post.category?.name && <span>{post.category.name}</span>}
-                                            {post.publishedAt && (
-                                                <span>{format(new Date(post.publishedAt), 'yyyy-MM-dd')}</span>
-                                            )}
-                                            <span className="text-green-500">•</span>
-                                            <span>{typeof post.views === 'number' ? `${post.views} views` : '0 views'}</span>
-                                        </div>
-
-                                        <h3 className="mt-3 text-xl font-semibold text-white group-hover:text-green-400">
-                                            {post.title}
-                                        </h3>
-
-                                        {post.excerpt && (
-                                            <p className="mt-2 text-green-300 line-clamp-3">
-                                                {post.excerpt}
-                                            </p>
-                                        )}
-
-                                        <div className="mt-4 text-sm text-green-500 font-medium">Read more →</div>
-                                    </div>
-                                </article>
-                            </Link>
                         ))}
                     </div>
                 )}

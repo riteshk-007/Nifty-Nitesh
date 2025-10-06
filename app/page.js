@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import FeaturesShowcase from "./components/Slider";
 import RadialGallery from "./components/radial-gallery";
 import PlaylistGallery from "./components/playlist-gallery";
+import HighlightsBlogs from "./components/HighlightsBlogs";
 
 export default function Home() {
   return (
@@ -37,6 +38,8 @@ export default function Home() {
 
       {/* About Section */}
       <About />
+
+      <HighlightsBlogs />
 
       {/* FAQ Section */}
       <div className="w-full bg-black py-16">

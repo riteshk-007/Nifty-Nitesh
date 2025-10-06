@@ -332,9 +332,9 @@ const Navbar = () => {
                     Enroll Now
                   </Link>
                   <div className="space-y-3">
-                    <div className="text-gray-300 text-sm font-semibold uppercase tracking-wider">
+                    {/* <div className="text-gray-300 text-sm font-semibold uppercase tracking-wider">
                       Courses
-                    </div>
+                    </div> */}
                     {/* Remove any <Link href="/online-classes">...</Link> or similar menu items */}
                     <Link
                       href="/faq"
@@ -428,6 +428,14 @@ const Navbar = () => {
                     About
                   </Link>
                   <Link
+                    href="/blogs"
+                    className="block text-white hover:text-green-400 transition-all duration-300 ease-bounce
+                              py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
+                    onClick={handleLinkClick}
+                  >
+                    Blogs
+                  </Link>
+                  <Link
                     href="/#services"
                     className="block text-white hover:text-green-400 transition-all duration-300 ease-bounce
                               py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
@@ -436,9 +444,9 @@ const Navbar = () => {
                     Enroll Now
                   </Link>
                   <div className="space-y-3">
-                    <div className="text-gray-300 text-sm font-semibold uppercase tracking-wider">
+                    {/* <div className="text-gray-300 text-sm font-semibold uppercase tracking-wider">
                       Courses
-                    </div>
+                    </div> */}
                     {/* Remove any <Link href="/online-classes">...</Link> or similar menu items */}
                     <Link
                       href="/faq"
