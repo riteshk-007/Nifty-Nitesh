@@ -193,7 +193,7 @@ const Navbar = () => {
                 >
                   About
                 </Link>
-                <Link
+                {/* <Link
                   href="/blogs"
                   className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
                             font-medium relative after:absolute after:bottom-0 after:left-0 
@@ -203,7 +203,7 @@ const Navbar = () => {
                   onClick={handleLinkClick}
                 >
                   Blogs
-                </Link>
+                </Link> */}
                 <Link
                   href="/contact"
                   className="text-white hover:text-green-400 transition-all duration-500 ease-bounce
@@ -315,14 +315,14 @@ const Navbar = () => {
                   >
                     About
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/blogs"
                     onClick={handleLinkClick}
                     className="block text-white hover:text-green-400 transition-all duration-500 ease-bounce
                               py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
                   >
                     Blogs
-                  </Link>
+                  </Link> */}
                   <Link
                     href="/#services"
                     onClick={handleLinkClick}
@@ -427,14 +427,14 @@ const Navbar = () => {
                   >
                     About
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/blogs"
                     className="block text-white hover:text-green-400 transition-all duration-300 ease-bounce
                               py-2 font-medium hover:translate-x-2 hover:scale-105 transform-gpu will-change-transform"
                     onClick={handleLinkClick}
                   >
                     Blogs
-                  </Link>
+                  </Link> */}
                   <Link
                     href="/#services"
                     className="block text-white hover:text-green-400 transition-all duration-300 ease-bounce
