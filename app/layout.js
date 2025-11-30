@@ -13,8 +13,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title:
-    "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
+  title: "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
   description:
     "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
   keywords: [
@@ -30,8 +29,7 @@ export const metadata = {
     "offline trading classes",
   ],
   openGraph: {
-    title:
-      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
+    title: "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     url: "https://niftynitesh.com",
@@ -51,8 +49,7 @@ export const metadata = {
     card: "summary_large_image",
     site: "@niftynitesh",
     creator: "@niftynitesh",
-    title:
-      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
+    title: "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     images: [
@@ -62,34 +59,22 @@ export const metadata = {
       },
     ],
   },
-  facebook: {
-    appId: "your-facebook-app-id", // Replace with your Facebook App ID
-    pages: "niftynitesh",
-    title:
-      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
-    description:
-      "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
-    image: "https://www.niftynitesh.com/opengraph-image.png",
-  },
   instagram: {
     site: "@niftynitesh",
-    title:
-      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
+    title: "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     image: "https://www.niftynitesh.com/opengraph-image.png",
   },
   linkedin: {
     site: "niftynitesh",
-    title:
-      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
+    title: "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     image: "https://www.niftynitesh.com/opengraph-image.png",
   },
   whatsapp: {
-    title:
-      "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
+    title: "Best Share Market & Stock Trading Classes in India - Nifty Nitesh",
     description:
       "Join Nifty Nitesh for expert-led share market and stock trading classes in Delhi, Mumbai, Pune, Dubai, USA. Learn technical analysis, fundamental analysis, demand supply trading, smart money concepts. Available online & offline in Rajapuri, Uttam Nagar, Dwarka. Low price guaranteed! Batch starting soon.",
     image: "https://www.niftynitesh.com/opengraph-image.png",
@@ -105,9 +90,9 @@ export const metadata = {
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
-      "notranslate": false,
+      notranslate: false,
     },
-    "bingbot": {
+    bingbot: {
       index: true,
       follow: true,
       "max-snippet": -1,
@@ -130,19 +115,19 @@ export const metadata = {
   other: {
     "google-site-verification": "zB7XcsivFWdDucQhN3bPwdXoSbNSUUCpbmnh9vQbW-0",
     "format-detection": "telephone=no",
-    "referrer": "origin-when-cross-origin",
+    referrer: "origin-when-cross-origin",
     "color-scheme": "light dark",
     "supported-color-schemes": "light dark",
-    "google": "notranslate",
-    "googlebot": "index,follow,snippet,archive",
-    "bingbot": "index,follow",
-    "slurp": "index,follow",
-    "duckduckbot": "index,follow",
-    "baiduspider": "index,follow",
-    "yandexbot": "index,follow",
-    "facebookexternalhit": "index,follow",
-    "twitterbot": "index,follow",
-    "linkedinbot": "index,follow",
+    google: "notranslate",
+    googlebot: "index,follow,snippet,archive",
+    bingbot: "index,follow",
+    slurp: "index,follow",
+    duckduckbot: "index,follow",
+    baiduspider: "index,follow",
+    yandexbot: "index,follow",
+    facebookexternalhit: "index,follow",
+    twitterbot: "index,follow",
+    linkedinbot: "index,follow",
     // "msvalidate.01": "your-bing-verification-code", // Add your Bing verification code
     // "yandex-verification": "your-yandex-verification-code", // Add your Yandex verification code
   },
@@ -343,12 +328,35 @@ export default function RootLayout({ children }) {
         {/* Google Tag Manager */}
         <Script id="gtm-base" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W832K74Z');`}
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-W832K74Z');`}
         </Script>
         {/* End Google Tag Manager */}
+        {/* Meta Pixel Code */}
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`!function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1134104478144972');
+            fbq('track', 'PageView');`}
+        </Script>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1134104478144972&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+        {/* End Meta Pixel Code */}
         {/* Additional Meta Tags for Better SEO */}
         <meta name="author" content="Nifty Nitesh" />
         <meta name="publisher" content="Nifty Nitesh" />
@@ -364,7 +372,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <meta name="geo.placename" content="Delhi" />
         <meta name="geo.position" content="28.6139;77.2090" />
         <meta name="ICBM" content="28.6139, 77.2090" />
-        <meta name="classification" content="education,finance,trading,stock market" />
+        <meta
+          name="classification"
+          content="education,finance,trading,stock market"
+        />
         <meta name="category" content="education" />
         <meta name="coverage" content="worldwide" />
         <meta name="target" content="all" />
@@ -400,8 +411,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
 
         {/* Additional Social Media Meta Tags */}
-        <meta property="fb:app_id" content="your-facebook-app-id" />
-        <meta property="fb:pages" content="niftynitesh" />
         <meta
           property="article:author"
           content="https://www.facebook.com/share/1LgGQ57pby/?mibextid=qi2Omg"
@@ -542,7 +551,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <link rel="alternate" hrefLang="en-US" href="https://niftynitesh.com" />
         <link rel="alternate" hrefLang="en-IN" href="https://niftynitesh.com" />
         <link rel="alternate" hrefLang="hi" href="https://niftynitesh.com/hi" />
-        <link rel="alternate" hrefLang="hi-IN" href="https://niftynitesh.com/hi" />
+        <link
+          rel="alternate"
+          hrefLang="hi-IN"
+          href="https://niftynitesh.com/hi"
+        />
         <link
           rel="alternate"
           hrefLang="x-default"
@@ -576,7 +589,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             src="https://www.googletagmanager.com/ns.html?id=GTM-W832K74Z"
             height="0"
             width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
+            style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
