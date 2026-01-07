@@ -14,7 +14,6 @@ import {
   Clock,
   Shield,
   Award,
-  BookOpen,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +27,6 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", href: "/", icon: Users },
     { name: "About Us", href: "/about", icon: Award },
-    { name: "Blogs", href: "/blogs", icon: BookOpen },
     { name: "FAQ", href: "/faq", icon: Shield },
     { name: "Contact", href: "/contact", icon: Mail },
   ];
