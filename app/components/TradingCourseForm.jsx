@@ -35,12 +35,12 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
     },
     complete: {
       title: "Complete Trading Course",
-      price: "₹9,999",
+      price: "₹11,999",
       description: "Full course with lifetime mentorship",
     },
     mentorship: {
       title: "Lifetime Mentorship",
-      price: "₹12,999",
+      price: "₹13,999",
       description: "Lifetime mentorship without course",
     },
   };
@@ -50,22 +50,22 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
       {
         id: "one-time",
         name: "One-Time Payment",
-        amount: 9999,
-        description: "Pay ₹9,999 once - Best Value",
+        amount: 11999,
+        description: "Pay ₹11,999 once - Best Value",
         badge: "Most Popular",
       },
       {
         id: "two-parts",
         name: "50-50% Payment",
-        amount: "₹4,999 x 2",
-        description: "Pay in 2 installments of ₹4,999",
+        amount: "₹6,000 x 2",
+        description: "Pay in 2 installments of ₹6,000",
         badge: "Flexible",
       },
       {
         id: "three-parts",
         name: "Three-Part Payment",
-        amount: "₹3,333 x 3",
-        description: "Pay in 3 installments of ₹3,333",
+        amount: "₹4,000 x 3",
+        description: "Pay in 3 installments of ₹4,000",
         badge: "Most Flexible",
       },
     ],
