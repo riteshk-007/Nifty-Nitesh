@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
     GraduationCap,
@@ -24,6 +24,11 @@ const ServiceCards = () => {
     const [showSessionModal, setShowSessionModal] = useState(false);
     const [showCourseModal, setShowCourseModal] = useState(false);
     const [showMentorshipModal, setShowMentorshipModal] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     return (
         <section className="w-full py-20 relative overflow-hidden bg-gradient-to-b from-green-800/30 via-black to-black">
@@ -137,7 +142,7 @@ const ServiceCards = () => {
                                         Complete Trading Course
                                     </h3>
                                     <div className="text-3xl font-bold text-emerald-400 mb-2">
-                                        ₹11,999
+                                        ₹9,999
                                     </div>
                                     <Badge className="bg-emerald-500 text-white mb-4">
                                         + Lifetime Mentorship FREE
@@ -167,9 +172,9 @@ const ServiceCards = () => {
                                 <div className="text-center mb-6">
                                     <p className="text-sm text-gray-300 mb-2">Payment Options:</p>
                                     <div className="space-y-1 text-xs text-emerald-400">
-                                        <p>• One-time: ₹11,999 (Best Value)</p>
-                                        <p>• 50-50%: ₹6,000 x 2</p>
-                                        <p>• Three parts: ₹4,000 x 3</p>
+                                        <p>• One-time: ₹9,999 (Best Value)</p>
+                                        <p>• 50-50%: ₹5,000 x 2</p>
+                                        <p>• Three parts: ₹3,500 x 3</p>
                                     </div>
                                 </div>
 
@@ -204,7 +209,7 @@ const ServiceCards = () => {
                                         Lifetime Mentorship
                                     </h3>
                                     <div className="text-3xl font-bold text-purple-400 mb-2">
-                                        ₹13,999
+                                        ₹11,999
                                     </div>
                                     <Badge className="bg-purple-500 text-white mb-4">
                                         Premium Support
@@ -245,21 +250,21 @@ const ServiceCards = () => {
             </div>
 
             {/* Modals */}
-            {showSessionModal && (
+            {mounted && showSessionModal && (
                 <TradingCourseForm
                     courseType="session"
                     onClose={() => setShowSessionModal(false)}
                 />
             )}
 
-            {showCourseModal && (
+            {mounted && showCourseModal && (
                 <TradingCourseForm
                     courseType="complete"
                     onClose={() => setShowCourseModal(false)}
                 />
             )}
 
-            {showMentorshipModal && (
+            {mounted && showMentorshipModal && (
                 <TradingCourseForm
                     courseType="mentorship"
                     onClose={() => setShowMentorshipModal(false)}

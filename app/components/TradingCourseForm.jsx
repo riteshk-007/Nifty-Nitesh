@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle,
@@ -18,6 +18,7 @@ import { toast } from "sonner";
 const TradingCourseForm = ({ courseType = "complete", onClose }) => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,6 +28,10 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
     paymentPlan: courseType === "complete" ? "one-time" : "single",
   });
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const courseDetails = {
     session: {
       title: "1-on-1 Trading Session",
@@ -35,12 +40,12 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
     },
     complete: {
       title: "Complete Trading Course",
-      price: "₹11,999",
+      price: "₹9,999",
       description: "Full course with lifetime mentorship",
     },
     mentorship: {
       title: "Lifetime Mentorship",
-      price: "₹13,999",
+      price: "₹11,999",
       description: "Lifetime mentorship without course",
     },
   };
@@ -50,22 +55,22 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
       {
         id: "one-time",
         name: "One-Time Payment",
-        amount: 11999,
-        description: "Pay ₹11,999 once - Best Value",
+        amount: 9999,
+        description: "Pay ₹9,999 once - Best Value",
         badge: "Most Popular",
       },
       {
         id: "two-parts",
         name: "50-50% Payment",
-        amount: "₹6,000 x 2",
-        description: "Pay in 2 installments of ₹6,000",
+        amount: "₹5,000 x 2",
+        description: "Pay in 2 installments of ₹5,000",
         badge: "Flexible",
       },
       {
         id: "three-parts",
         name: "Three-Part Payment",
-        amount: "₹4,000 x 3",
-        description: "Pay in 3 installments of ₹4,000",
+        amount: "₹3,500 x 3",
+        description: "Pay in 3 installments of ₹3,500",
         badge: "Most Flexible",
       },
     ],
@@ -186,6 +191,10 @@ const TradingCourseForm = ({ courseType = "complete", onClose }) => {
     courseType === "session"
       ? "space-y-3 grid grid-cols-1 gap-2"
       : "space-y-3 grid grid-cols-1 md:grid-cols-2 gap-2";
+
+  if (!mounted) {
+    return null;
+  }
 
   if (submitted) {
     return (

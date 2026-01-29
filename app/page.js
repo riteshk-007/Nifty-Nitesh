@@ -16,7 +16,7 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      <main className="">
+      <main>
         {" "}
         <RadialGallery />
       </main>

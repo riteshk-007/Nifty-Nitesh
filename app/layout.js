@@ -5,12 +5,7 @@ import Footer from "./footer";
 import SocialLinks from "./components/SocialLinks";
 import { Analytics } from "@vercel/analytics/react";
 import FloatingWhatsAppButton from "./components/floating-whatsapp-button";
-import dynamic from "next/dynamic";
 import Script from "next/script";
-
-const DynamicSnowfall = dynamic(() => import("./components/SnowfallWrapper"), {
-  ssr: false,
-});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -597,8 +592,6 @@ export default function RootLayout({ children }) {
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
-        <DynamicSnowfall />
         <Navbar />
         <SocialLinks />
         {children}
