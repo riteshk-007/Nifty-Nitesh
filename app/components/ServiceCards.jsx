@@ -77,7 +77,7 @@ const ServiceCards = () => {
                                         1-on-1 Trading Session
                                     </h3>
                                     <div className="text-3xl font-bold text-emerald-400 mb-2">
-                                        ₹199
+                                        ₹250
                                     </div>
                                     <Badge className="bg-green-500 text-white mb-4">
                                         Personal Guidance
@@ -142,7 +142,7 @@ const ServiceCards = () => {
                                         Complete Trading Course
                                     </h3>
                                     <div className="text-3xl font-bold text-emerald-400 mb-2">
-                                        ₹9,999
+                                        ₹14,999
                                     </div>
                                     <Badge className="bg-emerald-500 text-white mb-4">
                                         + Lifetime Mentorship FREE
@@ -172,9 +172,8 @@ const ServiceCards = () => {
                                 <div className="text-center mb-6">
                                     <p className="text-sm text-gray-300 mb-2">Payment Options:</p>
                                     <div className="space-y-1 text-xs text-emerald-400">
-                                        <p>• One-time: ₹9,999 (Best Value)</p>
-                                        <p>• 50-50%: ₹5,000 x 2</p>
-                                        <p>• Three parts: ₹3,500 x 3</p>
+                                        <p>• One-time: ₹14,999 (Best Value)</p>
+                                        <p>• 50-50%: ₹7,500 Advance + ₹7,499</p>
                                     </div>
                                 </div>
 
@@ -209,7 +208,7 @@ const ServiceCards = () => {
                                         Lifetime Mentorship
                                     </h3>
                                     <div className="text-3xl font-bold text-purple-400 mb-2">
-                                        ₹11,999
+                                        ₹10,999
                                     </div>
                                     <Badge className="bg-purple-500 text-white mb-4">
                                         Premium Support
